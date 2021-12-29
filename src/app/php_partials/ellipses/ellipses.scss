@@ -1,0 +1,28 @@
+@import "../../styles.scss";
+
+.ellipses {
+    min-width: 10rem;
+    min-height: 10rem;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .ellipsis {
+        background-color: $primary-color;
+        border-radius: 100%;
+    }
+
+    .small {
+        width: 3rem;
+        height: 3rem;
+        margin-left: -1rem;
+    }
+
+    .large {
+        width: 5rem;
+        height: 5rem;
+        opacity: 70%;
+    }
+}

@@ -1,3 +1,7 @@
+<?php
+    define('ROOT_PATH', dirname(__DIR__));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +14,9 @@
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist//css/bootstrap.min.css"></link>
     <!-- Include page local stylesheet -->
-    <link rel="stylesheet" href="../css/login.min.css">
+    <link rel="stylesheet" href="login.min.css">
+    <!-- Include the required stylesheets for the partials used in the current page -->
+    <link rel="stylesheet" href="../php_partials/ellipses/ellipses.min.css">
 </head>
 <body>
     <div class="container">
@@ -60,11 +66,7 @@
                 Vero sapiente ab hic quos maxime a quidem dolorem accusamus recusandae molestias sunt sit, numquam totam libero iste quibusdam ipsam.
             </div>
         </section>
-
-        <div class="ellipses">
-            <div class="ellipsis large"></div>
-            <div class="ellipsis small"></div>
-        </div>
+        <?php include(ROOT_PATH.'/php_partials/ellipses/ellipses.php'); ?>
     </div>
 </body>
 </html>
