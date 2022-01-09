@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -10,7 +11,8 @@ import { LoginCardModule } from './login-card/login-card.module';
   ],
   imports: [
     BrowserModule,
-    LoginCardModule
+    LoginCardModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
