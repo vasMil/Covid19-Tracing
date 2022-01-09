@@ -16,6 +16,10 @@ export class LoginCardComponent implements OnInit {
     fieldInvalid: false,
     message: ""
   };
+  passwordModel = {
+    iconClass: "fas fa-eye-slash",
+    type: "password"
+  }
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
@@ -76,6 +80,21 @@ export class LoginCardComponent implements OnInit {
         }
       }
     })
+  }
+
+  onPasswordShow() {
+    if (this.passwordModel.type == "password") {
+      this.passwordModel = {
+        type: "text",
+        iconClass: "fas fa-eye"
+      };
+    }
+    else {
+      this.passwordModel = {
+        iconClass: "fas fa-eye-slash",
+        type: "password"
+      };
+    }
   }
 
   get username() {

@@ -63,3 +63,25 @@ input.ng-invalid.ng-touched:focus, input.ng-invalid.ng-touched:hover {
     box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25);
     border: 2px solid rgba(255, 0, 0, 0.5);
 }
+
+.password-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.btn-pass {
+    display: inline;
+    width: 2.5rem;
+    margin-left: calc(-2.5rem - 3px);
+    border: none;
+    background: none;
+    justify-content: center;
+}
+
+.form-control.password {
+    display: inline;
+    padding-right: 2.5rem
+}
