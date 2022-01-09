@@ -1,0 +1,31 @@
+<form [formGroup]="registerForm" class="card card-register">
+    <div *ngIf="registerErrors.registerFailed || registerErrors.fieldInvalid || registerErrors.emailUsed || registerErrors.usernameUsed" class="form-text text-danger">{{registerErrors.message}}</div>
+    <div *ngIf="registerSuccess.status" class="form-text text-success">{{registerSuccess.message}}</div>
+    <div class="form-group">
+        <label for="input-username">Username</label>
+        <input type="username" class="form-control" id="input-username" formControlName="username">
+        <div *ngIf="username?.touched && username?.errors?.used" class="form-text text-danger">Username already used!</div>
+        <div *ngIf="username?.touched && username?.errors?.required" class="form-text text-danger">Username is required!</div>
+    </div>
+    <div class="form-group">
+        <label for="input-email">Email</label>
+        <input type="email" class="form-control" id="input-email" formControlName="email">
+        <small id="emailHelp" class="form-text text-muted">Don't worry, your email is safe with us</small>
+        <div *ngIf="email?.touched && email?.errors?.required" class="form-text text-danger">Email is required!</div>
+        <div *ngIf="email?.touched && email?.errors?.used" class="form-text text-danger">Email already used!</div>
+        <div *ngIf="email?.touched && email?.errors?.email" class="form-text text-danger">This is not a valid email address!</div>
+    </div>
+    <div class="form-group">
+        <label for="input-password">Password</label>
+        <div class="password-group">
+            <input type="{{passwordModel.type}}" class="form-control password" id="input-password" aria-describedby="passwordHelp" formControlName="password">
+            <button class="btn-pass" (click)="onPasswordShow()"><i class="{{passwordModel.iconClass}}"></i></button>
+        </div>
+        <small id="passwordHelp" class="form-text text-muted" *ngIf="!(password?.touched && password?.errors?.pattern)">Password must contain numbers, upper and lower case letters, a special character #$*&@ and be 8 characters minimum.</small>
+        <div *ngIf="password?.touched && password?.errors?.pattern" class="form-text text-danger">Password must contain numbers, upper and lower case letters, a special character #$*&@ and be 8 characters minimum!</div>
+        <div *ngIf="password?.touched && password?.errors?.required" class="form-text text-danger">Password is required!</div>
+    </div>
+    <div class="card-footer-register">
+        <button type="submit" class="btn btn-custom-primary btn-register" (click)="onRegister()">Register</button>
+    </div>
+</form>
