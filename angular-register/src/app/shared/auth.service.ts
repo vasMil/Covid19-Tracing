@@ -10,17 +10,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser({username, password, email}: any): Observable<any> {
-    // return this.http.post(environment.apiUrl, {
-    //   username: username,
-    //   password: password,
-    //   email: email
-    // })
-    let tempSubj = new BehaviorSubject({
-      success: false,
-      emailUsed: false,
-      usernameUsed: true
-    });
-    return tempSubj
+  registerUser({api_url, username, password, email}: any): Observable<any> {
+    return this.http.post(api_url, {
+      username: username,
+      password: password,
+      email: email
+    })
   }
 }

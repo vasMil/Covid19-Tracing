@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 
@@ -9,6 +9,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class RegisterCardComponent implements OnInit {
   
+  @Input() api_url = "http://localhost:8080/register"
+
   registerForm!: FormGroup;
   passwordModel = {
     iconClass: "fas fa-eye-slash",
@@ -63,9 +65,10 @@ export class RegisterCardComponent implements OnInit {
     }
     this.clearRegisterErrors();
     this.auth.registerUser({
-      username: this.username,
-      password: this.password,
-      email: this.email
+      api_url: this.api_url,
+      username: this.username?.value,
+      password: this.password?.value,
+      email: this.email?.value
     })
     .subscribe({
       error: () => {

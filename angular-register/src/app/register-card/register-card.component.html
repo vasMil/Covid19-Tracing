@@ -1,6 +1,6 @@
 <form [formGroup]="registerForm" class="card card-register">
     <div *ngIf="registerErrors.registerFailed || registerErrors.fieldInvalid || registerErrors.emailUsed || registerErrors.usernameUsed" class="form-text text-danger">{{registerErrors.message}}</div>
-    <div *ngIf="registerSuccess.status" class="form-text text-success">{{registerSuccess.message}}</div>
+    <div *ngIf="registerSuccess.status && !(registerErrors.registerFailed || registerErrors.fieldInvalid || registerErrors.emailUsed || registerErrors.usernameUsed)" class="form-text text-success">{{registerSuccess.message}}</div>
     <div class="form-group">
         <label for="input-username">Username</label>
         <input type="username" class="form-control" id="input-username" formControlName="username">
