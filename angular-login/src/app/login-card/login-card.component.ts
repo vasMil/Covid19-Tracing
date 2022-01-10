@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 
@@ -8,6 +9,9 @@ import { AuthService } from '../shared/auth.service';
   styleUrls: ['./login-card.component.css']
 })
 export class LoginCardComponent implements OnInit {
+
+  @Input() api_url = "http://localhost:8080/login"
+  @Output() successEvent = new EventEmitter<boolean>();
 
   loginForm!: FormGroup;
   private _remember = false;
@@ -20,6 +24,7 @@ export class LoginCardComponent implements OnInit {
     iconClass: "fas fa-eye-slash",
     type: "password"
   }
+  successfulLogin = false;
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService) { }
 
@@ -27,8 +32,6 @@ export class LoginCardComponent implements OnInit {
     if (sessionStorage.getItem('token') || localStorage.getItem('token')) {
       // Either something fishy is going on or you haven't yet handled an already authenticated user triyng to access the page
       // TODO: log it properly
-      console.log("User has already logged in!");
-      console.log("Temporary solution - logout by deleting the jwt");
       sessionStorage.clear();
       localStorage.clear();
     }
@@ -50,11 +53,13 @@ export class LoginCardComponent implements OnInit {
       return;
     }
     this.auth.loginUser({
-      username: this.loginForm.get('username'),
-      password: this.loginForm.get('password'),
-      rememberMe: this.loginForm.get('rememberMe')
+      api_url: this.api_url,
+      username: this.username,
+      password: this.password,
+      rememberMe: this.remember
     }).subscribe({
-      error: () => {
+      error: (err) => {
+        console.log(err)
         this.loginErrors.fieldInvalid = false;
         this.loginErrors.loginFailed = true;
         this.loginErrors.message = "Login Failed, try again later" 
@@ -71,13 +76,16 @@ export class LoginCardComponent implements OnInit {
         else if (this.remember) {
           // Save jwt in local storage
           this.clearLoginErrors();
-          localStorage.setItem('token', resp.token)
+          localStorage.setItem('token', resp.token);
+          this.successfulLogin = true;
         }
         else {
           // Save jwt in session storage
           this.clearLoginErrors();
-          sessionStorage.setItem('token', resp.token)
+          sessionStorage.setItem('token', resp.token);
+          this.successfulLogin = true;
         }
+        this.successEvent.emit(this.successfulLogin);
       }
     })
   }
@@ -98,11 +106,11 @@ export class LoginCardComponent implements OnInit {
   }
 
   get username() {
-    return this.loginForm.get('username');
+    return this.loginForm.get('username')?.value;
   }
 
   get password() {
-    return this.loginForm.get('password');
+    return this.loginForm.get('password')?.value;
   }
 
   get remember(): boolean {

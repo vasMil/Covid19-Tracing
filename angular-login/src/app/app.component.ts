@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-login';
+
+  loggedIn(success: boolean) {
+    if (success) {
+      console.log("User logged in!");
+    }
+    else {
+      console.log("User failed to login!");
+    }
+  }
 }

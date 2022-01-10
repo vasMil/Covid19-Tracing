@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoginCardComponent } from './login-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
 
 @NgModule({
   declarations: [
@@ -13,8 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     CommonModule
   ],
+  providers: [
+    AuthService
+  ],
   exports: [
     LoginCardComponent
   ]
 })
-export class LoginCardModule { }
+export class LoginCardModule {
+
+}

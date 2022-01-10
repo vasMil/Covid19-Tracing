@@ -85,3 +85,8 @@ input.ng-invalid.ng-touched:focus, input.ng-invalid.ng-touched:hover {
     display: inline;
     padding-right: 2.5rem
 }
+
+.text-success {
+    font-size: 1.2em;
+    color: #00C6AF;
+}
