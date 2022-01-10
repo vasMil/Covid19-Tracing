@@ -22,6 +22,9 @@ import { AuthService } from './shared/auth.service';
   ],
   entryComponents: [
     LoginCardComponent
+  ],
+  bootstrap: [
+    AppComponent //TODO: Delete this before deploy
   ]
 })
 export class AppModule {
