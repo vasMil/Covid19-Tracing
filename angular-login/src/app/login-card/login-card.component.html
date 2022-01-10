@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" class="card card-login">
-    <div *ngIf="successfulLogin" class="form-text text-success" id="login-success">Success!</div>
+    <div *ngIf="successfulLogin && !(loginErrors.loginFailed || loginErrors.fieldInvalid)" class="form-text text-success" id="login-success">Success!</div>
     <div *ngIf="loginErrors.loginFailed || loginErrors.fieldInvalid" class="form-text text-danger">{{loginErrors.message}}</div>
     <div class="form-group">
         <label for="input-username">Username</label>
