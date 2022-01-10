@@ -30,7 +30,7 @@
             <span class="highlight-primary">Covid-19</span> Tracing
         </header>
 
-        <login-card></login-card>
+        <login-card apiUrl="http://localhost:8080/login"></login-card>
 
         <section class="new-here">
             <div class="subtitle">
