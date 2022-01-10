@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 
@@ -10,6 +10,7 @@ import { AuthService } from '../shared/auth.service';
 export class RegisterCardComponent implements OnInit {
   
   @Input() api_url = "http://localhost:8080/register"
+  @Output() successEvent = new EventEmitter<boolean>()
 
   registerForm!: FormGroup;
   passwordModel = {
@@ -75,6 +76,7 @@ export class RegisterCardComponent implements OnInit {
         // TODO: log this error
         this.registerErrors.registerFailed = true;
         this.registerErrors.message = "Register Failed! Try again later";
+        this.successEvent.emit(false);
       },
       next: (resp) => {
         if (!resp.success) {
@@ -88,9 +90,11 @@ export class RegisterCardComponent implements OnInit {
             this.registerErrors.emailUsed = true;
             this.registerForm?.get('email')?.setErrors({'used': true});
           }
+          this.successEvent.emit(false);
         }
         else {
           this.registerSuccess.status = true;
+          this.successEvent.emit(true);
         }
       }
     })

@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-register';
+
+  onSuccessfulRegister(success: boolean): void {
+    if (success) {
+      console.log("User registered successfully!");
+    }
+    else {
+      console.log("User failed to register!");
+    }
+  }
 }
