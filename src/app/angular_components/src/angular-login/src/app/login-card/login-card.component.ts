@@ -53,8 +53,8 @@ export class LoginCardComponent implements OnInit {
     }
     this.auth.loginUser({
       api_url: this.api_url,
-      username: this.username,
-      password: this.password,
+      username: this.username?.value,
+      password: this.password?.value,
       rememberMe: this.remember
     }).subscribe({
       error: (err) => {
@@ -105,11 +105,11 @@ export class LoginCardComponent implements OnInit {
   }
 
   get username() {
-    return this.loginForm.get('username')?.value;
+    return this.loginForm.get('username');
   }
 
   get password() {
-    return this.loginForm.get('password')?.value;
+    return this.loginForm.get('password');
   }
 
   get remember(): boolean {

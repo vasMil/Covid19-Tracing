@@ -10,6 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 Tracing</title>
+    <!-- Include required files for the angular element: login-card -->
+    <link rel="stylesheet" href="../angular_components/dist/angular-login/styles.css">
+    <script type="text/javascript" src="../angular_components/dist/angular-login/scripts.js"></script>
+    <script type="text/javascript" src="../angular_components/dist/angular-login/runtime.js"></script>
+    <script type="text/javascript" src="../angular_components/dist/angular-login/polyfills.js"></script>
+    <script type="text/javascript" src="../angular_components/dist/angular-login/main.js"></script>
     <!-- Include Bootstrap -->
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist//css/bootstrap.min.css"></link>
@@ -24,24 +30,7 @@
             <span class="highlight-primary">Covid-19</span> Tracing
         </header>
 
-        <form class="card card-login">
-            <div class="form-group">
-                <label for="input-username">Username</label>
-                <input type="username" class="form-control" id="input-username">
-            </div>
-            <div class="form-group">
-                <label for="input-password">Password</label>
-                <input type="password" class="form-control" id="input-password" aria-describedby="passwordHelp">
-                <small id="passwordHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
-            </div>
-            <div class="card-footer-login">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="remember-check">
-                    <label class="form-check-label" for="remember-check">Remember me</label>
-                </div>
-                <button type="submit" class="btn btn-custom-primary btn-login">Login</button>
-            </div>
-        </form>
+        <login-card></login-card>
 
         <section class="new-here">
             <div class="subtitle">
