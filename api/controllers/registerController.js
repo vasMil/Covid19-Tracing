@@ -3,36 +3,45 @@ const bcrypt = require('bcryptjs');
 const conn = require('../db/connect').promise();
 
 exports.register = async(req,res,next) => {
-    const errors = validationResult(req);
+    
 
-    if(!errors.isEmpty()){
-        return res.status(422).json({ errors: errors.array() });
-    }
+    // if(!errors.isEmpty()){
+    //     return res.status(422).json({ errors: errors.array() });
+    // }
 
     try{
+        const [rows] = await conn.execute(`CALL register_user("${req.body.username}", "${req.body.email}", "${bcrypt.hash(req.body.password, 10)}")`);
+        const row = rows[0];
 
-        const [row] = await conn.execute(
-            "SELECT `email` FROM `user_table` WHERE `email`=?",
-            [req.body.email]
-          );
-
-        if (row.length > 0) {
-            return res.status(201).json({
-                message: "The E-mail already in use",
+        if (row.usernameUsed) {
+            res.status(200).json({
+                success: false,
+                emailUsed: false,
+                usernameUsed: true
             });
         }
-
-        const hashPass = await bcrypt.hash(req.body.password, 12);
-
-        const [rows] = await conn.execute('INSERT INTO `user_table`(`username`,`email`,`password`) VALUES(?,?,?)',[
-            req.body.username,
-            req.body.email,
-            hashPass
-        ]);
-
-        if (rows.affectedRows === 1) {
-            return res.status(201).json({
-                message: "The user has been successfully inserted.",
+        else if(row.emailUsed) {
+            res.status(200).json({
+                success: false,
+                emailUsed: true,
+                usernameUsed: false
+            });
+        }
+        else if(row.emailUsed && row.usernameUsed) {
+            res.status(200).json({
+                success: false,
+                emailUsed: true,
+                usernameUsed: true
+            });
+        }
+        else if(row.success) {
+            
+            //const hashPass = await bcrypt.hash(req.body.password, 10);
+            //await conn.execute('UPDATE user_table SET password = ? WHERE username = ?',[hashPass, req.body.username]);
+            res.status(200).json({
+                success: true,
+                emailUsed: false,
+                usernameUsed: false
             });
         }
         

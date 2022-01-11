@@ -7,7 +7,8 @@ const conn = require('../db/connect').promise();
 exports.login = async (req,res,next) => {
 
     try{
-        const [rows, fields] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
+
+        const [rows] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
         const row = rows[0];
         if (!row) {
             res.status(200).json({
