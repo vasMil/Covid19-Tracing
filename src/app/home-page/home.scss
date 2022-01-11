@@ -12,3 +12,34 @@
     color: $primary-color;
     text-decoration: underline;
 }
+
+section.home-search {
+    max-width: 400px;
+    margin: auto;
+
+    .form {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .btn.btn-outline-success {
+            color: $primary-color;
+            border-color: $primary-color;
+            margin-top: 0.5rem;
+
+            &:hover, &:active {
+                @include set-background($primary-color);
+            }
+    }
+}
+
+section.home-map {
+    margin-top: 2.5em;
+
+    #map {
+        height: 300px;
+    }
+}

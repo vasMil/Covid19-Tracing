@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="home.min.css">
     <!-- Include the required stylesheets for the partials used in the current page -->
     <link rel="stylesheet" href="../php_partials/navbar/navbar.min.css">
+    <!-- Include leaflet -->
+    <link rel="stylesheet" href="../../../node_modules/leaflet/dist/leaflet.css">
 </head>
 <body>
     <div class="container">
@@ -28,6 +30,21 @@
         <header id="home-header">
             Home
         </header>
+
+        <section class="home-search">
+            <form class="form">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="home-map">
+            <div id="map">
+
+            </div>
+        </section>
     </div>
 </body>
+<script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
+<script src="home.js"></script>
 </html>
