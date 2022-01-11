@@ -4,39 +4,39 @@ const {validationResult} = require('express-validator');
 const conn = require('../db/connect').promise();
 
 
-exports.login = async (req,res,next) =>{
-    const errors = validationResult(req);
-
-    if(!errors.isEmpty()){
-        return res.status(422).json({ errors: errors.array() });
-    }
+exports.login = async (req,res,next) => {
 
     try{
-
-        const [row] = await conn.execute(
-            "SELECT * FROM `user_table` WHERE `username`=?",
-            [req.body.username]
-          );
-
+        const [sql_res] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
+        const row = sql_res[0][0];
         if (row.length === 0) {
-            return res.status(422).json({
-                message: "Invalid email address",
+            res.status(422).json({
+                success: false,
+                message: "Invalid user!",
             });
         }
-
-        const passMatch = await bcrypt.compare(req.body.password, row[0].password);
-        if(!passMatch){
-            return res.status(422).json({
-                message: "Incorrect password",
-            });
+        let exp = null;
+        if (req.body.rememberMe) {
+            exp = "48h"
         }
+        else {
+            exp = "24h"
+        }
+        const userId = row.id;
+        const role = row.isAdmin ? "admin" : "user";
+        const username = row.username;
+        
+        const theToken = jwt.sign({
+            id: userId,
+            role: role,
+            username: username
+        },'the-super-strong-secrect',{ expiresIn: exp });
 
-        const theToken = jwt.sign({id:row[0].id},'the-super-strong-secrect',{ expiresIn: '1h' });
-
-        return res.json({
-            token:theToken
-        });
-
+        res.status(200).json(
+            {
+                success: true,
+                token: theToken
+            });
     }
     catch(err){
         next(err);

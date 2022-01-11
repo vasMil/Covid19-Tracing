@@ -25,13 +25,7 @@ router.post('/register', [
 ], register);
 
 
-router.post('/login',[
-    body('email',"Invalid email address")
-    .notEmpty()
-    .escape()
-    .trim().isEmail(),
-    body('password',"The Password must be of minimum 4 characters length").notEmpty().trim().isLength({ min: 4 }),
-],login);
+router.post('/login', login);
 
 //router.get('/getuser',getUser);
 

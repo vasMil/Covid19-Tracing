@@ -15,5 +15,6 @@ app.use((err, req, res, next) => {
         message: err.message,
     });
 });
-    
-app.listen(5000, () => {console.log('Server is listening on port 5000..');})
+
+const PORT = 8080;
+app.listen(PORT, () => {console.log(`Server is listening on port ${PORT}..`);})
