@@ -1,21 +1,27 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const {validationResult} = require('express-validator');
 const conn = require('../db/connect').promise();
+const env = require('../env/environment')
 
 
 exports.login = async (req,res,next) => {
 
     try{
-
-        const [rows] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
-        const row = rows[0][0];
-        if (!row) {
+        const [rows] = await conn.execute(`CALL retrieve_userData("${req.body.username}")`);
+        if (!rows[0] || !rows[0][0]) {
             res.status(200).json({
                 success: false,
                 message: "Invalid user!"
             });
-            return
+            return;
+        }
+        const row = rows[0][0];
+        if (!bcrypt.compareSync(req.body.password, row.hashedPass)) {
+            res.status(200).json({
+                success: false,
+                message: "Invalid user!"
+            });
+            return;
         }
 
         let exp = null;
@@ -33,7 +39,9 @@ exports.login = async (req,res,next) => {
             id: userId,
             role: role,
             username: username
-        },'the-super-strong-secrect',{ expiresIn: exp });
+        },
+        env.jwtSecret,
+        { expiresIn: exp });
 
         res.status(200).json(
             {

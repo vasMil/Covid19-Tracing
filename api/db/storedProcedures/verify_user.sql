@@ -1,11 +1,12 @@
-DROP PROCEDURE IF EXISTS verify_user;
+DROP PROCEDURE IF EXISTS retrieve_userData;
 DELIMITER $
-CREATE PROCEDURE verify_user (IN username VARCHAR(45), IN password VARCHAR(70))
+CREATE PROCEDURE retrieve_userData (IN username VARCHAR(45))
 BEGIN
 	DECLARE userId INT DEFAULT NULL;
+    DECLARE hashedPass VARCHAR(70) DEFAULT NULL;
     DECLARE isAdmin BOOL DEFAULT FALSE;
     
-	SELECT user_table.user_id INTO userId
+	SELECT user_table.user_id, user_table.password INTO userId, hashedPass
     FROM user_table
     WHERE user_table.username = username AND user_table.password = password;
 	
@@ -19,11 +20,12 @@ BEGIN
         THEN TRUE 
         ELSE FALSE 
         END AS "isAdmin",
-        username AS "username";
+        username AS "username",
+        hashedPass AS "hashedPass";
     END IF;
 END $
 DELIMITER ;
 
 # Test
--- CALL verify_user("mg", "pass123");
--- CALL verify_user("admin", "Pass123@");
+-- CALL retrieve_userData("mg");
+-- CALL retrieve_userData("admin");

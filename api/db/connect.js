@@ -1,15 +1,11 @@
 const mysql = require('mysql2')
+const env = require('../env/environment')
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'apiUser',
-    password: 'ceid2022',
-    database: 'database_ct'
-})
+const connection = mysql.createConnection(env.dbConfig);
 
 connection.connect(error => {
     if(error) throw error;
-    console.log("successfull connection to database");
+    console.log("DB Connection: OK!");
 })
 
 module.exports = connection;
