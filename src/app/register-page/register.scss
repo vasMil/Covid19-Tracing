@@ -20,7 +20,7 @@ header {
     padding-bottom: 2rem;
 }
 
-register-card {
+register-card > form {
     @include set-background(white);
     margin: 0 1.5em;
 }
