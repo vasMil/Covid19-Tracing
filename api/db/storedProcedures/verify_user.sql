@@ -14,9 +14,16 @@ BEGIN
     WHERE admin_table.admin_id = userId;
     
     IF userId IS NOT NULL THEN
-		SELECT userId AS "id", isAdmin AS "isAdmin", username AS "username";
+		SELECT userId AS "id", 
+        CASE WHEN isAdmin = '1' 
+        THEN TRUE 
+        ELSE FALSE 
+        END AS "isAdmin",
+        username AS "username";
     END IF;
 END $
 DELIMITER ;
 
-CALL verify_user("mg", "pass123");
+# Test
+-- CALL verify_user("mg", "pass123");
+-- CALL verify_user("admin", "Pass123@");

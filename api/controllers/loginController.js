@@ -9,7 +9,7 @@ exports.login = async (req,res,next) => {
     try{
 
         const [rows] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
-        const row = rows[0];
+        const row = rows[0][0];
         if (!row) {
             res.status(200).json({
                 success: false,

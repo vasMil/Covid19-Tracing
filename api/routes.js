@@ -5,8 +5,6 @@ const {login} = require('./controllers/loginController');
 
 
 router.post('/register', register);
-
-
 router.post('/login', login);
 
 

@@ -1,10 +1,11 @@
 DROP PROCEDURE IF EXISTS register_user;
 DELIMITER $
-CREATE PROCEDURE register_user (IN username VARCHAR(45), IN email VARCHAR(45), IN password VARCHAR(45))
+CREATE PROCEDURE register_user (IN username VARCHAR(45), IN email VARCHAR(45), IN password VARCHAR(70))
 BEGIN
 	
-    DECLARE UsernameUsed VARCHAR(45) DEFAULT NULL;
-    DECLARE emailUsed VARCHAR(45) DEFAULT NULL;
+    DECLARE usernameUsed VARCHAR(45) DEFAULT FALSE;
+    DECLARE emailUsed VARCHAR(45) DEFAULT FALSE;
+    DECLARE success BOOL DEFAULT FALSE;
     
     SELECT COUNT(*) > 0 INTO usernameUsed
     FROM user_table
@@ -14,14 +15,29 @@ BEGIN
     FROM user_table
     WHERE user_table.email = email;
     
-    IF usernameUsed OR emailUsed THEN
-		SELECT false AS "success", usernameUsed AS "usernameUsed", emailUsed AS "emailUsed";
-	ELSE 
+    SET success = NOT (usernameUsed OR emailUsed);
+    IF success THEN
 		INSERT INTO user_table (user_table.username, user_table.email, user_table.password) VALUES (username, email, password);
-        SELECT true AS "success";
     END IF;
+    
+    SELECT
+    CASE WHEN success = '1' THEN
+    TRUE 
+    ELSE FALSE 
+    END AS "success",
+	CASE WHEN usernameUsed = '1' THEN
+    TRUE 
+    ELSE FALSE 
+    END AS "usernameUsed",
+	CASE WHEN emailUsed = '1' THEN
+    TRUE 
+    ELSE FALSE 
+    END AS "emailUsed";
     
 END$
 DELIMITER ;
 
-CALL register_user("manos", "@mail", "pass12344");
+# Test
+-- CALL register_user("manos", "@mail", "pass12344");
+-- CALL register_user("admin", "admin@admin.com", "Pass123@");
+-- CALL register_user("testUser", "test@user.com", "Test123@");
