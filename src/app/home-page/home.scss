@@ -1,0 +1,14 @@
+@import "../styles.scss";
+
+#home-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 2em;
+}
+
+.nav-home {
+    color: $primary-color;
+    text-decoration: underline;
+}
