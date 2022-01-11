@@ -7,14 +7,16 @@ const conn = require('../db/connect').promise();
 exports.login = async (req,res,next) => {
 
     try{
-        const [sql_res] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
-        const row = sql_res[0][0];
-        if (row.length === 0) {
-            res.status(422).json({
+        const [rows, fields] = await conn.execute(`CALL verify_user("${req.body.username}", "${req.body.password}")`);
+        const row = rows[0];
+        if (!row) {
+            res.status(200).json({
                 success: false,
-                message: "Invalid user!",
+                message: "Invalid user!"
             });
+            return
         }
+
         let exp = null;
         if (req.body.rememberMe) {
             exp = "48h"
