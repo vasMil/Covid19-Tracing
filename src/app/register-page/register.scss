@@ -1,0 +1,26 @@
+@import "../styles.scss";
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    .title {
+        width: 9em;
+    }
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    padding-bottom: 2rem;
+}
+
+register-card {
+    @include set-background(white);
+    margin: 0 1.5em;
+}
