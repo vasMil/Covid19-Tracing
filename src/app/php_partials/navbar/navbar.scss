@@ -16,7 +16,7 @@
     border: none;
     position: absolute;
     right: 1.5em;
-    z-index: 999;
+    z-index: 9999;
 
     i.fas {
         
@@ -32,7 +32,8 @@
 
 .navbar-full {
     display: none;
-
+    z-index: 9998;
+    
     width: 71.5%;
     max-width: 340px;
     height: 100%;

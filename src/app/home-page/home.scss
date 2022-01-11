@@ -8,10 +8,13 @@
     margin: 2em;
 }
 
-.nav-home {
-    color: $primary-color;
-    text-decoration: underline;
+.custom-navbar {
+    .nav-home {
+        color: $primary-color;
+        text-decoration: underline;
+    }
 }
+
 
 section.home-search {
     max-width: 400px;
@@ -38,8 +41,13 @@ section.home-search {
 
 section.home-map {
     margin-top: 2.5em;
+    z-index: 1;
 
+    div[class^="leaflet-"]{ 
+        z-index: 1;
+    }
     #map {
+        z-index: 1;
         height: 300px;
     }
 }
