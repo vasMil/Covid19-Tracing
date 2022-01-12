@@ -41,13 +41,8 @@ section.home-search {
 
 section.home-map {
     margin-top: 2.5em;
-    z-index: 1;
 
-    div[class^="leaflet-"]{ 
-        z-index: 1;
-    }
     #map {
-        z-index: 1;
         height: 300px;
     }
 }

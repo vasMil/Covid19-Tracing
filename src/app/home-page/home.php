@@ -39,9 +39,7 @@
         </section>
 
         <section class="home-map">
-            <div id="map">
-
-            </div>
+            <div id="map"></div>
         </section>
     </div>
 </body>
