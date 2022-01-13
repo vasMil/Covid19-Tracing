@@ -71,11 +71,14 @@ CREATE TABLE visit_table (
 CREATE TABLE admin_changes_table (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   admin_id INT UNSIGNED NOT NULL,
-  type ENUM('-1', '0', '1') NOT NULL,
-  success BOOLEAN NULL,
-  timestamp TIMESTAMP NOT NULL,
+  type ENUM('DELTE', 'UPDATE', 'INSERT') NOT NULL,
+  success BOOLEAN NOT NULL,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   num_of_changes INT NOT NULL,
-  file_last_mod DATETIME(3) NULL,
+  file_last_mod DATETIME(3) NOT NULL,
+  file_name_used VARCHAR(100) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (admin_id) REFERENCES admin_table (admin_id));
+  FOREIGN KEY (admin_id) REFERENCES admin_table (admin_id),
+  INDEX file_name_idx (file_name_used) INVISIBLE
+  );
   

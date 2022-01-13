@@ -7,6 +7,7 @@ const routes = require('./routes');
 const {verifyUser, verifyAdmin} = require('./controllers/verifyUser');
 const protectedUserRoutes = require('./protectedUserRoutes');
 const protectedAdminRoutes = require('./protectedAdminRoutes');
+const { adminChangesGuard } = require('./adminChangesGuard');
 
 const app = express();
  // TODO: Uninstall bodyparser? Redundant since I am not receiving large body messages
@@ -18,6 +19,7 @@ app.use(verifyUser);
 app.use(protectedUserRoutes);
 app.use(verifyAdmin);
 app.use(protectedAdminRoutes);
+app.use(adminChangesGuard);
 
 const PORT = 8080;
 app.listen(PORT, () => {

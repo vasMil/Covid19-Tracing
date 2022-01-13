@@ -1,7 +1,25 @@
 const {readFile} = require('fs').promises;
 const db = require("../db/connect").promise();
 
+const validPoiTypes = ['cafe', 'food', 'point_of_interest', 'establishment', 'restaurant', 'convenience_store', 'grocery_or_supermarket',
+'store', 'bakery', 'supermarket', 'car_repair', 'park', 'tourist_attraction', 'gym', 'health', 'car_wash', 'liquor_store', 'shopping_mall',
+'furniture_store', 'home_goods_store', 'lodging', 'laundry', 'hardware_store', 'electronics_store', 'hair_care', 'drugstore', 'bank', 'atm',
+'finance', 'doctor', 'casino', 'car_dealer', 'pet_store', 'bar', 'town_square', 'accounting', 'pharmacy', 'other'];
+
+const insertStatus = {
+    type: "INSERT",
+    rowsAttemped: 0,
+    success: false,
+    fileLastModified: "",
+    filename: ""
+}
+
 exports.insertPois = async (req, res, next) => {
+    if (!req.body.last_modified) {
+        throw "NoField:fileLastModified";
+    }
+    insertStatus.fileLastModified = req.body.last_modified;
+    insertStatus.filename = req.file.originalname;
     const poiStr = await readFile(req.file.path, 'utf8');
     const poiArr = JSON.parse(poiStr);
     const poiSqlQuery = "INSERT INTO poi_table (id, name, address, latitude, longitude, rating, rating_n, poi_type) VALUES";
@@ -48,19 +66,28 @@ exports.insertPois = async (req, res, next) => {
         //     console.log(temp_str_types);
         // }
         await db.commit();
+        insertStatus.success = true;
         res.status(200).json({
             sqlSuccess: true
         });
     }
     catch(err) {
+        let msg = "Last insert failed! Database rollback successful!";
+        if (err.message = "invalidPoiType") {
+            msg += ` Error: ${err.message}`;
+        }
+        if (err.message == "NoField:fileLastModified") {
+            msg += ` Error: ${err.message}`;
+        }
         db.rollback();
-        console.log(err);
         res.status(500).json({
             error: true,
             dbRollback: true,
-            message: "Last insert failed! Database rollback successful!"
+            message: msg
         })
     }
+    req.locals.dbStatus = insertStatus;
+    next();
 }
 
 
@@ -75,6 +102,7 @@ async function commitInsert(sqlStatement, db) {
 }
 
 function formatForInsertPoi(poi) {
+    insertStatus.rowsAttemped += 1;
     // TODO: This is a DEV call delete for prod
     // registerPoiTypeIfNotExists(poi.types);
     let safe_name = poi.name.replace(/"/g, "'");
@@ -82,6 +110,9 @@ function formatForInsertPoi(poi) {
     let safe_rating_n = poi.rating_n ? poi.rating_n : 0;
     let typeSetStr = "('";
     for (type of poi.types) {
+        if (!validPoiTypes.includes(type) && !hasOther) {
+            throw 'invalidPoiType';
+        }
         typeSetStr += `${type},`;
     }
     typeSetStr = typeSetStr.slice(0, -1);
@@ -95,6 +126,7 @@ function formatForInsertPopularTimes(poi) {
     for (let popTime of popTimesArr) {
         let day = dayToIntMapper(popTime.name);
         for (let i=0; i < 24; i++) {
+            insertStatus.rowsAttemped += 1;
             outStr += ` ("${poi.id}", ${day}, ${i}, ${popTime.data[i]}),`
         }
     }
