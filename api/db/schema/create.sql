@@ -33,9 +33,14 @@ CREATE TABLE poi_table (
   longitude FLOAT(7) NOT NULL,
   rating FLOAT(1) NOT NULL,
   rating_n INT NOT NULL,
+  poi_type SET('cafe', 'food', 'point_of_interest', 'establishment', 'restaurant', 'convenience_store', 'grocery_or_supermarket',
+'store', 'bakery', 'supermarket', 'car_repair', 'park', 'tourist_attraction', 'gym', 'health', 'car_wash', 'liquor_store', 'shopping_mall',
+'furniture_store', 'home_goods_store', 'lodging', 'laundry', 'hardware_store', 'electronics_store', 'hair_care', 'drugstore', 'bank', 'atm',
+'finance', 'doctor', 'casino', 'car_dealer', 'pet_store', 'bar', 'town_square', 'accounting', 'pharmacy', 'other') DEFAULT 'other',
   PRIMARY KEY (id),
   INDEX name_address_idx (name, address) INVISIBLE,
-  INDEX lat_long_idx (latitude, longitude) INVISIBLE);
+  INDEX lat_long_idx (latitude, longitude) INVISIBLE,
+  INDEX poi_type_idx (poi_type) INVISIBLE);
 
 
 CREATE TABLE popular_times_table (
