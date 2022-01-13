@@ -11,18 +11,9 @@ CREATE TABLE user_table (
   
 
 CREATE TABLE admin_table (
-  admin_id INT UNSIGNED NOT NULL,
+  admin_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (admin_id),
   FOREIGN KEY (admin_id) REFERENCES user_table (user_id));
-
-
-CREATE TABLE popular_times_table (
-  id INT UNSIGNED NOT NULL,
-  day ENUM('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') NOT NULL,
-  hour ENUM('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23') NOT NULL,
-  number_of_people INT UNSIGNED NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE INDEX day_hour_idx (day,hour) INVISIBLE);
 
 
 CREATE TABLE covid_case_table (
@@ -35,40 +26,45 @@ CREATE TABLE covid_case_table (
 
 
 CREATE TABLE poi_table (
-  id INT UNSIGNED NOT NULL,
-  name VARCHAR(45) NOT NULL,
-  address VARCHAR(45) NOT NULL,
-  type VARCHAR(45) NOT NULL,
-  latitude VARCHAR(45) NOT NULL,
-  longitude VARCHAR(45) NOT NULL,
-  rating VARCHAR(45) NOT NULL,
-  rating_n VARCHAR(45) NOT NULL,
+  id VARCHAR(30) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  address VARCHAR(100) NOT NULL,
+  latitude FLOAT(7) NOT NULL,
+  longitude FLOAT(7) NOT NULL,
+  rating FLOAT(1) NOT NULL,
+  rating_n INT NOT NULL,
   PRIMARY KEY (id),
   INDEX name_address_idx (name, address) INVISIBLE,
   INDEX lat_long_idx (latitude, longitude) INVISIBLE);
 
 
+CREATE TABLE popular_times_table (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  poi_id VARCHAR(30) NOT NULL,
+  day INT NOT NULL,
+  CONSTRAINT day_Ck CHECK (day BETWEEN 0 AND 6),
+  hour INT NOT NULL,
+  CONSTRAINT hour_Ck CHECK (hour BETWEEN 0 AND 23),
+  number_of_people INT UNSIGNED NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (poi_id) REFERENCES poi_table(id),
+  INDEX day_hour_idx (poi_id,day,hour) INVISIBLE);
+
+
 CREATE TABLE visit_table (
-  id INT UNSIGNED NOT NULL,
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id INT UNSIGNED NOT NULL,
-  poi_id INT UNSIGNED NOT NULL,
+  poi_id VARCHAR(30) NOT NULL,
   estimation INT NOT NULL,
   timestamp TIMESTAMP NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),
   INDEX user_poi_idx (user_id, poi_id) INVISIBLE);
-  
-  
-CREATE TABLE popular_times_poi_table (
-  poptim_id INT UNSIGNED NOT NULL,
-  poi_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (poptim_id) REFERENCES popular_times_table (id),
-  FOREIGN KEY (poi_id) REFERENCES poi_table (id));
    
    
 CREATE TABLE admin_changes_table (
-  id INT UNSIGNED NOT NULL,
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   admin_id INT UNSIGNED NOT NULL,
   type ENUM('-1', '0', '1') NOT NULL,
   success BOOLEAN NULL,
