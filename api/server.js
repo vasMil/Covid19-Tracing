@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const routes = require('./routes');
 const {verifyUser, verifyAdmin} = require('./controllers/verifyUser');
+const protectedUserRoutes = require('./protectedUserRoutes');
 const protectedAdminRoutes = require('./protectedAdminRoutes');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(routes);
 app.use(verifyUser);
+app.use(protectedUserRoutes);
 app.use(verifyAdmin);
 app.use(protectedAdminRoutes);
 
