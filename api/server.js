@@ -21,6 +21,11 @@ app.use(verifyAdmin);
 app.use(protectedAdminRoutes);
 app.use(adminChangesGuard);
 
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send('Something broke!')
+  });
+
 const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server on port ${PORT}: OK!`)

@@ -29,8 +29,8 @@ CREATE TABLE poi_table (
   id VARCHAR(30) NOT NULL,
   name VARCHAR(100) NOT NULL,
   address VARCHAR(100) NOT NULL,
-  latitude FLOAT(7) NOT NULL,
-  longitude FLOAT(7) NOT NULL,
+  latitude DOUBLE NOT NULL,
+  longitude DOUBLE NOT NULL,
   rating FLOAT(1) NOT NULL,
   rating_n INT NOT NULL,
   poi_type SET('cafe', 'food', 'point_of_interest', 'establishment', 'restaurant', 'convenience_store', 'grocery_or_supermarket',
@@ -55,7 +55,7 @@ CREATE TABLE popular_times_table (
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),
   INDEX day_hour_idx (poi_id,day,hour) INVISIBLE);
 
-
+DROP TABLE IF EXISTS visit_table;
 CREATE TABLE visit_table (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id INT UNSIGNED NOT NULL,
@@ -66,7 +66,6 @@ CREATE TABLE visit_table (
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),
   INDEX user_poi_idx (user_id, poi_id) INVISIBLE);
-   
    
 CREATE TABLE admin_changes_table (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,

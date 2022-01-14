@@ -6,14 +6,6 @@ const osmAttrib = '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> 
 const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 const tiles = L.tileLayer(tileUrl, { attribution: osmAttrib })
 
-// Create a custom marker
-const pegmanIcon = L.icon({
-    iconUrl: '../../../resources/pegman.png',
-    iconSize:     [20, 42],
-    iconAnchor:   [10, 21],
-    popupAnchor:  [10, 21]
-});
-
 // Define the map
 const map = L.map('map', {
     minZoom: 5,
@@ -23,14 +15,20 @@ const map = L.map('map', {
 tiles.addTo(map);
 
 // TODO: Watch for user's location https://w3c.github.io/geolocation-api/#watchposition-method
-let userLocation = navigator.geolocation.getCurrentPosition(positionCallback, errorCallback);
+navigator.geolocation.getCurrentPosition(positionCallback, errorCallback);
+const userPos = {
+    lat: null,
+    lng: null
+}
 
 function positionCallback(position) {
-    // Retrieve the usefull info
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
+    // TODO: Use actual position - Retrieve the usefull info
+    // userPos.lat = position.coords.latitude;
+    // userPos.lng = position.coords.longitude;
+    userPos.lat = 38.23786987257117;
+    userPos.lng = 21.730516184225525;
     // Setup a marker pointing at user's location
-    L.marker([lat, lng], {
+    L.marker([userPos.lat, userPos.lng], {
         title: "Your current position",
         alt: "Your current position",
         icon: pegmanIcon,
@@ -38,10 +36,10 @@ function positionCallback(position) {
     }).addTo(map);
     
     // Set the view of the map
-    map.setView([lat, lng], 12);
+    map.setView([userPos.lat, userPos.lng], 12);
 
     // Define a circle with a radius of 5km
-    const circleViewOverlay = L.circle([lat, lng], {
+    const circleViewOverlay = L.circle([userPos.lat, userPos.lng], {
         color: 'red',
         fillColor: '#f03',
         opacity: 0.1,
@@ -58,6 +56,8 @@ function positionCallback(position) {
             map.addControl(circleViewOverlay);
         }
     });
+
+    initSearchForm();
 }
 
 function errorCallback(error) {
@@ -80,3 +80,101 @@ function errorCallback(error) {
     errorDiv.classList.add("text-danger");
     mapSection.appendChild(errorDiv);
 }
+
+// Js for search form
+async function initSearchForm() {
+    document.querySelector("#search-pois-form").addEventListener('submit', (event) => {event.preventDefault()});
+    const searchButton = document.querySelector("#search-pois-btn");
+    const searchInput = document.querySelector("#search-pois-inp")
+    searchButton.addEventListener('click', searchPois);
+
+    async function searchPois(event) {
+        const searchStr = searchInput.value;
+        const now = new Date();
+        const response = await fetch(
+            `http://localhost:8080/pois/search/?type=${searchStr}&day=${now.getDay()}&hour=${now.getHours()}&lat=${userPos.lat}&lng=${userPos.lng}`,
+            {
+                headers: {
+                    'Authorization': localStorage.getItem("token")
+            }
+        });
+        const respJson = await response.json();
+        const pois = respJson.rows;
+        clearMarkers();
+        // placeProofPins(respJson.info, map);
+        for (let [i,poi] of pois.entries()) {
+            markerFactory(poi.name, poi.estimation, poi.approximation, i, pois.length, poi.latitude, poi.longitude);
+        }
+    }
+}
+
+// UTILITY FUNCTIONS
+function markerFactory(poiName, estimation, approximation, index, numOfPois, lat, lng) {
+    const icon = getMarkerIcon(index, numOfPois);
+    L.marker([lat, lng], {icon: icon})
+    .bindPopup(popupContent(poiName, estimation, approximation), {
+        className: "popup"
+    })
+    .addTo(map);
+}
+
+function clearMarkers() {
+    map.closePopup()
+    const markers = Array.from(document.getElementsByClassName("marker"));
+    for (let marker of markers) {
+        marker.remove();
+    }
+}
+
+// Should place pins on 45deg and 225deg (the points with maximum lat-lng and minimum lat-lng respectively)
+// The first argument is the response.info (the response of the api)
+// The POIs I am interested in are inside the incircle of the rectangle defined by those two points.
+function placeProofPins(info) {
+    L.marker([info.min_lat, info.min_lng]).addTo(map);
+    L.marker([info.max_lat, info.max_lng]).addTo(map);
+}
+
+// Functions that produce icons/popups
+
+// Create a custom marker
+const pegmanIcon = L.icon({
+    iconUrl: '../../../resources/pegman.png',
+    iconSize:     [20, 42],
+    iconAnchor:   [10, 21],
+    popupAnchor:  [10, 21]
+});
+
+const icon = (color) => {
+    return L.divIcon({
+        className: `marker marker-${color}`,
+        iconAnchor: [0, 0],
+        labelAnchor: [0, 0],
+        popupAnchor: [0, 0]
+    });
+}
+const redIcon = icon("red");
+const orangecon = icon("orange");
+const greenIcon = icon("green");
+
+function getMarkerIcon(index, numOfPois) {
+    const greenBound = 0.32*numOfPois;
+    const orangeBound = 0.65*numOfPois;
+    if (index <= greenBound) {
+        return greenIcon;
+    }
+    if (index <= orangeBound) {
+        return orangecon;
+    }
+    return redIcon;
+}
+
+const popupContent = (name, estimation, userApprox) => {
+    return `
+    <div class="popup-title">${name}</div>
+    <ul class="popup-list">
+        <li class="popup-item">Estimation for the next two hours: ${Math.round(estimation)}</li>
+        <li class="popup-item">Live approximation from user input: ${Math.round(userApprox)}</li>
+    </ul>
+    `
+}
+

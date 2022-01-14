@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- Include Fontawesome -->
     <link rel="stylesheet" href="../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
-    <!-- Include page local stylesheet -->
-    <link rel="stylesheet" href="home.min.css">
     <!-- Include the required stylesheets for the partials used in the current page -->
     <link rel="stylesheet" href="../php_partials/navbar/navbar.min.css">
     <!-- Include leaflet -->
     <link rel="stylesheet" href="../../../node_modules/leaflet/dist/leaflet.css">
+    <!-- Include page local stylesheet -->
+    <link rel="stylesheet" href="home.min.css">
 </head>
 <body>
     <div class="container">
@@ -32,9 +32,9 @@
         </header>
 
         <section class="home-search">
-            <form class="form">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="form" id="search-pois-form">
+                <input class="form-control" id="search-pois-inp" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" id="search-pois-btn" type="submit">Search</button>
             </form>
         </section>
 
