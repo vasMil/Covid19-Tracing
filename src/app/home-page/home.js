@@ -47,6 +47,14 @@ function positionCallback(position) {
     }).bindPopup("5km radius");
     map.addControl(circleViewOverlay);
 
+    const circleViewOverlay2 = L.circle([userPos.lat, userPos.lng], {
+        color: 'blue',
+        fillColor: '#689ec4',
+        opacity: 0.1,
+        radius: 20
+    }).bindPopup("20m radius");
+    map.addControl(circleViewOverlay2);
+
     // Setup an event handler that will remove the circle overlay when zoom is > 12
     map.on('zoomend', () => {
         if (map.getZoom() > 12) {
@@ -111,12 +119,44 @@ async function initSearchForm() {
 // UTILITY FUNCTIONS
 function markerFactory(poiName, estimation, approximation, index, numOfPois, lat, lng) {
     const icon = getMarkerIcon(index, numOfPois);
+    // Determine whether the marker isClose to the user location (aka within 20 meters)
+    let isClose = false;
+    const radiusInKm = 0.02;
+    const [min_lat, ] = destinationPoint(lat, lng, 180, radiusInKm);
+    const [max_lat, ] = destinationPoint(lat, lng, 0, radiusInKm);
+    const [, min_lng] = destinationPoint(lat, lng, 270, radiusInKm);
+    const [, max_lng] = destinationPoint(lat, lng, 90, radiusInKm);
+    if (min_lat <= userPos.lat && userPos.lat <= max_lat && min_lng <= userPos.lng && userPos.lng <= max_lng) {
+        isClose = true;
+    }
+
     L.marker([lat, lng], {icon: icon})
-    .bindPopup(popupContent(poiName, estimation, approximation), {
+    .bindPopup(popupContent(poiName, estimation, approximation, isClose), {
         className: "popup"
     })
     .addTo(map);
 }
+
+
+function destinationPoint(lat, lng, brng, dist) {
+    dist = dist / 6371;
+    brng = brng * Math.PI / 180;
+    
+    let lat1 = lat * Math.PI / 180, lon1 = lng * Math.PI / 180;
+
+    let lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + 
+                            Math.cos(lat1) * Math.sin(dist) * Math.cos(brng));
+
+    let lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) *
+                                    Math.cos(lat1), 
+                                    Math.cos(dist) - Math.sin(lat1) *
+                                    Math.sin(lat2));
+
+    if (isNaN(lat2) || isNaN(lon2)) return [null, null];
+
+    return [lat2 * 180 / Math.PI, lon2 * 180 / Math.PI];
+}
+
 
 function clearMarkers() {
     map.closePopup()
@@ -168,13 +208,16 @@ function getMarkerIcon(index, numOfPois) {
     return redIcon;
 }
 
-const popupContent = (name, estimation, userApprox) => {
-    return `
+const popupContent = (name, estimation, userApprox, isClose) => {
+    let template = `
     <div class="popup-title">${name}</div>
     <ul class="popup-list">
         <li class="popup-item">Estimation for the next two hours: ${Math.round(estimation)}</li>
         <li class="popup-item">Live approximation from user input: ${Math.round(userApprox)}</li>
     </ul>
     `
+    if (isClose) {
+        template += `<a href="../register-location/reg-loc.php">Register your current location</a>`
+    } 
+    return template;
 }
-
