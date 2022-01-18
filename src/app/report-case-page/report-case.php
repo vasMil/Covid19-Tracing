@@ -27,14 +27,21 @@
         <script src="../php_partials/navbar/navbar.js"></script>
 
         <header id="rc-header">
-            Report your case
+            <div class="header">
+                <span class="highlight-primary">Report </span>
+                your case
+            </div>
         </header>
 
         <div class="card card-info">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Vero sapiente ab hic quos maxime a quidem dolorem accusamus recusandae molestias sunt sit, numquam totam libero iste quibusdam ipsam.
-                Odio cupiditate ad quos reprehenderit qui consectetur quod sed, a architecto, 
-                culpa fugiat assumenda quas eligendi omnis totam esse natus perferendis ratione!
+            <div class="card-group">
+                <b class="highlight-primary">Hey!</b> Have you tested positive for Covid within the last <b class="highlight-primary">14 days</b>?
+                You may report it here and let the people around you know they have been exposed to Covid.
+            </div>
+            <div class="card-group">
+                <b class="highlight-primary"> Do not worry!</b>
+                We will NOT share your name, no one will ever know it was you. <i class="far fa-laugh-wink"></i>
+            </div>
         </div>
 
         <section class="rc-form">
