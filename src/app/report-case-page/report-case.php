@@ -28,8 +28,7 @@
 
         <header id="rc-header">
             <div class="header">
-                <span class="highlight-primary">Report </span>
-                your case
+                <span class="highlight-primary">Report </span>your case
             </div>
         </header>
 
@@ -47,7 +46,7 @@
         <section class="rc-form">
             <form>
                 <input type="date" id="datepicker" name="date-tested-positive">
-                <button class="btn btn-custom-primary" type="submit">Report</button>
+                <button class="btn btn-custom-primary" id="rc-register" type="submit">Report</button>
             </form>
         </section>
 
