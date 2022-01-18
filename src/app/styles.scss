@@ -18,8 +18,24 @@
 }
 
 /* Styling DOM */
+
 $primary-color: #00C6AF;
 $secondary-color: black;
+
+// Resets
+a {
+    text-decoration: none;
+    color: inherit;
+
+    &:visited {
+        text-decoration: none;
+        color: inherit;
+    }
+    &:hover {
+        color: $primary-color;
+        opacity: 90%;
+    }
+}
 
 html, body {
     @include set-background($secondary-color);

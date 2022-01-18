@@ -10,10 +10,10 @@
 
 
     <div class="navbar-full">
-        <div class="nav-item nav-home">Home</div>
-        <div class="nav-item nav-reg-loc">Register Location</div>
-        <div class="nav-item nav-rep-case">Report Covid Case</div>
-        <div class="nav-item nav-exposed">Have I been exposed to Covid-19?</div>
-        <div class="nav-item nav-profile">Profile</div>
+        <div class="nav-item nav-home"><a href="../home-page/home.php">Home</a></div>
+        <div class="nav-item nav-reg-loc"><a href="">Register Location</a></div>
+        <div class="nav-item nav-rep-case"><a href="../report-case-page/report-case.php">Report Covid Case</a></div>
+        <div class="nav-item nav-exposed"><a href="">Have I been exposed to Covid-19?</a></div>
+        <div class="nav-item nav-profile"><a href="">Profile</a></div>
     </div>
 </div>
