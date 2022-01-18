@@ -15,10 +15,10 @@ CREATE TABLE admin_table (
   PRIMARY KEY (admin_id),
   FOREIGN KEY (admin_id) REFERENCES user_table (user_id));
 
-
+DROP TABLE IF EXISTS covid_case_table;
 CREATE TABLE covid_case_table (
-  id INT UNSIGNED NOT NULL,
-  timestamp TIMESTAMP NOT NULL,
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  date DATE NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
