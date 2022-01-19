@@ -7,7 +7,9 @@ const environment =
         database: 'database_ct'
     },
 
-    jwtSecret: "ceid2022"
+    jwtSecret: "ceid2022",
+
+    frontendRootAddress: "http://localhost:80/"
 }
 
 module.exports = environment;

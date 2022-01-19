@@ -43,11 +43,22 @@ exports.login = async (req,res,next) => {
         env.jwtSecret,
         { expiresIn: exp });
 
-        res.status(200).json(
-            {
-                success: true,
-                token: theToken
-            });
+        if (role !== "admin") {
+            res.status(200).json(
+                {
+                    success: true,
+                    token: theToken,
+                    redirectTo: env.frontendRootAddress + "src/app/home-page/home.php"
+                });
+        }
+        else if (role == "user") {
+            res.status(200).json(
+                {
+                    success: true,
+                    token: theToken,
+                    redirectTo: env.frontendRootAddress + "" // TODO: "Add redirect link to the admin CRUD operations page"
+                });
+        }
     }
     catch(err){
         next(err);

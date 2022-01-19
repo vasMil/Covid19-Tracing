@@ -1,3 +1,7 @@
+if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
+    window.location.replace(`${window.location.origin}/src/app/login-page/login.php`);
+}    
+
 // Retrieve the section where the map will exist
 const mapSection = document.querySelector(".home-map");
 // Open Street Map Attribution

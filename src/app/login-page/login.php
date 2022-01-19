@@ -10,12 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 Tracing</title>
-    <!-- Include required files for the angular element: login-card -->
+    <!-- Include required styles for the angular element: login-card -->
     <link rel="stylesheet" href="../angular_components/dist/angular-login/styles.css">
-    <script type="text/javascript" src="../angular_components/dist/angular-login/scripts.js"></script>
-    <script type="text/javascript" src="../angular_components/dist/angular-login/runtime.js"></script>
-    <script type="text/javascript" src="../angular_components/dist/angular-login/polyfills.js"></script>
-    <script type="text/javascript" src="../angular_components/dist/angular-login/main.js"></script>
     <!-- Include Bootstrap -->
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
@@ -30,7 +26,7 @@
             <span class="highlight-primary">Covid-19</span> Tracing
         </header>
 
-        <login-card apiUrl="http://localhost:8080/login"></login-card>
+        <login-card id="login-card" apiUrl="http://localhost:8080/login"></login-card>
 
         <section class="new-here">
             <div class="subtitle">
@@ -58,4 +54,10 @@
         <?php include(ROOT_PATH.'/php_partials/ellipses/ellipses.php'); ?>
     </div>
 </body>
+<script src="./login.js"></script>
+<!-- Include required scripts for the angular element: login-card -->
+<script type="text/javascript" src="../angular_components/dist/angular-login/scripts.js"></script>
+<script type="text/javascript" src="../angular_components/dist/angular-login/runtime.js"></script>
+<script type="text/javascript" src="../angular_components/dist/angular-login/polyfills.js"></script>
+<script type="text/javascript" src="../angular_components/dist/angular-login/main.js"></script>
 </html>

@@ -10,7 +10,7 @@ import { AuthService } from '../shared/auth.service';
 export class LoginCardComponent implements OnInit {
 
   @Input() api_url = "http://localhost:8080/login"
-  @Output() successEvent = new EventEmitter<boolean>();
+  @Output() successEvent = new EventEmitter<string>();
 
   loginForm!: FormGroup;
   private _remember = false;
@@ -75,16 +75,23 @@ export class LoginCardComponent implements OnInit {
         else if (this.remember) {
           // Save jwt in local storage
           this.clearLoginErrors();
-          localStorage.setItem('token', resp.token);
+          localStorage.setItem('token', "Bearer " + resp.token);
           this.successfulLogin = true;
         }
         else {
           // Save jwt in session storage
           this.clearLoginErrors();
-          sessionStorage.setItem('token', resp.token);
+          sessionStorage.setItem('token', "Bearer " + resp.token);
           this.successfulLogin = true;
         }
-        this.successEvent.emit(this.successfulLogin);
+
+        // Emit output event
+        if (this.successfulLogin) {
+          this.successEvent.emit(resp.redirectTo);
+        }
+        else {
+          this.successEvent.emit("#");
+        }
       }
     })
   }

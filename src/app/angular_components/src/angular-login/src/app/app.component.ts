@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'angular-login';
 
-  loggedIn(success: boolean) {
-    if (success) {
+  loggedIn(success: string) {
+    if (success !== "#") {
       console.log("User logged in!");
     }
     else {
