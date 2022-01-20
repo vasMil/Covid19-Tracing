@@ -51,7 +51,7 @@ exports.login = async (req,res,next) => {
                     redirectTo: env.frontendRootAddress + "src/app/home-page/home.php"
                 });
         }
-        else if (role == "user") {
+        else if (role === "admin") {
             res.status(200).json(
                 {
                     success: true,
