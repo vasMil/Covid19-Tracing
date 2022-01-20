@@ -107,7 +107,7 @@ async function initSearchForm() {
             `http://localhost:8080/pois/search/?type=${searchStr}&day=${now.getDay()}&hour=${now.getHours()}&lat=${userPos.lat}&lng=${userPos.lng}`,
             {
                 headers: {
-                    'Authorization': localStorage.getItem("token")
+                    'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
             }
         });
         const respJson = await response.json();
