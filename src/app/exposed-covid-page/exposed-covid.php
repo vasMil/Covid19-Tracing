@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <!-- Include Fontawesome -->
     <link rel="stylesheet" href="../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
+    <!-- Include leaflet -->
+    <link rel="stylesheet" href="../../../node_modules/leaflet/dist/leaflet.css">
     <!-- Include the required stylesheets for the partials used in the current page -->
     <link rel="stylesheet" href="../php_partials/navbar/navbar.min.css">
     <link rel="stylesheet" href="../php_partials/ellipses/ellipses.min.css">
@@ -27,31 +29,31 @@
                 The<span class="highlight-primary"> POIs </span> where you have been <span class="highlight-primary">exposed </span>to the virus.
             </div>
         </header>
-            <div class="table-wrapper">
-                <table class="table table-responsive" id="ec-table">
-                    <thead class="thead-dark">
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ec-table-body">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
-        <div id="map"></div>
+
+        <section class="ec-table-section">
+            <table class="table table-responsive" id="ec-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-6">Name</th>
+                        <th scope="col" class="col-4">Address</th>
+                        <th scope="col" class="col-5">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="ec-table-body">
+
+                </tbody>
+            </table>
+        </section>
+
+        <section class="ec-map">
+            <div id="map"></div>
+        </section>
 
         <?php include("../php_partials/ellipses/ellipses.php") ?>
     </div>
 </body>
+<script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
 <script src="exposed-covid.js"></script>
 </html>

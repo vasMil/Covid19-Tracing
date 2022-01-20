@@ -16,20 +16,30 @@
     text-decoration: underline;
 }
 
-.table-wrapper {
-    margin: 4em 0;;
+.ec-table-section {
+    margin: 4em 0;
     max-height: 30vh;
     overflow: hidden;
     position: static;
 
     table#ec-table {
+        table-layout: fixed;
         text-align: center;
+        
         thead {
+            position: relative;
             color: $primary-color;
         }
     
         tbody#ec-table-body {
             color: set-text-color($secondary-color);
+            th, td {
+                vertical-align: middle;
+                word-wrap: break-word;
+            }
+            td.lat, td.lng {
+                display: none;
+            }
         }
     }
 
@@ -39,7 +49,15 @@
 }
 
 @media (hover: none) {
-    .table-wrapper {
-        overflow: auto;
+    .ec-table-section {
+        overflow-y: auto;
+        overflow-x: auto;
     }
+}
+
+/* Leaflet */
+#map {
+    height: 200px;
+    border-radius: 1em;
+    margin-bottom: 2.1em;
 }
