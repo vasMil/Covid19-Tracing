@@ -1,0 +1,45 @@
+@import "../styles.scss";
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    span {
+        display: contents;
+    }
+}
+
+.nav-exposed {
+    color: $primary-color;
+    text-decoration: underline;
+}
+
+.table-wrapper {
+    margin: 4em 0;;
+    max-height: 30vh;
+    overflow: hidden;
+    position: static;
+
+    table#ec-table {
+        text-align: center;
+        thead {
+            color: $primary-color;
+        }
+    
+        tbody#ec-table-body {
+            color: set-text-color($secondary-color);
+        }
+    }
+
+    &:hover {
+        overflow: overlay;
+    }
+}
+
+@media (hover: none) {
+    .table-wrapper {
+        overflow: auto;
+    }
+}
