@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap -->
+    <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- Include required files for the partials -->
+    <link rel="stylesheet" href="../php_partials/admin_navbar/admin_navbar.min.css">
+    <!-- Include local stylesheet -->
+    <link rel="stylesheet" href="./crud-operations.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <?php include "../php_partials/admin_navbar/admin_navbar.php"?>
+    <div class="container">
+        <section class="create">
+            <div class="title">Create POIs</div>
+            <form enctype="multipart/form-data">
+                <!-- Add appropriate name for the file input -->
+                <label for="create-file">Select a file:</label>
+                <input type="file">
+            </form>
+        </section>
+
+        <section class="update">
+            <div class="title">Update POIs</div>
+            <form enctype="multipart/form-data">
+                <!-- Add appropriate name for the file input -->
+                <label for="update-file">Select a file:</label>
+                <input type="file">
+            </form>
+        </section>
+
+        <section class="delete">
+            <div class="title text-danger" id="dangerZone">Danger Zone</div>
+            <form>
+                <label for="delete-file">Delete all POIs from the database!</label>
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </section>
+    </div> 
+</body>
+</html>
