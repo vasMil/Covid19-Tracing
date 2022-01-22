@@ -8,4 +8,3 @@
         <div class="nav-statistics"><a href="#">Statistics</a></div>
     </div>
 </div>
-<link rel="stylesheet" href="./admin_navbar.min.css">

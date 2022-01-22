@@ -6,11 +6,16 @@ body {
     padding: 0;
 }
 
+.logo {
+    word-wrap: break-word;
+}
+
 .custom-navbar {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
     font-size: 1.5em;
     padding: 1em 2em;
 }
@@ -27,5 +32,20 @@ body {
 
     @include set-background(white);
     border-radius: 0.4em 0 0 0.4em;
-    opacity: 50%;
+    background-color: #747474;
+}
+
+@media (max-width: 650px) {
+    .custom-navbar {
+        padding: 0.5em;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        row-gap: 1em;
+    }
+
+    .right-navbar-wrapper {
+        position: relative;
+        border-radius: 0.4em;
+    }
 }
