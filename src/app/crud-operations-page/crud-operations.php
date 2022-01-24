@@ -18,19 +18,21 @@
     <div class="container">
         <section class="create">
             <div class="title">Create POIs</div>
-            <form enctype="multipart/form-data">
+            <form enctype="multipart/form-data" id="insert-pois">
                 <!-- Add appropriate name for the file input -->
                 <label for="create-file">Select a file:</label>
-                <input type="file">
+                <input type="file" accept="json" name="pois" id="input-insert-pois">
+                <button class="btn btn-custom-primary" id="btn-insert-pois" disabled>Insert Submitted POIs</button>
             </form>
         </section>
 
         <section class="update">
             <div class="title">Update POIs</div>
-            <form enctype="multipart/form-data">
-                <!-- Add appropriate name for the file input -->
+            <form enctype="multipart/form-data" id ="update-pois">
                 <label for="update-file">Select a file:</label>
-                <input type="file">
+                <!-- Add appropriate name for the file input -->
+                <input type="file" accept="json" name="pois" id="input-update-pois">
+                <button class="btn btn-custom-primary" id="btn-update-pois" disabled>Update Submitted POIs</button>
             </form>
         </section>
 
@@ -43,4 +45,5 @@
         </section>
     </div> 
 </body>
+<script src="./crud-operations.js"></script>
 </html>

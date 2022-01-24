@@ -15,9 +15,6 @@ const insertStatus = {
 }
 
 exports.insertPois = async (req, res, next) => {
-    if (!req.body.last_modified) {
-        throw "NoField:fileLastModified";
-    }
     insertStatus.fileLastModified = req.body.last_modified;
     insertStatus.filename = req.file.originalname;
     const poiStr = await readFile(req.file.path, 'utf8');
@@ -32,6 +29,9 @@ exports.insertPois = async (req, res, next) => {
     await db.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
     await db.beginTransaction();
     try {
+        if (!req.body.last_modified) {
+            throw "NoField:fileLastModified";
+        }
         for (let poi of poiArr) {
             if(i !== 0 && i % 8400 === 0) {
                 // commit
@@ -73,14 +73,14 @@ exports.insertPois = async (req, res, next) => {
     }
     catch(err) {
         let msg = "Last insert failed! Database rollback successful!";
-        if (err.message = "invalidPoiType") {
+        if (/^invalidPoiType:.*$/.test(err.message)) {
             msg += ` Error: ${err.message}`;
         }
         if (err.message == "NoField:fileLastModified") {
             msg += ` Error: ${err.message}`;
         }
         db.rollback();
-        res.status(500).json({
+        res.status(409).json({
             error: true,
             dbRollback: true,
             message: msg
@@ -110,8 +110,8 @@ function formatForInsertPoi(poi) {
     let safe_rating_n = poi.rating_n ? poi.rating_n : 0;
     let typeSetStr = "('";
     for (type of poi.types) {
-        if (!validPoiTypes.includes(type) && !hasOther) {
-            throw 'invalidPoiType';
+        if (!validPoiTypes.includes(type)) {
+            throw `invalidPoiType: ${type}`;
         }
         typeSetStr += `${type},`;
     }
