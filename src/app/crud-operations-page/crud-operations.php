@@ -43,7 +43,8 @@
                 <button class="btn btn-danger">Delete</button>
             </form>
         </section>
-    </div> 
+    </div>
+    <section class="console"></section>
 </body>
 <script src="./crud-operations.js"></script>
 </html>

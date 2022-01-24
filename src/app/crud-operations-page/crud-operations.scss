@@ -1,6 +1,7 @@
 @import "../styles.scss";
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
 .nav-crud-operations {
     color: $primary-color;
@@ -56,4 +57,63 @@ section {
     background-size: 10px 2px;
     background-repeat: repeat-x;
     border-bottom: none;
+}
+
+.console {
+    padding: 0.5em 3em;
+    border-top: 1px solid $primary-color;
+
+    color: white;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+
+    min-height: 25vh;
+    overflow-y: auto;
+
+    &:hover {
+        box-shadow: 0px -2px 1px #88888838;
+        border-top: 1px solid #{$primary-color}88;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+.console-text {
+    font-family: 'Ubuntu Mono', monospace;
+    color: white;
+    &::before {
+        content: "Admin$";
+        color: rgb(111, 111, 212);
+        margin-right: 1em;
+        font-weight: 800;
+    }
+    &::selection {
+        color: black;
+        background: white;
+    }
+}
+
+.console-success {
+    color: $primary-color;
+    &::selection {
+        color: black;
+        background: white;
+    }
+}
+
+.console-danger {
+    color: $red;
+    &::selection {
+        color: black;
+        background: white;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

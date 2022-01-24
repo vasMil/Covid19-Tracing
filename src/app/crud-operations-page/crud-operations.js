@@ -20,16 +20,28 @@ async function submitFile(event) {
     const lm_obj = new Date(inpInsert.files[0].lastModified);
     const lm_str = lm_obj.toISOString().substring(0, 19).replace('T', ' ');;
     data.append('last_modified', lm_str);
-    const resp = await fetch("http://localhost:8080/insert-pois", {
-        method: "POST",
-        headers: {
-            'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
-            // DO NOT ADD Content-type, it is automatically inserted by the browser, with the correct boundary
-            // https://muffinman.io/blog/uploading-files-using-fetch-multipart-form-data/
-        },
-        body: data
-    });
-    console.log(await resp.json());
+    try {
+        const resp = await fetch("http://localhost:8080/insert-pois", {
+            method: "POST",
+            headers: {
+                'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
+                // DO NOT ADD Content-type, it is automatically inserted by the browser, with the correct boundary
+                // https://muffinman.io/blog/uploading-files-using-fetch-multipart-form-data/
+            },
+            body: data
+        });
+        if (resp.ok) {
+            consoleSuccess("Insert POIs", "Success!");
+        }
+        else {
+            const respJson = await resp.json();
+            consoleDanger("Insert POIs", "Failed!", `Err: ${respJson.message}`);
+        }
+    } catch(err) {
+        consoleDanger("Insert POIs", "Failed!", `Err: Server is down!`);
+    }
+    // await resp.json();
+    
 }
 
 function fileUploaded(event) {
@@ -52,3 +64,29 @@ function fileUploaded(event) {
     // Enable the button
     submBtn.disabled = false;
 }
+
+const console = document.querySelector(".console");
+
+const consoleSuccess = (textBefore, textHighlighted, textAfter) => {
+    const msgEl = document.createElement("div");
+    msgEl.classList = "console-text";
+    msgEl.innerHTML = 
+        `${textBefore}
+        <span class="console-success">
+            ${textHighlighted}
+        </span>
+        ${textAfter}`;
+    console.appendChild(msgEl);
+};
+
+const consoleDanger = (textBefore, textHighlighted, textAfter) => {
+    const msgEl = document.createElement("div");
+    msgEl.classList = "console-text";
+    msgEl.innerHTML = 
+        `${textBefore}
+        <span class="console-danger">
+            ${textHighlighted}
+        </span>
+        ${textAfter}`;
+    console.appendChild(msgEl);
+};
