@@ -1,5 +1,5 @@
 const protectedAdminRouter = require('express').Router();
-const { insertPois } = require('./controllers/poiController');
+const { insertPois } = require('./controllers/insertPoisController');
 const multer = require('multer');
 const path = require('path')
 
