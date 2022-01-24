@@ -43,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"mg\",\r\n    \"password\": \"Pass123@\"\r\n}",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"password\": \"Test123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -176,6 +176,214 @@
 							"port": "8080",
 							"path": [
 								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin - routes",
+			"item": [
+				{
+					"name": "Insert POIs",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0MzAyNjM1MywiZXhwIjoxNjQzMTEyNzUzfQ.5XQXNUer17s9P3YOl20_j0Q6UEF4gQDluhu7mmeUNRk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pois",
+									"type": "file",
+									"src": "/C:/Users/Vasilis/Desktop/CEID/4o etos/Web/project/archive/starting_pois.json"
+								},
+								{
+									"key": "last_modified",
+									"value": "2022-01-08 17:51:04.777",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/insert-pois",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"insert-pois"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete POIs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0MzA2NDk5MywiZXhwIjoxNjQzMTUxMzkzfQ.W2qamt4RizMwnC_Onj51eA3UAZW8jSrDgpo_qZZLFKI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/delete-pois",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"delete-pois"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user - routes",
+			"item": [
+				{
+					"name": "search pois",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6Im1nIiwiaWF0IjoxNjQyNTQ3MjAwLCJleHAiOjE2NDI2MzM2MDB9.iqqnm_mnIN60PHaMHegTrsaHIhoGa9ICJ45le9pTFcY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pois/search/?type=food&day=1&hour=13&lat=38.23786987257117&lng=21.730516184225525",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pois",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "food"
+								},
+								{
+									"key": "day",
+									"value": "1"
+								},
+								{
+									"key": "hour",
+									"value": "13"
+								},
+								{
+									"key": "lat",
+									"value": "38.23786987257117"
+								},
+								{
+									"key": "lng",
+									"value": "21.730516184225525"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reportCovidCase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6Im1nIiwiaWF0IjoxNjQyNTQ3MjAwLCJleHAiOjE2NDI2MzM2MDB9.iqqnm_mnIN60PHaMHegTrsaHIhoGa9ICJ45le9pTFcY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dayReportedPositive\": \"2022-04-19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/report-case/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"report-case",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "poisExposedUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NDI3MDQyNjksImV4cCI6MTY0Mjc5MDY2OX0.kVftCj2B1a6EvwTKKsRXa2f5da4ymKvrzB3EbsRo8zs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pois-exposed-user-to-covid/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pois-exposed-user-to-covid",
+								""
 							]
 						}
 					},

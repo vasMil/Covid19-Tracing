@@ -66,16 +66,17 @@ CREATE TABLE visit_table (
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),
   INDEX user_poi_idx (user_id, poi_id) INVISIBLE);
-   
+
+DROP TABLE IF EXISTS admin_changes_table;
 CREATE TABLE admin_changes_table (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   admin_id INT UNSIGNED NOT NULL,
-  type ENUM('DELTE', 'UPDATE', 'INSERT') NOT NULL,
+  type ENUM('DELETE', 'UPDATE', 'INSERT') NOT NULL,
   success BOOLEAN NOT NULL,
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   num_of_changes INT NOT NULL,
-  file_last_mod DATETIME(3) NOT NULL,
-  file_name_used VARCHAR(100) NOT NULL,
+  file_last_mod DATETIME(3) DEFAULT NULL,
+  file_name_used VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (admin_id) REFERENCES admin_table (admin_id),
   INDEX file_name_idx (file_name_used) INVISIBLE

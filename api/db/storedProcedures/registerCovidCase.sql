@@ -12,4 +12,4 @@ END $
 DELIMITER ;
 
 -- Test
-CALL registerCovidCase(2,'2022-01-19');
+-- CALL registerCovidCase(2,'2022-01-19');

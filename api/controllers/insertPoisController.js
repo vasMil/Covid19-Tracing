@@ -80,6 +80,7 @@ exports.insertPois = async (req, res, next) => {
             msg += ` Error: ${err.message}`;
         }
         db.rollback();
+        insertStatus.success = false;
         res.status(409).json({
             error: true,
             dbRollback: true,

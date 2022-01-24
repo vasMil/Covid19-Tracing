@@ -67,7 +67,7 @@ function fileUploaded(event) {
 
 const console = document.querySelector(".console");
 
-const consoleSuccess = (textBefore, textHighlighted, textAfter) => {
+const consoleSuccess = (textBefore="", textHighlighted="", textAfter="") => {
     const msgEl = document.createElement("div");
     msgEl.classList = "console-text";
     msgEl.innerHTML = 
@@ -79,7 +79,7 @@ const consoleSuccess = (textBefore, textHighlighted, textAfter) => {
     console.appendChild(msgEl);
 };
 
-const consoleDanger = (textBefore, textHighlighted, textAfter) => {
+const consoleDanger = (textBefore="", textHighlighted="", textAfter="") => {
     const msgEl = document.createElement("div");
     msgEl.classList = "console-text";
     msgEl.innerHTML = 
