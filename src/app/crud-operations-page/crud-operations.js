@@ -11,7 +11,31 @@ inpInsert.addEventListener("change", fileUploaded);
 const btnInsert = document.querySelector("#btn-insert-pois");
 btnInsert.addEventListener("click", submitFile);
 
+// Delete POIs
+const btnDelete = document.querySelector("#btn-delete-pois");
+btnDelete.addEventListener("click", deletePois);
 
+async function deletePois(event) {
+    event.preventDefault();
+    try {
+        const resp = await fetch("http://localhost:8080/delete-pois", {
+            method: "DELETE",
+            headers: {
+                'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
+            }
+        });
+        const respJson = await resp.json();
+        if (resp.ok) {
+            consoleSuccess("Delete POIs", "Success!", `${respJson.message}`);
+        }
+        else {
+            consoleDanger("Delete POIs", "Failed!", `Err: ${respJson.message}`);
+        }
+    }
+    catch(err) {
+        consoleDanger("Delete POIs", "Failed!", `Err: Server is probably down!`);
+    }
+}
 
 /* UTILITY FUNCTIONS */
 async function submitFile(event) {
@@ -38,7 +62,7 @@ async function submitFile(event) {
             consoleDanger("Insert POIs", "Failed!", `Err: ${respJson.message}`);
         }
     } catch(err) {
-        consoleDanger("Insert POIs", "Failed!", `Err: Server is down!`);
+        consoleDanger("Insert POIs", "Failed!", `Err: Server is probably down!`);
     }
     // await resp.json();
     
@@ -77,6 +101,7 @@ const consoleSuccess = (textBefore="", textHighlighted="", textAfter="") => {
         </span>
         ${textAfter}`;
     console.appendChild(msgEl);
+    msgEl.scrollIntoView();
 };
 
 const consoleDanger = (textBefore="", textHighlighted="", textAfter="") => {
@@ -89,4 +114,5 @@ const consoleDanger = (textBefore="", textHighlighted="", textAfter="") => {
         </span>
         ${textAfter}`;
     console.appendChild(msgEl);
+    msgEl.scrollIntoView();
 };

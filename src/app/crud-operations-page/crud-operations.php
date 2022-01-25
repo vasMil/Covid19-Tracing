@@ -40,7 +40,7 @@
             <div class="title text-danger" id="dangerZone">Danger Zone</div>
             <form>
                 <label for="delete-file">Delete all POIs from the database!</label>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" id="btn-delete-pois">Delete</button>
             </form>
         </section>
     </div>
