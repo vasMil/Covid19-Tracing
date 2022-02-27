@@ -15,6 +15,7 @@ const insertStatus = {
 }
 
 exports.insertPois = async (req, res, next) => {
+    insertStatus.rowsAttemped = 0;
     insertStatus.fileLastModified = req.body.last_modified;
     insertStatus.filename = req.file.originalname;
     const poiStr = await readFile(req.file.path, 'utf8');

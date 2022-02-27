@@ -12,11 +12,12 @@ exports.deletePois = async (req, res, next) => {
     await db.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
     await db.beginTransaction();
     try {
-        const [visitRows] = await db.execute(`DELETE FROM visit_table;`);
+        deleteStatus.rowsAttemped = 0;
+        const [visitRows, fields] = await db.execute(`DELETE FROM visit_table;`);
         deleteStatus.rowsAttemped += visitRows.affectedRows;
-        const [ptRows] = await db.execute(`DELETE FROM popular_times_table;`);
+        const [ptRows, fieldss] = await db.execute(`DELETE FROM popular_times_table;`);
         deleteStatus.rowsAttemped += ptRows.affectedRows;
-        const [poiRows] = await db.execute(`DELETE FROM poi_table;`);
+        const [poiRows, fieldsss] = await db.execute(`DELETE FROM poi_table;`);
         deleteStatus.rowsAttemped += poiRows.affectedRows;
         await db.commit();
         deleteStatus.success = true;
