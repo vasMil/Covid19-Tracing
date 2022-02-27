@@ -3,13 +3,25 @@ if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
 }
 
 // Insert POIs
-const formInsert = document.querySelector("#insert-pois").addEventListener("submit", (event) => {
+const formInsert = document.querySelector("#insert-pois");
+formInsert.addEventListener("submit", (event) => {
     event.preventDefault();
 });
 const inpInsert = document.querySelector("#input-insert-pois");
 inpInsert.addEventListener("change", fileUploaded);
 const btnInsert = document.querySelector("#btn-insert-pois");
 btnInsert.addEventListener("click", submitFile);
+
+// Update POIs
+const formUpdate = document.querySelector("#update-pois");
+formUpdate.addEventListener("submit", (event) => {
+    event.preventDefault();
+});
+const inpUpdate = document.querySelector("#input-update-pois");
+inpUpdate.addEventListener("change", fileUploaded);
+const btnUpdate = document.querySelector("#btn-update-pois");
+btnUpdate.addEventListener("click", updatePois);
+
 
 // Delete POIs
 const btnDelete = document.querySelector("#btn-delete-pois");
@@ -42,7 +54,7 @@ async function submitFile(event) {
     const data = new FormData();
     data.append('pois', inpInsert.files[0]);
     const lm_obj = new Date(inpInsert.files[0].lastModified);
-    const lm_str = lm_obj.toISOString().substring(0, 19).replace('T', ' ');;
+    const lm_str = lm_obj.toISOString().substring(0, 19).replace('T', ' ');
     data.append('last_modified', lm_str);
     try {
         const resp = await fetch("http://localhost:8080/insert-pois", {
@@ -64,13 +76,41 @@ async function submitFile(event) {
     } catch(err) {
         consoleDanger("Insert POIs", "Failed!", `Err: Server is probably down!`);
     }
-    // await resp.json();
-    
+}
+
+async function updatePois(event) {
+    const data = new FormData();
+    data.append('pois', inpUpdate.files[0]);
+    const lm_obj = new Date(inpUpdate.files[0].lastModified);
+    const lm_str = lm_obj.toISOString().substring(0, 19).replace('T', ' ');
+    data.append('last_modified', lm_str);
+    try {
+        const resp = await fetch("http://localhost:8080/update-pois", {
+            method: "PUT",
+            headers: {
+                'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
+            },
+            body: data
+        });
+        const respJson = await resp.json();
+        if (resp.ok) {
+            let args = ["Update POIs", "Success!"];
+            if (respJson.message !== null) {
+                args.push(`Note: ${respJson.message}`);
+            }
+            consoleSuccess(...args);
+        }
+        else {
+            consoleDanger("Update POIs", "Failed!", `Err: ${respJson.message}`);
+        }
+    } catch(err) {
+        consoleDanger("Update POIs", "Failed!", `Err: Server is probably down!`);
+    }
 }
 
 function fileUploaded(event) {
     // Get the btn element, which is a sibling of the event target
-    // This requires the input filed to be a sibling CLOSEST TO THE PARENT
+    // This requires the input field to be a sibling CLOSEST TO THE PARENT
     // than the submit button
     const idReg = /^btn-.*-pois$/;
     let submBtn = event.target.nextElementSibling;
