@@ -38,7 +38,7 @@
                 Vero sapiente ab hic quos maxime a quidem dolorem accusamus recusandae molestias sunt sit, numquam totam libero iste quibusdam ipsam.
                 Odio cupiditate ad quos reprehenderit qui consectetur quod sed, a architecto, 
                 culpa fugiat assumenda quas eligendi omnis totam esse natus perferendis ratione!
-                <button class="btn btn-custom-primary">Join Us</button>
+                <button class="btn btn-custom-primary" id="join-us-button">Join Us</button>
             </div>
         </section>
 
