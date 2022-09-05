@@ -62,14 +62,6 @@
                 Locations Registered <i class="fas fa-angle-down"></i>
             </button>
             <div class="collapse" id="collapse-registered-locations">
-                <div class="card card-body">
-                At a place with a really long name in order to cause overflow
-                and for the scrollbar to be visible. I also changed its width so it
-                is a lot thinner, just to look better.
-                </div>
-                <div class="card card-body">
-                A poi
-                </div>
             </div>
         </div>
 
@@ -80,12 +72,6 @@
                 Dates I declaired positive to Covid-19 <i class="fas fa-angle-down"></i>
             </button>
             <div class="collapse" id="collapse-days-positive">
-                <div class="card card-body">
-                Monday 14 August 2021, 13:24:23
-                </div>
-                <div class="card card-body">
-                Wednesday 23 March 2022, 10:40:01
-                </div>
             </div>
         </div>
 

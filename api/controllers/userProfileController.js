@@ -4,7 +4,7 @@ exports.getProfileInfo = async (req, res, next) => {
     let info = {
         "username": req.locals.verifiedUser.username,
         "email": "",
-        "visitied_pois": [],
+        "visited_pois": [],
         "was_positive_covid": []
     };
     try {
@@ -22,7 +22,7 @@ exports.getProfileInfo = async (req, res, next) => {
             return;            
         }
         info.email = rows[0][0].email;
-        info.visitied_pois = rows[1];
+        info.visited_pois = rows[1];
         info.was_positive_covid = rows[2];
         
         return res.status(200).json(info);

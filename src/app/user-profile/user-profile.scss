@@ -63,7 +63,7 @@
     .collapse, .collapsing {
         max-height: 20em;
         padding-right: 0.5em;
-        overflow-y: scroll;
+        overflow-y: auto;
         margin-left: 1.5em;
     }
 
@@ -81,9 +81,12 @@
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
 
+        font-family: $secondary-font;
+        font-size: 0.8em;
+
         // Handle overflowing text
         white-space: nowrap;
-        overflow-x: scroll;
+        overflow-x: auto;
         &::-webkit-scrollbar {
             height: 2px;
         }
