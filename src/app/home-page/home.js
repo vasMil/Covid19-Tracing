@@ -18,17 +18,26 @@ const map = L.map('map', {
 // Add the required tiles on the map
 tiles.addTo(map);
 
-// TODO: Watch for user's location https://w3c.github.io/geolocation-api/#watchposition-method
-navigator.geolocation.getCurrentPosition(positionCallback, errorCallback);
-const userPos = {
+let userPos = {
     lat: null,
     lng: null
 }
 
+const οpts = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+};
+
+// TODO: Watch for user's location https://w3c.github.io/geolocation-api/#watchposition-method
+navigator.geolocation.getCurrentPosition(positionCallback, errorCallback, οpts);
+
 function positionCallback(position) {
-    // TODO: Use actual position - Retrieve the usefull info
-    // userPos.lat = position.coords.latitude;
-    // userPos.lng = position.coords.longitude;
+    console.log("Requesting location: ")
+    // If accuracy is low it is probably because you have turned off location sharing on your device! 
+    userPos.lat = position.coords.latitude;
+    userPos.lng = position.coords.longitude;
+    // For testing
     userPos.lat = 38.23786987257117;
     userPos.lng = 21.730516184225525;
     // Setup a marker pointing at user's location
@@ -40,7 +49,7 @@ function positionCallback(position) {
     }).addTo(map);
     
     // Set the view of the map
-    map.setView([userPos.lat, userPos.lng], 12);
+    map.setView([userPos.lng, userPos.lng], 12);
 
     // Define a circle with a radius of 5km
     const circleViewOverlay = L.circle([userPos.lat, userPos.lng], {

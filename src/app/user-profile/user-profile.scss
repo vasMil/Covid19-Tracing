@@ -1,0 +1,85 @@
+@import "../styles.scss";
+
+
+// Header - profile picture
+#profile-picture-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    .profile-picture {
+        background:url("../../../resources/profile_picture_placeholder.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        align-content: center;
+        width: 4em;
+        height: 4em;
+        margin: auto;
+    }
+    .profile-picture-text {
+        color: $primary-color;
+        margin: auto;
+        font-size: 0.8em;
+    }
+}
+
+// Form - Username, Email, Password
+#profile-form {
+    background-color: transparent;
+    display: flex;
+    gap: 1em;
+    margin: 0 5em;
+}
+
+#prof-change-pass {
+    margin-left: auto;
+}
+
+.password-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.btn-pass {
+    display: inline;
+    width: 2.5rem;
+    margin-left: calc(-2.5rem - 3px);
+    border: none;
+    background: none;
+    justify-content: center;
+}
+
+.form-control.password {
+    display: inline;
+    padding-right: 2.5rem
+}
+
+// Collapse section
+.collapse-group {
+    margin-top: 2em;
+    
+    button.btn-custom-collapse {
+        background-color: transparent;
+        color: $primary-color;
+        border-bottom: solid 2px $primary-color;
+        margin-bottom: 0.5rem;
+    }
+    
+    div.card.card-body {
+        background-color: #ffffff63;
+        border: solid 1px $primary-color;
+        padding: 0.5rem;
+        margin-left: 1em;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        // Handle overflowing text
+        white-space: nowrap;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            height: 2px;
+        }
+    }
+}
