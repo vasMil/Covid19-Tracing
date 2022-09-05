@@ -59,7 +59,14 @@
 // Collapse section
 .collapse-group {
     margin-top: 2em;
-    
+
+    .collapse, .collapsing {
+        max-height: 20em;
+        padding-right: 0.5em;
+        overflow-y: scroll;
+        margin-left: 1.5em;
+    }
+
     button.btn-custom-collapse {
         background-color: transparent;
         color: $primary-color;
@@ -71,7 +78,6 @@
         background-color: #ffffff63;
         border: solid 1px $primary-color;
         padding: 0.5rem;
-        margin-left: 1em;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
 

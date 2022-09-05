@@ -92,5 +92,5 @@
         <?php include("../php_partials/ellipses/ellipses.php") ?>
     </div>
 </body>
-<script src="report-case.js"></script>
+<script src="user-profile.js"></script>
 </html>
