@@ -22,6 +22,18 @@
     }
 }
 
+// Modal
+.modal {
+    z-index: 99999;
+    color: black;
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}
+
 // Form - Username, Email, Password
 #profile-form {
     background-color: transparent;
@@ -30,7 +42,7 @@
     margin: 0 5em;
 }
 
-#prof-change-pass {
+#prof-update-info {
     margin-left: auto;
 }
 
@@ -54,6 +66,12 @@
 .form-control.password {
     display: inline;
     padding-right: 2.5rem
+}
+
+#response-messages-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 // Collapse section
@@ -90,5 +108,11 @@
         &::-webkit-scrollbar {
             height: 2px;
         }
+    }
+}
+
+.fas.fa-info-circle {
+    &:hover, &:focus {
+        color: $primary-color;
     }
 }

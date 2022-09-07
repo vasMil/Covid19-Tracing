@@ -5,7 +5,7 @@ BEGIN
 	DECLARE usernameUsed BOOL DEFAULT FALSE;
     DECLARE success_username BOOL DEFAULT FALSE;
     DECLARE success_password BOOL DEFAULT FALSE;
-    
+   	
     IF new_username IS NOT NULL AND new_password IS NOT NULL THEN
 		-- Update both password and username
 		SELECT COUNT(*) > 0 INTO usernameUsed
@@ -19,6 +19,12 @@ BEGIN
             WHERE users.user_id = user_id;
             
             SET success_username = TRUE;
+            SET success_password = TRUE;
+		ELSE
+			UPDATE user_table AS users
+            SET users.password = new_password
+            WHERE users.user_id = user_id;
+            
             SET success_password = TRUE;
 		END IF;
         
@@ -56,3 +62,5 @@ DELIMITER ;
 -- CALL update_username_password(4, "temp", NULL);
 -- Update only the password
 -- CALL update_username_password(4, NULL, "$2a$04$4OMqhjfu.eCGzFUcyp14AubLrXjw5fbOH8bP2mAWgYAxcm9ztFp3C"); -- Temp123@
+-- Username used but valid password update
+-- CALL update_username_password(4, "test", "NewUsername123@");
