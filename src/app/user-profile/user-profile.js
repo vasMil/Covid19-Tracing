@@ -247,3 +247,50 @@ function updateEyeIcon(event) {
         eyeIcon.className = "fas fa-eye-slash";
     }
 }
+
+/* Media Queries */
+// Check if dom is in the right state before using this!!!
+function disableAllCollapseButtons() {
+    let collapseGroups = document.getElementsByClassName("collapse-group");
+    Array.prototype.forEach.call(collapseGroups, collapseGroup => {
+        const btn = collapseGroup.querySelector("button");
+        const collapsableContainer = collapseGroup.querySelector("div");
+        btn.ariaExpanded = true;
+        btn.setAttribute("data-bs-toggle", "");
+        collapsableContainer.className = "show";
+    })
+}
+
+// Check if dom is in the right state before using this!!!
+function enableAllCollapseButtons() {
+    let collapseGroups = document.getElementsByClassName("collapse-group");
+    Array.prototype.forEach.call(collapseGroups, collapseGroup => {
+        const btn = collapseGroup.querySelector("button");
+        const collapsableContainer = collapseGroup.querySelector("div");
+        btn.ariaExpanded = false;
+        btn.setAttribute("data-bs-toggle", "collapse");
+        collapsableContainer.className = "collapse";
+    })
+}
+
+// The actual query
+document.addEventListener("DOMContentLoaded", () => {
+    const largeScreenMedia = matchMedia('(min-width: 992px');
+    largeScreenMedia.addEventListener("change", handleMedaQueries);
+
+    function handleMedaQueries() {
+        const datesButton = document.getElementById("btn-days-positive");
+        const collapsableContainer = document.getElementById("collapse-days-positive");
+
+        if(largeScreenMedia.matches) {
+            disableAllCollapseButtons();
+        }
+        else {
+            enableAllCollapseButtons();
+        }
+    }
+    
+    // Call it once here to setup for the first time
+    handleMedaQueries();
+});
+

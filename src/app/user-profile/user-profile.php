@@ -27,11 +27,6 @@
     <div class="container">
         <?php include("../php_partials/navbar/navbar.php") ?>
         <script src="../php_partials/navbar/navbar.js"></script>
-
-        <header id="profile-picture-header">
-            <div class="profile-picture"></div>
-            <div class="profile-picture-text">My profile</div>
-        </header>
         
         <!-- MODAL -->
         <div class="modal fade" id="confirmPasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -56,7 +51,10 @@
         </div>
         </div>
         <!-- MODAL END -->
-
+        <header id="profile-picture-header">
+            <div class="profile-picture"></div>
+            <div class="profile-picture-text">My profile</div>
+        </header>
 
         <form class="card" id="profile-form">
         <div class="form-group">
@@ -91,20 +89,20 @@
         <div id="response-messages-container" hidden></div>
         </form>
 
-        <div class="collapse-group">
+        <div class="collapse-group" id="collapse-group-locations">
             <button class="btn-custom-collapse" id="btn-registered-locations"
                 type="button" data-bs-toggle="collapse" data-bs-target="#collapse-registered-locations"
-                aria-expanded="false" aria-controls="collapseExample">
+                aria-expanded="false">
                 Locations Registered <i class="fas fa-angle-down"></i>
             </button>
             <div class="collapse" id="collapse-registered-locations">
             </div>
         </div>
 
-        <div class="collapse-group">
+        <div class="collapse-group" id="collapse-group-covid-positive">
             <button class="btn-custom-collapse" id="btn-days-positive"
                 type="button" data-bs-toggle="collapse" data-bs-target="#collapse-days-positive"
-                aria-expanded="false" aria-controls="collapseExample">
+                aria-expanded="false">
                 Dates I declaired positive to Covid-19 <i class="fas fa-angle-down"></i>
             </button>
             <div class="collapse" id="collapse-days-positive">
