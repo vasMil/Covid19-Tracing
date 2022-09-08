@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "64d79c87-3eee-4fd9-84ec-4d4d7c87ff89",
 		"name": "Covid19-Tracing",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17033781"
 	},
 	"item": [
 		{
@@ -197,7 +198,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0MzAyNjM1MywiZXhwIjoxNjQzMTEyNzUzfQ.5XQXNUer17s9P3YOl20_j0Q6UEF4gQDluhu7mmeUNRk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MjMxMjQ4MSwiZXhwIjoxNjYyMzk4ODgxfQ.MqlaNuiagyogC7b2bAaSi5T0cxSTDyc_75BKPr3F-6Q",
 									"type": "string"
 								}
 							]
@@ -210,7 +211,7 @@
 								{
 									"key": "pois",
 									"type": "file",
-									"src": "/C:/Users/Vasilis/Desktop/CEID/4o etos/Web/project/archive/starting_pois.json"
+									"src": "/C:/Users/Vasilis/Desktop/CEID/4o etos/7ο/Web/project/starting_pois.json"
 								},
 								{
 									"key": "last_modified",
@@ -328,7 +329,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6Im1nIiwiaWF0IjoxNjQyNTQ3MjAwLCJleHAiOjE2NDI2MzM2MDB9.iqqnm_mnIN60PHaMHegTrsaHIhoGa9ICJ45le9pTFcY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MjMxMjQ4MSwiZXhwIjoxNjYyMzk4ODgxfQ.MqlaNuiagyogC7b2bAaSi5T0cxSTDyc_75BKPr3F-6Q",
 									"type": "string"
 								}
 							]
@@ -383,6 +384,36 @@
 							"port": "8080",
 							"path": [
 								"pois-exposed-user-to-covid",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjIzODE0ODcsImV4cCI6MTY2MjQ2Nzg4N30._rTc4kFXdjtekWh9fh0EL4jiu6mwysaBh0dR86D7f5k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user-profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-profile",
 								""
 							]
 						}
