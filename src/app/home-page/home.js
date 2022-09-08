@@ -113,32 +113,31 @@ async function initSearchForm() {
         });
         const respJson = await response.json();
         const pois = respJson.rows;
-        console.log(pois);
 
         clearMarkers();
         // placeProofPins(respJson.info, map);
         for (let [i,poi] of pois.entries()) {
-            markerFactory(poi.name, poi.address, poi.estimation, poi.approximation, i, pois.length, poi.latitude, poi.longitude);
+            markerFactory(poi, i, pois.length);
         }
     }
 }
 
 // UTILITY FUNCTIONS
-function markerFactory(poiName, poiAddress, estimation, approximation, index, numOfPois, lat, lng) {
+function markerFactory(poi, index, numOfPois) {
     const icon = getMarkerIcon(index, numOfPois);
     // Determine whether the marker isClose to the user location (aka within 20 meters)
     let isClose = false;
     const radiusInKm = 0.02;
-    const [min_lat, ] = destinationPoint(lat, lng, 180, radiusInKm);
-    const [max_lat, ] = destinationPoint(lat, lng, 0, radiusInKm);
-    const [, min_lng] = destinationPoint(lat, lng, 270, radiusInKm);
-    const [, max_lng] = destinationPoint(lat, lng, 90, radiusInKm);
+    const [min_lat, ] = destinationPoint(poi.latitude, poi.longitude, 180, radiusInKm);
+    const [max_lat, ] = destinationPoint(poi.latitude, poi.longitude, 0, radiusInKm);
+    const [, min_lng] = destinationPoint(poi.latitude, poi.longitude, 270, radiusInKm);
+    const [, max_lng] = destinationPoint(poi.latitude, poi.longitude, 90, radiusInKm);
     if (min_lat <= userPos.lat && userPos.lat <= max_lat && min_lng <= userPos.lng && userPos.lng <= max_lng) {
         isClose = true;
     }
 
-    L.marker([lat, lng], {icon: icon})
-    .bindPopup(popupContent(poiName, poiAddress, estimation, approximation, isClose), {
+    L.marker([poi.latitude, poi.longitude], {icon: icon})
+    .bindPopup(popupContent(poi, isClose), {
         className: "popup"
     })
     .addTo(map);
@@ -215,16 +214,19 @@ function getMarkerIcon(index, numOfPois) {
     return redIcon;
 }
 
-const popupContent = (name, address, estimation, userApprox, isClose) => {
+const popupContent = (poi, isClose) => {
     let template = `
-    <div class="popup-title">${name}</div>
+    <div class="popup-title">${poi.name}</div>
     <ul class="popup-list">
-        <li class="popup-item">Estimation for the next two hours: ${Math.round(estimation)}</li>
-        <li class="popup-item">Live approximation from user input: ${Math.round(userApprox)}</li>
+        <li class="popup-item">Estimation for the next two hours: ${Math.round(poi.estimation)}</li>
+        <li class="popup-item">Live approximation from user input: ${Math.round(poi.userApprox)}</li>
     </ul>
     `
     if (isClose) {
-        template += `<a href="../register-location/reg-loc.php?PoiName=${name}&PoiAddress=${address}">Register your current location</a>`
+        template += 
+        `<a href="../register-location/reg-loc.php?PoiName=${poi.name}&PoiAddress=${poi.address}&lat=${poi.latitude}&lng=${poi.longitude}">
+            Register your current location
+        </a>`
     } 
     return template;
 }

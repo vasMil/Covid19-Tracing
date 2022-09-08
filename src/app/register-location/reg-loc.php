@@ -32,25 +32,32 @@
 
         <section class="reg-loc">
             <form class="col g-2">
-                
-                <label class="form-label">Name:</label>
-                <input type="text" id="name" class="form-control" readonly>
-            
-                <label class="form-label">Address:</label>
-                <input type="text" id="address" class="form-control" readonly>
-                
-                <div class="col-md-3">
-                    <label class="form-label">Estimation:</label>
-                    <input type="number" id="estim" class="form-control">
+                <div class="form-group">
+                    <label class="form-label">Name:</label>
+                    <input type="text" id="name" class="form-control" readonly>
                 </div>
 
-                <button class="btn btn-outline-success" id ="submitButton" type="submit">Submit</button>
+                <div class="form-group">
+                    <label class="form-label">Address:</label>
+                    <input type="text" id="address" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group col-md-3 col-sm-3 col-3">
+                    <label class="form-label">Estimation:</label>
+                    <input type="number" id="estim" class="form-control" min="0">
+                </div>
+
+                <div class="row justify-content-end">
+                    <button class="btn col-3 btn-outline-success" id ="submitButton" type="submit">Submit</button>
+                </div>
             </form>
         </section>
 
-        <!--section class="regLoc-map">
+        <section class="regLoc-map">
             <div id="map"></div>
-        </section-->
+        </section>
+        
+        </div>
     </div>
 </body>
 <script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
