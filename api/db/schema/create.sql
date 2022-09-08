@@ -61,7 +61,7 @@ CREATE TABLE visit_table (
   user_id INT UNSIGNED NOT NULL,
   poi_id VARCHAR(30) NOT NULL,
   estimation INT NOT NULL,
-  timestamp TIMESTAMP NOT NULL,
+  timestamp DATETIME NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),

@@ -1,5 +1,6 @@
 if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
     window.location.replace(`${window.location.origin}/src/app/login-page/login.php`);
+    //TODO: check if token is valid
 }    
 
 // Retrieve the section where the map will exist
@@ -29,8 +30,10 @@ function positionCallback(position) {
     // TODO: Use actual position - Retrieve the usefull info
     // userPos.lat = position.coords.latitude;
     // userPos.lng = position.coords.longitude;
-    userPos.lat = 38.23786987257117;
-    userPos.lng = 21.730516184225525;
+    //userPos.lat = 38.23786987257117;
+    //userPos.lng = 21.730516184225525;
+    userPos.lat = 38.237285;
+    userPos.lng = 21.730425;
     // Setup a marker pointing at user's location
     L.marker([userPos.lat, userPos.lng], {
         title: "Your current position",
@@ -112,16 +115,18 @@ async function initSearchForm() {
         });
         const respJson = await response.json();
         const pois = respJson.rows;
+        console.log(pois);
+
         clearMarkers();
         // placeProofPins(respJson.info, map);
         for (let [i,poi] of pois.entries()) {
-            markerFactory(poi.name, poi.estimation, poi.approximation, i, pois.length, poi.latitude, poi.longitude);
+            markerFactory(poi.name, poi.address, poi.estimation, poi.approximation, i, pois.length, poi.latitude, poi.longitude);
         }
     }
 }
 
 // UTILITY FUNCTIONS
-function markerFactory(poiName, estimation, approximation, index, numOfPois, lat, lng) {
+function markerFactory(poiName, poiAddress, estimation, approximation, index, numOfPois, lat, lng) {
     const icon = getMarkerIcon(index, numOfPois);
     // Determine whether the marker isClose to the user location (aka within 20 meters)
     let isClose = false;
@@ -135,7 +140,7 @@ function markerFactory(poiName, estimation, approximation, index, numOfPois, lat
     }
 
     L.marker([lat, lng], {icon: icon})
-    .bindPopup(popupContent(poiName, estimation, approximation, isClose), {
+    .bindPopup(popupContent(poiName, poiAddress, estimation, approximation, isClose), {
         className: "popup"
     })
     .addTo(map);
@@ -212,7 +217,7 @@ function getMarkerIcon(index, numOfPois) {
     return redIcon;
 }
 
-const popupContent = (name, estimation, userApprox, isClose) => {
+const popupContent = (name, address, estimation, userApprox, isClose) => {
     let template = `
     <div class="popup-title">${name}</div>
     <ul class="popup-list">
@@ -221,7 +226,7 @@ const popupContent = (name, estimation, userApprox, isClose) => {
     </ul>
     `
     if (isClose) {
-        template += `<a href="../register-location/reg-loc.php">Register your current location</a>`
+        template += `<a href="../register-location/reg-loc.php?PoiName=${name}&PoiAddress=${address}">Register your current location</a>`
     } 
     return template;
 }

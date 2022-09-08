@@ -31,31 +31,26 @@
         </header>
 
         <section class="reg-loc">
-            <form class="row g-1">
+            <form class="col g-2">
                 
                 <label class="form-label">Name:</label>
-                <input type="text" id="name" placeholder="Enter POI's name" class="form-control">
+                <input type="text" id="name" class="form-control" readonly>
             
                 <label class="form-label">Address:</label>
-                <input type="text" id="address" placeholder="Enter POI's address" class="form-control">
-
-                <div class="col-md-3">
-                    <label class="form-label">Timestamp:</label>
-                    <input type="datetime" id="timestamp" class="form-control">
-                </div>
+                <input type="text" id="address" class="form-control" readonly>
                 
                 <div class="col-md-3">
                     <label class="form-label">Estimation:</label>
                     <input type="number" id="estim" class="form-control">
                 </div>
 
-                <button class="btn btn-outline-success" type="submit">Submit</button>
+                <button class="btn btn-outline-success" id ="submitButton" type="submit">Submit</button>
             </form>
         </section>
 
-        <section class="regLoc-map">
+        <!--section class="regLoc-map">
             <div id="map"></div>
-        </section>
+        </section-->
     </div>
 </body>
 <script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
