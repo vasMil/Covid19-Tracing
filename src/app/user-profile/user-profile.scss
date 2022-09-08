@@ -1,5 +1,11 @@
 @import "../styles.scss";
 
+// navbar
+.nav-profile {
+    color: $primary-color;
+    text-decoration: underline;
+}
+
 // Header - profile picture
 #profile-picture-header {
     display: flex;

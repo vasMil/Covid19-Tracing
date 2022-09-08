@@ -16,6 +16,7 @@ function onClick(event) {
         isExpanded = true;
         // Configure what happens when the user taps outside of the navbar
         overlay.addEventListener("click", closeNavbar);
+        overlay.hidden = false;
     }
     else {
         closeNavbar();
@@ -23,7 +24,6 @@ function onClick(event) {
 }
 
 function closeNavbar() {
-    console.log("CLOSE NAVBAR!");
     expNavDiv.style.display = "none";
     navbarBtn.firstElementChild.classList.remove('fa-times');
     navbarBtn.firstElementChild.classList.add('fa-bars');
@@ -31,4 +31,5 @@ function closeNavbar() {
 
     // Remove overlay event listener
     overlay.removeEventListener("click", closeNavbar);
+    overlay.hidden = true;
 }
