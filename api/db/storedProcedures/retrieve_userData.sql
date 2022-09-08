@@ -26,6 +26,6 @@ BEGIN
 END $
 DELIMITER ;
 
-# Test
+-- Test
 -- CALL retrieve_userData("mg");
 -- CALL retrieve_userData("admin");

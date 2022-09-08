@@ -37,7 +37,7 @@ BEGIN
 END$
 DELIMITER ;
 
-# Test
+-- Test
 -- CALL register_user("manos", "@mail", "pass12344");
 -- CALL register_user("admin", "admin@admin.com", "Pass123@");
 -- CALL register_user("testUser", "test@user.com", "Test123@");
