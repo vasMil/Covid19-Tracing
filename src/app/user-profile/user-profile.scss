@@ -139,17 +139,25 @@
         grid-row: 3 / 5;
         grid-column: 1 / 2;
     }
+    
+    .collapsables-wrapper {
+        grid-row: 2 / 6;
+        grid-column: 2 / 3;
+        display: flex;
+        flex-direction: column;
+        gap: 5em;
+    }
 
     .collapse-group {
         div.card.card-body {
+            margin-left: 4px;
             font-size: 1em;
             white-space: initial;
 
-            &:hover {
-                transition: all 0.2s ease-out;
-                box-shadow: 3px 3px 2px rgba(192, 192, 192, 0.2);
-                top: -4px;
-                left: -4px;
+            &:hover, &:focus {
+                transition: all .1s linear;
+                box-shadow: 1px 2px 3px 4px rgba(12,12,12,0.2);
+                transform: scale(1.01);
                 border: 1px solid #cccccc;
             }
         }
@@ -165,28 +173,27 @@
             }
         }
     }
+    
+    #collapse-registered-locations {  
+        display: grid;
+        grid-auto-rows: max-content;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em;
+        height: 100%;
+        max-height: 40vh;
+        overflow-y: auto;
+        padding-right: 10px;
 
-    #collapse-group-locations {
-        grid-row: 2 / 5;
-        grid-column: 2 / 3;
-        
-        #collapse-registered-locations {  
-            display: grid;
-            grid-template-rows: repeat(3, 1fr);
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1em;
-            height: 100% !important;
-
-            div.card.card-body {
-                justify-content: center;
-                text-align: center;
-            }
+        div.card.card-body {
+            justify-content: center;
+            text-align: center;
         }
     }
 
-    #collapse-group-covid-positive {
-        grid-column: 2 / 3;
-        grid-row: 5 / 6;
+    #collapse-days-positive {
+        max-height: 25vh;
+        overflow-y: auto;
+        padding-right: 10px;
     }
 
     .ellipses {

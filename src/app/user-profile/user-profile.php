@@ -89,23 +89,25 @@
         <div id="response-messages-container" hidden></div>
         </form>
 
-        <div class="collapse-group" id="collapse-group-locations">
-            <button class="btn-custom-collapse" id="btn-registered-locations"
-                type="button" data-bs-toggle="collapse" data-bs-target="#collapse-registered-locations"
-                aria-expanded="false">
-                Locations Registered <i class="fas fa-angle-down"></i>
-            </button>
-            <div class="collapse" id="collapse-registered-locations">
+        <div class="collapsables-wrapper">
+            <div class="collapse-group" id="collapse-group-locations">
+                <button class="btn-custom-collapse" id="btn-registered-locations"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#collapse-registered-locations"
+                    aria-expanded="false">
+                    Locations Registered <i class="fas fa-angle-down"></i>
+                </button>
+                <div class="collapse" id="collapse-registered-locations">
+                </div>
             </div>
-        </div>
 
-        <div class="collapse-group" id="collapse-group-covid-positive">
-            <button class="btn-custom-collapse" id="btn-days-positive"
-                type="button" data-bs-toggle="collapse" data-bs-target="#collapse-days-positive"
-                aria-expanded="false">
-                Dates I declaired positive to Covid-19 <i class="fas fa-angle-down"></i>
-            </button>
-            <div class="collapse" id="collapse-days-positive">
+            <div class="collapse-group" id="collapse-group-covid-positive">
+                <button class="btn-custom-collapse" id="btn-days-positive"
+                    type="button" data-bs-toggle="collapse" data-bs-target="#collapse-days-positive"
+                    aria-expanded="false">
+                    Dates I declaired positive to Covid-19 <i class="fas fa-angle-down"></i>
+                </button>
+                <div class="collapse" id="collapse-days-positive">
+                </div>
             </div>
         </div>
 
