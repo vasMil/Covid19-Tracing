@@ -1,7 +1,6 @@
-if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
-    window.location.replace(`${window.location.origin}/src/app/login-page/login.php`);
-    //TODO: check if token is valid
-}    
+import {redirectIfTokenMissing, safe_fetch} from "../auth_helper.js";
+
+redirectIfTokenMissing();
 
 // Retrieve the section where the map will exist
 const mapSection = document.querySelector(".home-map");
@@ -104,14 +103,14 @@ async function initSearchForm() {
     async function searchPois(event) {
         const searchStr = searchInput.value;
         const now = new Date();
-        const response = await fetch(
+        const fetch_req = fetch(
             `http://localhost:8080/pois/search/?type=${searchStr}&day=${now.getDay()}&hour=${now.getHours()}&lat=${userPos.lat}&lng=${userPos.lng}`,
             {
                 headers: {
                     'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
             }
         });
-        const respJson = await response.json();
+        const respJson = await safe_fetch(fetch_req);
         const pois = respJson.rows;
 
         clearMarkers();

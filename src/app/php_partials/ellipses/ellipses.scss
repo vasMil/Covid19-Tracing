@@ -43,16 +43,20 @@
             position: fixed;
             height: 40vw;
             width: 40vw;
-            top: random($limit: 100 - 20)+vh;
-            right: random($limit: 100 - 20)+vw;
+            top: 20vh;
+            left: -10vw;
+            // top: random($limit: 100 - 20)+vh;
+            // right: random($limit: 100 - 20)+vw;
         }
     
         #el-small {
             position: fixed;
             height: 24vw;
             width: 24vw;
-            top: random($limit: 100 - 12)+vh;
-            right: random($limit: 100 - 12)+vw;
+            top: 50vh;
+            left: 75vw;
+            // top: random($limit: 100 - 12)+vh;
+            // right: random($limit: 100 - 12)+vw;
         }
     }
 }

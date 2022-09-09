@@ -44,5 +44,6 @@
     </div>
 </body>
 <script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
-<script src="home.js"></script>
+<!-- <script src="../auth_helper.js"></script> -->
+<script type="module" src="home.js"></script>
 </html>
