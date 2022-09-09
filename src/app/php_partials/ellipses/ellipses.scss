@@ -26,3 +26,33 @@
         opacity: 70%;
     }
 }
+
+@media screen and (min-width: 992px) {
+    // .ellipses {
+    //     display: none;
+    // }
+    .ellipses {
+        z-index: -1;
+        position: fixed;
+        width: 90vw;
+        height: 100vh;
+        overflow-y: hidden;
+        overflow-x: visible;
+
+        #el-large {
+            position: fixed;
+            height: 40vw;
+            width: 40vw;
+            top: random($limit: 100 - 20)+vh;
+            right: random($limit: 100 - 20)+vw;
+        }
+    
+        #el-small {
+            position: fixed;
+            height: 24vw;
+            width: 24vw;
+            top: random($limit: 100 - 12)+vh;
+            right: random($limit: 100 - 12)+vw;
+        }
+    }
+}

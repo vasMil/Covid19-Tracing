@@ -34,17 +34,18 @@
 
         <div class="card card-info">
             <div class="card-group">
-                <b class="highlight-primary">Hey!</b> Have you tested positive for Covid within the last <b class="highlight-primary">14 days</b>?
+                <b class="highlight-primary">Hey!</b> &nbsp Have you tested positive for Covid within the last &nbsp <b class="highlight-primary">14 days?</b>
                 You may report it here and let the people around you know they have been exposed to Covid.
             </div>
             <div class="card-group">
-                <b class="highlight-primary"> Do not worry!</b>
-                We will NOT share your name, no one will ever know it was you. <i class="far fa-laugh-wink"></i>
+                <b class="highlight-primary"> Do not worry!</b> &nbsp
+                We will NOT share your name, no one will ever know it was you. &nbsp<i class="far fa-laugh-wink"></i>
             </div>
         </div>
 
         <section class="rc-form">
             <form>
+                <label id="rc-form-label">The day you tested positive:</label>
                 <input type="date" id="datepicker" name="date-tested-positive">
                 <button class="btn btn-custom-primary" id="rc-register" type="submit">Report</button>
             </form>

@@ -45,6 +45,7 @@
     display: flex;
     gap: 1em;
     margin: 0 5em;
+    border: 0;
 }
 
 #prof-update-info {
@@ -126,7 +127,7 @@
 @media screen and (min-width: 992px) {
     .container {
         display: grid;
-        grid-template-rows: 0.5fr repeat(4, 1fr);
+        grid-template-rows: 0.5fr repeat(3, 1fr);
         grid-template-columns: repeat(2, 1fr);
         column-gap: 4em;
     }
@@ -204,7 +205,5 @@
 
     .ellipses {
         display: none;
-        grid-row: 5 / 6;
-        grid-column: 1 / 2;
     }
 }
