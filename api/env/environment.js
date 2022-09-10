@@ -9,7 +9,7 @@ const environment =
 
     jwtSecret: "ceid2022",
 
-    frontendRootAddress: "http://localhost:80/"
+    frontendRootAddress: "http://localhost:3000/"
 }
 
 module.exports = environment;

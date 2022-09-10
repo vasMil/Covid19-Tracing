@@ -9,6 +9,6 @@ loginCard.addEventListener("successEvent", onLogin);
 
 function onLogin(event) {
     if(event.detail != "#") {
-        window.location.replace(`${window.location.origin}/src/app/home-page/home.php`);
+        window.location.replace(event.detail);
     }
 }

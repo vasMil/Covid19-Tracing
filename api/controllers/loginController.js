@@ -56,7 +56,7 @@ exports.login = async (req,res,next) => {
                 {
                     success: true,
                     token: theToken,
-                    redirectTo: env.frontendRootAddress + "" // TODO: "Add redirect link to the admin CRUD operations page"
+                    redirectTo: env.frontendRootAddress + "src/app/crud-operations-page/crud-operations.php"
                 });
         }
     }
