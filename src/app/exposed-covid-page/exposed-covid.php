@@ -55,5 +55,5 @@
     </div>
 </body>
 <script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
-<script src="exposed-covid.js"></script>
+<script type="module" src="exposed-covid.js"></script>
 </html>

@@ -110,7 +110,7 @@ async function initSearchForm() {
                     'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
             }
         });
-        const respJson = await safe_fetch(fetch_req);
+        const {respJson} = await safe_fetch(fetch_req);
         const pois = respJson.rows;
 
         clearMarkers();
@@ -218,7 +218,7 @@ const popupContent = (poi, isClose) => {
     <div class="popup-title">${poi.name}</div>
     <ul class="popup-list">
         <li class="popup-item">Estimation for the next two hours: ${Math.round(poi.estimation)}</li>
-        <li class="popup-item">Live approximation from user input: ${Math.round(poi.userApprox)}</li>
+        <li class="popup-item">Live approximation from user input: ${parseInt(poi.approximation)}</li>
     </ul>
     `
     if (isClose) {

@@ -9,12 +9,11 @@
 }
 
 .custom-navbar {
-    .nav-home {
+    #nav-home {
         color: $primary-color;
         text-decoration: underline;
     }
 }
-
 
 section.home-search {
     max-width: 400px;

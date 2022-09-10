@@ -114,5 +114,5 @@
         <?php include("../php_partials/ellipses/ellipses.php") ?>
     </div>
 </body>
-<script src="user-profile.js"></script>
+<script type="module" src="user-profile.js"></script>
 </html>

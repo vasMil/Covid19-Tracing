@@ -1,26 +1,47 @@
 @import "../styles.scss";
 
-header {
-    display: flex;
-    flex-direction: row;
-    justify-items: flex-start;
-    .title {
-        width: 9em;
+.container {
+    width: 100%;
+
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-items: flex-start;
+        margin: 0;
+        margin-bottom: 3em;
+        padding-top: 1em;
+    }
+
+    .reg-form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding-bottom: 2rem;
+
+        .already-have-account, .title {
+            margin: auto;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     }
 }
 
-.container {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-
-    padding-bottom: 2rem;
+register-card > form {
+    @include set-background($lightest-color);
+    margin: 0 1.5em;
 }
 
-register-card > form {
-    @include set-background(white);
-    margin: 0 1.5em;
+@media screen and (min-width: 992px) {
+    body {
+        background-color: transparent;
+    }
+    .container {
+        .reg-form-container {
+            float: right;
+        }
+        #el-small {
+            top: 74vh;
+            left: 60vw;
+        }
+    }
 }

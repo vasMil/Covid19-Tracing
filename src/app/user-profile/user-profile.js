@@ -1,6 +1,6 @@
-// if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
-//     window.location.replace(`${window.location.origin}/src/app/login-page/login.php`);
-// }
+import { redirectIfTokenMissing, safe_fetch } from "../auth_helper.js";
+
+redirectIfTokenMissing();
 
 let req = {
     old_password: undefined,
@@ -28,7 +28,7 @@ modalConfirm.addEventListener("click", sendReqToApi);
 async function sendReqToApi() {
     $("#confirmPasswordModal").modal("hide");
     req.old_password = modalPassword.value;
-    const resp = await fetch(
+    const fetch_req = fetch(
         "http://localhost:8080/user-profile/",
         {
             method: 'PUT',
@@ -39,7 +39,7 @@ async function sendReqToApi() {
             body: JSON.stringify(req)
         });    
     
-    const respJson = await resp.json();
+    const {respJson} = safe_fetch(fetch_req);
     // Show the message container
     respContainer.hidden = false;
 
@@ -276,12 +276,9 @@ function enableAllCollapseButtons() {
 // The actual query
 document.addEventListener("DOMContentLoaded", () => {
     const largeScreenMedia = matchMedia('(min-width: 992px');
-    largeScreenMedia.addEventListener("change", handleMedaQueries);
+    largeScreenMedia.addEventListener("change", handleMediaQueries);
 
-    function handleMedaQueries() {
-        const datesButton = document.getElementById("btn-days-positive");
-        const collapsableContainer = document.getElementById("collapse-days-positive");
-
+    function handleMediaQueries() {
         if(largeScreenMedia.matches) {
             disableAllCollapseButtons();
         }
@@ -291,6 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     // Call it once here to setup for the first time
-    handleMedaQueries();
+    handleMediaQueries();
 });
 

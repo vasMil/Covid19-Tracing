@@ -15,10 +15,10 @@
     <!-- Include Bootstrap -->
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
-    <!-- Include page local stylesheet -->
-    <link rel="stylesheet" href="login.min.css">
     <!-- Include the required stylesheets for the partials used in the current page -->
     <link rel="stylesheet" href="../php_partials/ellipses/ellipses.min.css">
+    <!-- Include page local stylesheet -->
+    <link rel="stylesheet" href="login.min.css">
 </head>
 <body>
     <div class="container">
@@ -38,7 +38,7 @@
                 Vero sapiente ab hic quos maxime a quidem dolorem accusamus recusandae molestias sunt sit, numquam totam libero iste quibusdam ipsam.
                 Odio cupiditate ad quos reprehenderit qui consectetur quod sed, a architecto, 
                 culpa fugiat assumenda quas eligendi omnis totam esse natus perferendis ratione!
-                <button class="btn btn-custom-primary" id="join-us-button">Join Us</button>
+                <a href="/src/app/register-page/register.php"><button id="join-us-button" class="btn btn-custom-primary">Join Us</button></a>
             </div>
         </section>
 

@@ -1,6 +1,6 @@
-if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
-    window.location.replace(`${window.location.origin}/src/app/login-page/login.php`);
-}
+import {redirectIfTokenMissing, safe_fetch} from "../auth_helper.js";
+
+redirectIfTokenMissing();
 
 // Open Street Map Attribution
 const osmAttrib = '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
@@ -21,13 +21,12 @@ map.setView([38.24620061084201, 21.735099081752857], 13);
 
 // Request for Pois
 const tableBody = document.querySelector("#ec-table-body");
-fetch("http://localhost:8080/pois-exposed-user-to-covid/", {
-    headers: {
-        'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
-      }
-}).then(resp => {
-    return resp.json();
-}).then(respJson => {
+safe_fetch(
+    fetch("http://localhost:8080/pois-exposed-user-to-covid/", {
+        headers: {
+            'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
+        }})
+).then(({respJson}) => {
     if (respJson.rows.length) {
         // Add rows to table
         for (let [i, row] of respJson.rows.entries()) {

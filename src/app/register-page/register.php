@@ -15,21 +15,27 @@
     <!-- Include Bootstrap -->
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"></link>
-    <!-- Include page local stylesheet -->
-    <link rel="stylesheet" href="register.min.css">
     <!-- Include the required stylesheets for the partials used in the current page -->
     <link rel="stylesheet" href="../php_partials/ellipses/ellipses.min.css">
+    <!-- Include page local stylesheet -->
+    <link rel="stylesheet" href="register.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="title">
-                <span class="highlight-primary">Create</span> your account here!
-            </div>
+            <span class="highlight-primary">Covid-19</span> Tracing
         </header>
 
-        <register-card id="register-card" apiUrl="http://localhost:8080/register"></register-card>
+        <div class="reg-form-container">
+            <h3 class="title">
+            Create your account <span class="highlight-primary">here!</span>
+            </h3>
+            <register-card id="register-card" apiUrl="http://localhost:8080/register"></register-card>
 
+            <a class="already-have-account" href="../login-page/login.php">
+                Already have an account?
+            </a>
+        </div>
         <?php include(ROOT_PATH.'/php_partials/ellipses/ellipses.php'); ?>
     </div>
 </body>

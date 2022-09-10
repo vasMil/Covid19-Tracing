@@ -1,8 +1,10 @@
 const navbarBtn = document.querySelector(".btn-navbar");
 const expNavDiv = document.querySelector(".navbar-full");
 const overlay = document.querySelector(".navbar-full-overlay");
+const logoutBtn = document.querySelector("#nav-logout");
 
 navbarBtn.addEventListener("click", onClick);
+logoutBtn.addEventListener("click", logout);
 
 // false -> minimized
 // true -> expanded
@@ -10,7 +12,7 @@ isExpanded = false;
 
 function onClick(event) {
     if (!isExpanded) {
-        expNavDiv.style.display = "flex";
+        expNavDiv.className = "navbar-full show";
         navbarBtn.firstElementChild.classList.remove('fa-bars');
         navbarBtn.firstElementChild.classList.add('fa-times');
         isExpanded = true;
@@ -24,7 +26,7 @@ function onClick(event) {
 }
 
 function closeNavbar() {
-    expNavDiv.style.display = "none";
+    expNavDiv.className = "navbar-full";
     navbarBtn.firstElementChild.classList.remove('fa-times');
     navbarBtn.firstElementChild.classList.add('fa-bars');
     isExpanded = false;
@@ -32,4 +34,9 @@ function closeNavbar() {
     // Remove overlay event listener
     overlay.removeEventListener("click", closeNavbar);
     overlay.hidden = true;
+}
+
+function logout(event) {
+    localStorage.clear();
+    sessionStorage.clear();
 }

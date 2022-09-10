@@ -8,14 +8,7 @@ const loginCard = document.querySelector("#login-card");
 loginCard.addEventListener("successEvent", onLogin);
 
 function onLogin(event) {
-    // console.log(event.detail);
-    window.location.replace(`${window.location.origin}/src/app/home-page/home.php`);
-}
-
-// Handle Join Us - Register
-const joinUsButton = document.querySelector("#join-us-button");
-joinUsButton.addEventListener("click", onRegister);
-
-function onRegister(event) {
-    window.location.replace("/src/app/register-page/register.php");
+    if(event.detail != "#") {
+        window.location.replace(`${window.location.origin}/src/app/home-page/home.php`);
+    }
 }

@@ -19,15 +19,16 @@
     z-index: 9999;
 
     i.fas {
-        
-        color: white;
-
+        color: $lightest-color;
         &:hover, &:active {
             color: $primary-color
         }
-
-
     }
+}
+
+#nav-logout {
+    border: 0;
+    background: none;
 }
 
 .navbar-full-overlay {
@@ -42,8 +43,11 @@
 
 .navbar-full {
     display: none;
-    z-index: 9998;
+    &.show {
+        display: flex;
+    }
     
+    z-index: 9998;
     width: 71.5%;
     max-width: 340px;
     height: 100%;
@@ -56,13 +60,15 @@
     padding-top: 10em;
     margin-top: -4.7em;
     gap: 1em;
-    background-color: #000000df;
+    background-color: $darkest-color;
 
     .nav-item {
         font-size: 1.2em;
         padding-left: 1.3em;
+        text-align: left;
+        color: $lightest-color;
     }
-}
+} 
 
 @media screen and (min-width: 992px) {
     .custom-navbar {
@@ -90,15 +96,19 @@
             padding-right: 2em;
             margin-top: 0.5em;
 
-            min-width: 35em;
+            min-width: 41em;
             max-height: 2em;
             z-index: 99999;
 
-            background-color: #ffffff;
+            background-color: $lightest-color;
             opacity: 70%;
-            color: black;
             border: 0;
             border-radius: 0.5em 0 0 0.5em;
+            
+            .nav-item {
+                text-align: center;
+                color: $darkest-color;
+            }
         }
     }
 }

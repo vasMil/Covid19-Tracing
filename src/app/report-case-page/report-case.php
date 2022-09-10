@@ -54,5 +54,5 @@
         <?php include("../php_partials/ellipses/ellipses.php") ?>
     </div>
 </body>
-<script src="report-case.js"></script>
+<script type="module" src="report-case.js"></script>
 </html>

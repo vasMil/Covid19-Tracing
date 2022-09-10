@@ -16,10 +16,9 @@ export async function safe_fetch(fetchRequest) {
             sessionStorage.clear();
         }
         const respJson = await resp.json();
-        return respJson;
+        return {respJson, resp};
     }
     catch(err) {
-        console.log(err);
         throw err;
     }
 }

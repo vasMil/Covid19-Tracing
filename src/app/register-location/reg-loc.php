@@ -61,5 +61,5 @@
     </div>
 </body>
 <script src="../../../node_modules/leaflet/dist/leaflet.js"></script>
-<script src="reg-loc.js"></script>
+<script type="module" src="reg-loc.js"></script>
 </html>

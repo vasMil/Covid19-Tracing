@@ -1,6 +1,6 @@
-if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) {
-    window.location.replace(`${window.location.origin}/src/app/login-page/login.php`);
-} 
+import { redirectIfTokenMissing, safe_fetch } from "../auth_helper.js";
+
+redirectIfTokenMissing();
 
 const now = new Date();
 const todayFormatted = formatDate(now);
@@ -25,20 +25,20 @@ const rcButton = document.querySelector("#rc-register");
 rcButton.addEventListener("click", onReport);
 
 async function onReport(event) {
-    const response = await fetch(
+    const fetch_req = fetch(
         `http://localhost:8080/report-case/`,
         {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem("token")
+                'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
             },
             body: JSON.stringify({
                 dayReportedPositive: datepicker.value
             })
         }
     );
-    const respJson = await response.json();
+    const {respJson} = await safe_fetch(fetch_req);
 
     cleanPrevMessage();
     const respDiv = document.createElement('div');
