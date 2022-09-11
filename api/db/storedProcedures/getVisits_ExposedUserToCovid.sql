@@ -18,7 +18,9 @@ END $
 DELIMITER ;
 
 -- Test
+
 -- CALL getVisits_ExposedUserToCovid(4);
+
 
 
 -- 	SELECT poi.name AS poiName, poi.address AS poiAddress, poi.latitude AS poiLat, poi.longitude AS poiLng, visit.timestamp AS visitTimestamp

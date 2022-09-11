@@ -1,0 +1,27 @@
+@import "../styles.scss";
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+
+.mt-3 {
+    margin-top: 100px !important;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+#classify-d {
+    margin-top: 80px;
+    margin-left: 320px;
+}
+
+#classify-e {
+    margin-top: 80px;
+    margin-left: 320px;
+}
+
+.ds-table-section {
+    margin-left: 320px;
+    margin-right: 320px;
+}
+

@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const { deletePois } = require('./controllers/deletePoisController');
 const { updatePois } = require('./controllers/updatePoisController');
+const { dispStats_a_c } = require('./controllers/dispStats_a_c_Controller');
 
 // Credits: https://stackoverflow.com/questions/31592726/how-to-store-a-file-with-file-extension-with-multer
 const storage = multer.diskStorage({
@@ -21,5 +22,6 @@ const upload = multer({ storage: storage });
 protectedAdminRouter.post('/insert-pois', upload.single('pois'), insertPois);
 protectedAdminRouter.put('/update-pois', upload.single('pois') , updatePois);
 protectedAdminRouter.delete('/delete-pois', deletePois);
+protectedAdminRouter.get('/disp-stats-a-c', dispStats_a_c);
 
 module.exports = protectedAdminRouter;
