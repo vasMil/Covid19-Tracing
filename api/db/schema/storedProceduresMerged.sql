@@ -93,7 +93,7 @@ BEGIN
     
     SELECT COUNT(*) > 0 INTO IsRegistered
     FROM visit_table
-    WHERE visit_table.user_id = userId AND visit_table.poi_id = poiId AND ABS(TIMESTAMPDIFF(HOUR,visit_table.timestamp,date_time)) < 2;
+    WHERE visit_table.user_id = userId AND visit_table.poi_id = poiId AND TIMESTAMPDIFF(HOUR,visit_table.timestamp,date_time) < 2;
     
     SET success = NOT(IsRegistered);
     IF success THEN

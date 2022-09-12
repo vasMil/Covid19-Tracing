@@ -93,7 +93,6 @@ exports.insertPois = async (req, res, next) => {
             dbRollback: true,
             message: msg
         })
-        console.log(err);
 
     }
     req.locals.dbStatus = insertStatus;

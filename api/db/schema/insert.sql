@@ -24,10 +24,13 @@ INSERT INTO visit_table (user_id, poi_id, estimation, timestamp) VALUES
 (3,'ChIJ_cM58sE3XhMRCHVgkJkjUeQ',11,'2022-09-04 08:00:00'),
 (4,'ChIJ_cM58sE3XhMRCHVgkJkjUeQ',10,'2022-09-04 09:00:00'),
 (4,'ChIJ0a4YHeBJXhMRgESyORq9JSo',2,'2022-09-04 10:00:00'),
-(3,'ChIJ0a4YHeBJXhMRgESyORq9JSo',2,'2022-09-04 10:00:00');
+(3,'ChIJ0a4YHeBJXhMRgESyORq9JSo',2,'2022-09-04 10:00:00'),
+(3,'ChIJ_cM58sE3XhMRCHVgkJkjUeQ',11,'2022-08-04 08:00:00'),
+(3,'ChIJ_cM58sE3XhMRCHVgkJkjUeQ',11,'2022-09-13 08:00:00');
 
 INSERT INTO covid_case_table (user_id, date) VALUES
 (3, "2022-01-17"),
 (4, "2022-01-20"),
 (3, "2022-09-06"),
 (4, "2022-09-01");
+

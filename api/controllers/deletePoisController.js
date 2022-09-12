@@ -17,13 +17,15 @@ exports.deletePois = async (req, res, next) => {
         deleteStatus.rowsAttemped += visitRows.affectedRows;
         const [ptRows] = await db.execute(`DELETE FROM popular_times_table;`);
         deleteStatus.rowsAttemped += ptRows.affectedRows;
+        const [poiTypeRows] = await db.execute(`DELETE FROM poi_type;`);
+        deleteStatus.rowsAttemped += poiTypeRows.affectedRows;
         const [poiRows] = await db.execute(`DELETE FROM poi_table;`);
         deleteStatus.rowsAttemped += poiRows.affectedRows;
         await db.commit();
         deleteStatus.success = true;
         res.status(200).json({
             success: true,
-            message: "visit_table, popular_times_table and poi_table DROPPED!"
+            message: "visit_table, popular_times_table, poi_type and poi_table DROPPED!"
         });
     }
     catch(err) {
