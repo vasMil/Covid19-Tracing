@@ -1,23 +1,9 @@
-const validPoiTypes = ['cafe', 'food', 'point_of_interest', 'establishment', 'restaurant', 'convenience_store', 'grocery_or_supermarket',
-'store', 'bakery', 'supermarket', 'car_repair', 'park', 'tourist_attraction', 'gym', 'health', 'car_wash', 'liquor_store', 'shopping_mall',
-'furniture_store', 'home_goods_store', 'lodging', 'laundry', 'hardware_store', 'electronics_store', 'hair_care', 'drugstore', 'bank', 'atm',
-'finance', 'doctor', 'casino', 'car_dealer', 'pet_store', 'bar', 'town_square', 'accounting', 'pharmacy', 'other'];
-
 exports.formatPoi = (poi) => {
     // TODO: This is a DEV call delete for prod
     // registerPoiTypeIfNotExists(poi.types);
     let safe_name = poi.name.replace(/"/g, "'");
     let safe_rating = poi.rating ? poi.rating : 0;
     let safe_rating_n = poi.rating_n ? poi.rating_n : 0;
-    let typeSetStr = "('";
-    for (type of poi.types) {
-        if (!validPoiTypes.includes(type)) {
-            throw Error(`invalidPoiType: ${type}`);
-        }
-        typeSetStr += `${type},`;
-    }
-    typeSetStr = typeSetStr.slice(0, -1);
-    typeSetStr += "')";
     return {
         id: poi.id,
         name: safe_name, 
@@ -25,8 +11,7 @@ exports.formatPoi = (poi) => {
         lat: poi.coordinates.lat, 
         lng: poi.coordinates.lng,
         rating: safe_rating,
-        rating_n: safe_rating_n,
-        type: typeSetStr
+        rating_n: safe_rating_n
     };
 }
 

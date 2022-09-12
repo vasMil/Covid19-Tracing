@@ -28,7 +28,8 @@ SELECT poi.id, poi.name, poi.address, poi.latitude, poi.longitude, AVG(pt.number
 FROM poi_table AS poi
 INNER JOIN popular_times_table AS pt ON poi.id = pt.poi_id
 LEFT JOIN visit_table AS visit ON poi.id = visit.poi_id
-WHERE poi.poi_type LIKE CONCAT('%', type, '%')
+LEFT JOIN poi_type ON poi.id = poi_type.poi_id
+WHERE poi_type.type LIKE CONCAT('%', type, '%')
 	AND poi.latitude >= min_lat AND poi.longitude >= min_lng
 	AND poi.latitude <= max_lat AND poi.longitude <= max_lng
 	AND pt.day = curDay
@@ -46,10 +47,12 @@ BEGIN
 
 	SELECT email FROM user_table WHERE user_table.user_id = user_id;
     
-    SELECT vt.poi_id, vt.timestamp, pt.name, pt.address, pt.poi_type
+    SELECT vt.poi_id, vt.timestamp, pt.name, pt.address, GROUP_CONCAT(poi_type.type) as types
     FROM visit_table as vt
     LEFT JOIN poi_table as pt ON pt.id = vt.poi_id
-    WHERE vt.user_id = user_id;
+    LEFT JOIN poi_type ON poi_type.poi_id = pt.id
+    WHERE vt.user_id = user_id
+    GROUP BY poi_id;
     
     SELECT cct.date FROM covid_case_table AS cct WHERE cct.user_id = user_id;
     
