@@ -20,17 +20,17 @@
     <div class="container">
         <section class="stats-numbers">
             <div class="stats-group" id="stats-locations-registered">
-                <label class="form-label">Location Registrations Counter:</label>
+                <label class="form-label">Location Registrations Counter</label>
                 <div id="loc-regs" class="form-control">105,377,201</div>
             </div>
 
             <div class="stats-group" id="stats-cases-registered">
-                <label class="form-label">Covid Cases Registered:</label> 
+                <label class="form-label">Covid Cases Registered</label> 
                 <div id="cases-regs" class="form-control">10,345</div>
             </div>
 
             <div class="stats-group" id="stats-visits-by-patients">
-                <label class="form-label">Total Number of visits by patients that have Covid:</label>
+                <label class="form-label">Total Number of visits by patients that have Covid</label>
                 <div id="patient-visits" class="form-control">13,502</div>
             </div>
         </section>
@@ -107,7 +107,7 @@
                             <label for="day-visits-covid">Number of visits by Covid19 cases</label>
                         </div>
                     </div>
-                    <button class="btn btn-custom-primary fetch-chart-data" id="fetch-day">Fetch</button>
+                    <button class="btn btn-custom-primary fetch-chart-data" id="refresh-day">Refresh</button>
                 </div>
 
                 <div class="stats-diagram-group" id="per-hour-filters">
@@ -129,13 +129,13 @@
                             <label for="hour-visits-covid">Number of visits by Covid19 cases</label>
                         </div>
                     </div>
-                    <button class="btn btn-custom-primary fetch-chart-data" id="fetch-hour">Fetch</button>
+                    <button class="btn btn-custom-primary fetch-chart-data" id="refresh-hour">Refresh</button>
                 </div>
             </div>
         </section>
 
         <section class="stats-diagrams">
-            <div class="stats-digram-group">
+            <div class="stats-digram-group" id="per-day-chart-group" hidden>
                 <label for="per-day-canvas" class="stats-diagram-text">Per Day Graph:</label>
                 <canvas id="per-day-chart" height="100" name="per-hour-canvas"></canvas>
                 <div class="diagram-text">
@@ -145,7 +145,7 @@
                 </div>
             </div>
 
-            <div class="stats-digram-group" hidden>
+            <div class="stats-digram-group" id="per-hour-chart-group" hidden>
                 <label for="per-hour-canvas" class="stats-diagram-text">Per Hour Graph:</label>
                 <canvas id="per-hour-chart" height="100" name="per-hour-canvas"></canvas>
                 <div class="diagram-text">
