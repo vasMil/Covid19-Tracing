@@ -1,27 +1,198 @@
 @import "../styles.scss";
-@import "../../../node_modules/bootstrap/scss/functions";
-@import "../../../node_modules/bootstrap/scss/variables";
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
-
-.mt-3 {
-    margin-top: 100px !important;
-    margin-left: 300px;
-    margin-right: 300px;
+.nav-statistics {
+    color: $primary-color;
+    text-decoration: underline;
 }
 
-#classify-d {
-    margin-top: 80px;
-    margin-left: 320px;
+.container {
+    padding-bottom: 2em;
+
+    section {
+        margin-top: 4em;
+    }
 }
 
-#classify-e {
-    margin-top: 80px;
-    margin-left: 320px;
+.stats-numbers {
+    margin-top: 4em;
+    display: grid;
+    grid-template-rows: 0.8fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 3em;
+
+    #stats-locations-registered {
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
+    }
+
+    #stats-cases-registered {
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+        flex-direction: row-reverse;
+    }
+    
+    #stats-visits-by-patients {
+        grid-row: 2 / 3;
+        grid-column: 1 / 3;
+
+        flex-direction: column-reverse;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.stats-group {
+    height: 6em;
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    margin: auto;
+    
+    label {
+        color: $primary-color;
+        white-space: wrap;
+        width: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2em;
+    }
+
+    div {
+        min-width: 7em;
+        width: 7em;
+        height: 3em;
+
+        color: $lightest-color;
+        background-color: rgba($lightest-color, 0.3);
+        border: solid 1px $primary-color;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+
+        overflow: auto;
+        &::-webkit-scrollbar {
+            width: 0.1em;
+            height: 0.1em;
+        }
+          
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1aa;
+            border-radius: 0.1em;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: #00af9b;
+            border-radius: 0.1em;
+        }
+        
+        &::-webkit-scrollbar-thumb:hover {
+            background: #006e61;
+            border-radius: 0.1em;
+        }
+    }
 }
 
 .ds-table-section {
-    margin-left: 320px;
-    margin-right: 320px;
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    label {
+        color: $primary-color;
+    }
+
+    #ds-table {
+        align-items: center;
+        text-align: center;
+
+        thead {
+            border-left: solid 20px white;
+            border-right: solid 20px white;
+        }
+
+        .ds-table-body {
+            color: $lightest-color;
+            gap: 0.2em;
+            tr {
+                background-color: rgb(75, 75, 75);
+                border: solid 5px $secondary-color;
+            }
+            tr:nth-child(1) {
+                background-color: rgba(174, 109, 111, 0.6);
+                border-top: 0;
+            }
+            tr:nth-child(2) {
+                background-color: rgba(187, 131, 120, 0.6);
+            }
+            tr:nth-child(3) {
+                background-color: rgba(255, 245, 240, 0.6);
+            }
+        }
+
+    }
 }
 
+.stats-diagram-filters {
+    margin-top: 2em;
+    .form-label {
+        color: $primary-color;
+    }
+
+    .stats-diagram-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 75%;
+        margin: auto;
+        margin-top: 2em;
+        font-size: 1.2em;
+
+        .stats-date-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4em;
+            .stats-datepicker {
+                border: 0;
+                border-radius: 0.5em;
+                background-color: #ffffffa0;
+                text-align: center;
+            }
+        }
+
+        .stats-checkboxes
+            input.form-check-input {
+                &:checked {
+                    background-color: $primary-color;
+                    border: 1px solid $primary-color;
+                }
+                &:active, &:focus {
+                    border: 2px solid $primary-color;
+                }
+                
+            }
+
+    }
+
+}
+
+.stats-diagrams {
+    margin-top: 5em;
+    .diagram-text {
+        background-color: rgba(174, 194, 172, 0.4);
+        padding: 1em;
+        border-radius: 1em;
+    }
+
+    canvas {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+}

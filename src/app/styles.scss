@@ -65,10 +65,16 @@ header {
 
 .btn-custom-primary {
     @include set-background($primary-color);
-
+    transition-duration: 0.4s;
+    
     &:focus {
         box-shadow: none;
         color: black;
+    }
+      
+    &:active {
+        transform: scale(0.95);
+        transition: 0s
     }
 }
 
