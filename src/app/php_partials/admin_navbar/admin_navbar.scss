@@ -28,10 +28,10 @@ body {
     gap: 2em;
 
     position: absolute;
-    right: 0;
+    right: 3em;
 
-    @include set-background(white);
-    border-radius: 0.4em 0 0 0.4em;
+    @include set-background($lightest-color);
+    border-radius: 0.4em;
     background-color: #747474;
 }
 
