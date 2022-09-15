@@ -46,7 +46,8 @@ CREATE TABLE poi_type (
   FOREIGN KEY (poi_id) REFERENCES poi_table (id),
   PRIMARY KEY (id),
   UNIQUE (type, poi_id)
-); -- INDEXES?
+  -- INDEX poi_type_idx (poi_id) VISIBLE
+); 
 
 
 CREATE TABLE popular_times_table (

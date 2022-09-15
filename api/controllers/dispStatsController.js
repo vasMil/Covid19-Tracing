@@ -3,7 +3,8 @@ const db = require("../db/connect").promise();
 exports.dispStats = async (req, res, next) => {
     try {
         const [rows] = await db.execute(`CALL dispStats()`);
-        console.log(rows[0][1]);
+        console.log(rows[3][0].typeOfPOI);
+        console.log(rows[3][3].amountOfVisits);
         return res.status(200).json({
             success: true,
             //rows: rows[0],

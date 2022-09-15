@@ -7,7 +7,7 @@ getStats();
 
 async function getStats(){
     const response = await fetch(
-    `http://localhost:8080/disp-stats-a-c`,
+    `http://localhost:8080/disp-stats`,
     {
         headers: {
             'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
@@ -18,6 +18,8 @@ async function getStats(){
     document.getElementById("loc-regs").value = respJson.totalVisits;
     document.getElementById("cases-regs").value = respJson.totalCovidCases;
     document.getElementById("patient-visits").value = respJson.totalVisitsFromCases;
+
+    
 }
 
 

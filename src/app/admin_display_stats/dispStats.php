@@ -42,7 +42,7 @@
     <div>
         <label class="form-label" id="classify-d">Classification of POI types based on the amount of visits:</label>
         <section class="ds-table-section">
-            <table class="table table-responsive" id="ds-table">
+            <table class="table table-responsive" id="f-table">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col" class="col-1">Number</th>
@@ -50,7 +50,7 @@
                         <th scope="col" class="col-1">Amount of visits</th>
                     </tr>
                 </thead>
-                <tbody id="ds-table-body">
+                <tbody id="f-table-body">
 
                 </tbody>
             </table>
@@ -59,7 +59,7 @@
     <div>
         <label class="form-label" id="classify-e">Classification of POI types based on the amount of visits by covid patients:</label>
         <section class="ds-table-section">
-            <table class="table table-responsive" id="ds-table">
+            <table class="table table-responsive" id="g-table">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col" class="col-1">Number</th>
@@ -67,7 +67,7 @@
                         <th scope="col" class="col-1">Amount of visits by covid patients</th>
                     </tr>
                 </thead>
-                <tbody id="ds-table-body">
+                <tbody id="g-table-body">
 
                 </tbody>
             </table>
