@@ -7,6 +7,8 @@
     <!-- Include Bootstrap -->
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- Include Fontawesome -->
+    <link rel="stylesheet" href="../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
     <!-- Include Chart.js -->
     <script src="../../../node_modules/chart.js/dist/chart.min.js"></script>
     <!-- Include required files for the partials -->
@@ -21,17 +23,17 @@
         <section class="stats-numbers">
             <div class="stats-group" id="stats-locations-registered">
                 <label class="form-label">Location Registrations Counter</label>
-                <div id="loc-regs" class="form-control">105,377,201</div>
+                <div id="loc-regs" class="form-control"></div>
             </div>
 
             <div class="stats-group" id="stats-cases-registered">
                 <label class="form-label">Covid Cases Registered</label> 
-                <div id="cases-regs" class="form-control">10,345</div>
+                <div id="cases-regs" class="form-control"></div>
             </div>
 
             <div class="stats-group" id="stats-visits-by-patients">
                 <label class="form-label">Total Number of visits by patients that have Covid</label>
-                <div id="patient-visits" class="form-control">13,502</div>
+                <div id="patient-visits" class="form-control"></div>
             </div>
         </section>
 
@@ -40,43 +42,24 @@
             <table class="table table-responsive" id="ds-table">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col" class="col-1">Number</th>
-                        <th scope="col" class="col-2">Type of POI</th>
-                        <th scope="col" class="col-2">Amount of Visits</th>
-                        <th scope="col" class="col-2">Number of Covid Cases Visited</th>
+                        <th scope="col" class="col-1">
+                            Number
+                        </th>
+                        <th scope="col" class="col-2">
+                            Type of POI
+                        </th>
+                        <th scope="col" class="col-2">
+                            <button id="amount-visits-col" class="sort-col">
+                                Amount of Visits
+                                <span id="sort-col-span"> &nbsp <i class='fas fa-angle-down'></i></span>
+                            </button>
+                        </th>
+                        <th scope="col" class="col-2">
+                            <button id="amount-covid-visits-col">Number of Covid Cases Visited</button>
+                        </th>
                     </tr>
                 </thead>
-                <tbody class="ds-table-body">
-                    <tr>
-                        <td>1</td>
-                        <td>food</td>
-                        <td>1000</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>cafe</td>
-                        <td>905</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>doctor</td>
-                        <td>503</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>4</th>
-                        <td>health</td>
-                        <td>300</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>point_of_interest</td>
-                        <td>200</td>
-                        <td>12</td>
-                    </tr>
+                <tbody class="ds-table-body" id="ds-table-body">
                 </tbody>
             </table>
         </section>

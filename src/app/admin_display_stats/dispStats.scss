@@ -114,6 +114,13 @@
         thead {
             border-left: solid 20px white;
             border-right: solid 20px white;
+            tr>th>button {
+                border: none;
+                background-color: transparent;
+                &.sort-col {
+                    font-weight: 900;
+                }
+            }
         }
 
         .ds-table-body {

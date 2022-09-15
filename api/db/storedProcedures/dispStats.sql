@@ -12,20 +12,18 @@ BEGIN
 	INNER JOIN covid_case_table ON visit_table.user_id = covid_case_table.user_id
 	WHERE DATEDIFF(CAST(visit_table.timestamp as DATE), covid_case_table.date) <= 7 AND 
 		  DATEDIFF(CAST(visit_table.timestamp as DATE), covid_case_table.date) >= -14;
-          
-	-- SELECT totalVisits, totalCovidCases, totalVisitsFromCases;
     
     SELECT pt.type AS typeOfPOI, COUNT(*) AS amountOfVisits FROM visit_table AS vt
     INNER JOIN poi_type AS pt ON vt.poi_id = pt.poi_id 
     GROUP BY pt.type ORDER BY amountOfVisits DESC;
     
-    SELECT pt.type AS typeOfPOI, COUNT(*) AS amountOfVisits FROM visit_table AS vt
+    SELECT pt.type AS typeOfPOI, COUNT(*) AS amountOfCovidVisits FROM visit_table AS vt
     INNER JOIN poi_type AS pt ON vt.poi_id = pt.poi_id
     INNER JOIN covid_case_table AS cct ON vt.user_id = cct.user_id
     WHERE DATEDIFF(CAST(vt.timestamp as DATE), cct.date) >= -7 AND 
 		  DATEDIFF(CAST(vt.timestamp as DATE), cct.date) <= 14
-	GROUP BY pt.type ORDER BY amountOfVisits DESC;
+	GROUP BY pt.type ORDER BY amountOfCovidVisits DESC;
 END $
 DELIMITER ;
 
-CALL dispStats();
+-- CALL dispStats();

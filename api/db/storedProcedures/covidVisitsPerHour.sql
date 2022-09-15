@@ -9,4 +9,4 @@ BEGIN
 END $
 DELIMITER ;
 
-CALL covidVisitsPerHour("2022-09-04");
+-- CALL covidVisitsPerHour("2022-09-04");

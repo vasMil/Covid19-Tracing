@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"test\",\r\n    \"password\": \"Test123@\"\r\n}",
+							"raw": "{\r\n    \"username\": \"temp\",\r\n    \"password\": \"Temp123@\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -198,7 +198,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MjMxMjQ4MSwiZXhwIjoxNjYyMzk4ODgxfQ.MqlaNuiagyogC7b2bAaSi5T0cxSTDyc_75BKPr3F-6Q",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2Mjk5MDQ3OSwiZXhwIjoxNjYzMDc2ODc5fQ.8MVMnptQvugsaM07kSFN1UIFQtVm_7f4BIb12jcmn3I",
 									"type": "string"
 								}
 							]
@@ -211,7 +211,7 @@
 								{
 									"key": "pois",
 									"type": "file",
-									"src": "/C:/Users/Vasilis/Desktop/CEID/4o etos/7ο/Web/project/starting_pois.json"
+									"src": "/C:/Users/Vasilis/Desktop/CEID/4o_etos/7o/Web/project/archive/starting_pois.json"
 								},
 								{
 									"key": "last_modified",
@@ -242,7 +242,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0MzA2NDk5MywiZXhwIjoxNjQzMTUxMzkzfQ.W2qamt4RizMwnC_Onj51eA3UAZW8jSrDgpo_qZZLFKI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MjY0Mzk2OCwiZXhwIjoxNjYyNzMwMzY4fQ.UQVRJVtxCFeaS_VfT53FdHh4KzxL34MvxIRhK3fDdb4",
 									"type": "string"
 								}
 							]
@@ -262,6 +262,191 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Disp Stats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MzAwMzQ2NiwiZXhwIjoxNjYzMDg5ODY2fQ.fuRLx3bt0SPyjhwcWWLFr-K_lDlAPFF9pUONL8Emzmk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/disp-stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"disp-stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visitsPerDay",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MzAyMDcwOCwiZXhwIjoxNjYzMTA3MTA4fQ.Y4UodRTFIwbkmUbA79lKP6kCmc7M-wvs72i35tAKqQs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstDate\": \"2022-01-01\",\r\n    \"endDate\": \"2022-09-23\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/visits-per-day/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"visits-per-day",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "covidVisitsPerDay",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MzA4NTE4OCwiZXhwIjoxNjYzMTcxNTg4fQ.u9H63PjtGLM76os_FyGocQzhSgWIuF10aLNe2xWuq7o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstDate\": \"2022-01-01\",\r\n    \"endDate\": \"2022-09-23\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/covid-visits-per-day/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"covid-visits-per-day",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visitsPerHour",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MzA4NTE4OCwiZXhwIjoxNjYzMTcxNTg4fQ.u9H63PjtGLM76os_FyGocQzhSgWIuF10aLNe2xWuq7o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Date\": \"2022-01-18\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/visits-per-hour/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"visits-per-hour",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "covidVisitsPerHour",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MzA4NTE4OCwiZXhwIjoxNjYzMTcxNTg4fQ.u9H63PjtGLM76os_FyGocQzhSgWIuF10aLNe2xWuq7o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Date\": \"2022-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/covid-visits-per-hour/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"covid-visits-per-hour",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -276,7 +461,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6Im1nIiwiaWF0IjoxNjQyNTQ3MjAwLCJleHAiOjE2NDI2MzM2MDB9.iqqnm_mnIN60PHaMHegTrsaHIhoGa9ICJ45le9pTFcY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlbXAiLCJpYXQiOjE2NjI4MjMyODUsImV4cCI6MTY2MjkwOTY4NX0.U0H_vM9edG_r9vUi6yVAaDzgqbTWo21SysXDPc1L6zM",
 									"type": "string"
 								}
 							]
@@ -329,7 +514,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MjMxMjQ4MSwiZXhwIjoxNjYyMzk4ODgxfQ.MqlaNuiagyogC7b2bAaSi5T0cxSTDyc_75BKPr3F-6Q",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlbXAiLCJpYXQiOjE2NjI4MjE2MTQsImV4cCI6MTY2MjkwODAxNH0.o0ZH1IpW8LK259sdWaJIOFAtw0c8WdXN4Fkq7oFPs3Y",
 									"type": "string"
 								}
 							]
@@ -398,13 +583,91 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjIzODE0ODcsImV4cCI6MTY2MjQ2Nzg4N30._rTc4kFXdjtekWh9fh0EL4jiu6mwysaBh0dR86D7f5k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlbXAiLCJpYXQiOjE2NjI5OTg4NTEsImV4cCI6MTY2MzA4NTI1MX0.ZiBePgHH2J13yS_pYoX_Mwwifa10O8vDE7J2POPaFds",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user-profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUsernamePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlbXAiLCJpYXQiOjE2NjI1NDgyNjMsImV4cCI6MTY2MjYzNDY2M30.INlwF-haMk440qXhn7xu9d5TcBG8kupvLRQXEXhn4vA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_password\": \"Temp123@\",\r\n    \"new_username\": \"apiUsername\",\r\n    \"new_password\": \"ApiUsername123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user-profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "undoUpdateUsernamePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlbXAiLCJpYXQiOjE2NjI1NDgyNjMsImV4cCI6MTY2MjYzNDY2M30.INlwF-haMk440qXhn7xu9d5TcBG8kupvLRQXEXhn4vA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_password\": \"ApiUsername123@\",\r\n    \"new_username\": \"temp\",\r\n    \"new_password\": \"Temp123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/user-profile/",
 							"protocol": "http",

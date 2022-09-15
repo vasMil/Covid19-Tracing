@@ -3,11 +3,81 @@ import { safe_fetch, redirectIfTokenMissing } from "../auth_helper.js"
 
 redirectIfTokenMissing();
 
-/* Fetch data for stats-numbers section */
+const fetch_req = fetch(
+`http://localhost:8080/disp-stats`,
+{
+    headers: {
+        'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
+    }
+}
+);
 
+let {respJson} = await safe_fetch(fetch_req);
+/* Set data for stats-numbers section */
+document.getElementById("loc-regs").textContent = respJson.totalVisits;
+document.getElementById("cases-regs").textContent = respJson.totalCovidCases;
+document.getElementById("patient-visits").textContent = respJson.totalVisitsFromCases;
 
-/* Fetch data for ds-table-section section */
+/* Set data for ds-table-section section */
+let tableData = respJson.tableData;
 
+function render_table() {
+    let tableBody = document.getElementById("ds-table-body");
+    // Empty the table of the old children (if any)
+    while (tableBody.lastChild) {
+        tableBody.removeChild(tableBody.lastChild);
+    }
+    // Insert the new rows
+    let i = 1;
+    for (let poiType of tableData) {
+        tableBody.appendChild(tableRowFactory(i++, poiType));
+    }
+}
+render_table();
+
+// Add table event listener
+let amountVisits = document.getElementById("amount-visits-col");
+let amountCovidVisits = document.getElementById("amount-covid-visits-col");
+const spanSortIcon = document.getElementById("sort-col-span");
+
+amountVisits.addEventListener("click", event => {
+    if (amountVisits.className == "sort-col") return;
+    // Configure the header
+    amountCovidVisits.className = "";
+    amountCovidVisits.removeChild(spanSortIcon);
+    amountVisits.appendChild(spanSortIcon);
+    amountVisits.className = "sort-col";
+
+    // Rerender the table
+    tableData.sort((a, b) => {
+        return b.amountOfVisits - a.amountOfVisits
+    });
+    render_table();
+});
+amountCovidVisits.addEventListener("click", event => {
+    if (amountCovidVisits.className == "sort-col") return;
+    // Configure the header
+    amountVisits.className = "";
+    amountVisits.removeChild(spanSortIcon);
+    amountCovidVisits.appendChild(spanSortIcon);
+    amountCovidVisits.className = "sort-col";
+
+    // Rerender the table
+    tableData.sort((a, b) => {
+        return b.amountOfCovidVisits - a.amountOfCovidVisits
+    });
+    render_table();
+});
+
+function tableRowFactory(i, poiType) {
+    let el_tr = document.createElement("tr");
+    el_tr.innerHTML = `
+        <td>${i}</td>
+        <td>${poiType.typeOfPOI}</td>
+        <td>${poiType.amountOfVisits}</td>
+        <td>${poiType.amountOfCovidVisits}</td>`;
+    return el_tr;
+}
 
 /* Fetch data for stats-diagrams section */
 // Data variables. If their value is not null then
@@ -188,6 +258,6 @@ const perDayChart = new Chart(perDayContext, {
     type: 'bar'
 });
 
-const perHourChart = new Chart(perDayContext, {
+const perHourChart = new Chart(perHourContext, {
     type: 'bar'
 });
