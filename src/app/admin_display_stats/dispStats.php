@@ -92,38 +92,44 @@
                     </div>
                     <div class="stats-date-group">
                         <label for="datepicker-end-date" class="stats-diagram-text">Ending Date</label>
-                        <input class="stats-datepicker" id="endingdate-day" type="date" name="datepicker-end-date">
+                        <input class="stats-datepicker" id="enddate-day" type="date" name="datepicker-end-date">
                     </div>
                     <div class="stats-checkboxes">
                         <div class="stats-checkbox-group">
-                            <input class="form-check-input" type="checkbox" name="day-visits" value="">
+                            <input class="form-check-input"
+                                id="check-per-day-visits" type="checkbox" name="day-visits" value="">
                             <label for="day-visits">Show amount of visits</label>
                         </div>
 
                         <div class="stats-checkbox-group">
-                            <input class="form-check-input" type="checkbox" name="day-visits-covid" value="">
+                            <input class="form-check-input"
+                                id="check-per-day-covid-visits" type="checkbox" name="day-visits-covid" value="">
                             <label for="day-visits-covid">Number of visits by Covid19 cases</label>
                         </div>
                     </div>
+                    <button class="btn btn-custom-primary fetch-chart-data" id="fetch-day">Fetch</button>
                 </div>
 
                 <div class="stats-diagram-group" id="per-hour-filters">
                     <label class="stats-diagram-text">Per Hour:</label>
                     <div class="stats-date-group">
                         <label for="datepicker-date" class="stats-diagram-text">Date</label>
-                        <input class="stats-datepicker" id="stats-hour-datepicker" type="date" name="datepicker-date">
+                        <input class="stats-datepicker" id="hour-datepicker" type="date" name="datepicker-date">
                     </div>
                     <div class="stats-checkboxes">
                         <div class="stats-checkbox-group">
-                            <input class="form-check-input" type="checkbox" name="hour-visits" value="">
+                            <input class="form-check-input" 
+                                id="check-per-hour-visits" type="checkbox" name="hour-visits" value="">
                             <label for="hour-visits">Show amount of visits</label>
                         </div>
 
                         <div class="stats-checkbox-group">
-                            <input class="form-check-input" type="checkbox" name="hour-visits-covid" value="">
+                            <input class="form-check-input" 
+                                id="check-per-hour-covid-visits" type="checkbox" name="hour-visits-covid" value="">
                             <label for="hour-visits-covid">Number of visits by Covid19 cases</label>
                         </div>
                     </div>
+                    <button class="btn btn-custom-primary fetch-chart-data" id="fetch-hour">Fetch</button>
                 </div>
             </div>
         </section>
