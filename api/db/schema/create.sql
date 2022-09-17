@@ -22,7 +22,7 @@ CREATE TABLE covid_case_table (
   user_id INT UNSIGNED NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
-  INDEX user_id_idx (user_id) INVISIBLE);
+  INDEX user_id_idx (user_id) VISIBLE);
 
 
 CREATE TABLE poi_table (
@@ -34,8 +34,8 @@ CREATE TABLE poi_table (
   rating FLOAT(1) NOT NULL,
   rating_n INT NOT NULL,
   PRIMARY KEY (id),
-  INDEX name_address_idx (name, address) INVISIBLE,
-  INDEX lat_long_idx (latitude, longitude) INVISIBLE
+  INDEX name_address_idx (name, address) VISIBLE,
+  INDEX lat_long_idx (latitude, longitude) VISIBLE
 );
   
   
@@ -45,10 +45,9 @@ CREATE TABLE poi_type (
   poi_id VARCHAR(30) NOT NULL,
   FOREIGN KEY (poi_id) REFERENCES poi_table (id),
   PRIMARY KEY (id),
-  UNIQUE (type, poi_id)
-  -- INDEX poi_type_idx (poi_id) VISIBLE
+  UNIQUE (type, poi_id),
+  INDEX poi_type_idx (poi_id) VISIBLE
 ); 
-
 
 CREATE TABLE popular_times_table (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -60,7 +59,7 @@ CREATE TABLE popular_times_table (
   number_of_people INT UNSIGNED NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),
-  INDEX day_hour_idx (poi_id,day,hour) INVISIBLE);
+  INDEX day_hour_idx (poi_id,day,hour) VISIBLE);
 
 DROP TABLE IF EXISTS visit_table;
 CREATE TABLE visit_table (
@@ -72,7 +71,7 @@ CREATE TABLE visit_table (
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user_table (user_id),
   FOREIGN KEY (poi_id) REFERENCES poi_table(id),
-  INDEX user_poi_idx (user_id, poi_id) INVISIBLE);
+  INDEX user_poi_idx (user_id, poi_id) VISIBLE);
 
 DROP TABLE IF EXISTS admin_changes_table;
 CREATE TABLE admin_changes_table (
@@ -86,6 +85,6 @@ CREATE TABLE admin_changes_table (
   file_name_used VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (admin_id) REFERENCES admin_table (admin_id),
-  INDEX file_name_idx (file_name_used) INVISIBLE
+  INDEX file_name_idx (file_name_used) VISIBLE
   );
   

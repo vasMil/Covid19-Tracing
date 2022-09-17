@@ -30,13 +30,14 @@ exports.updatePois = async (req, res, next) => {
             let queryRes = await db.execute(`
                 UPDATE poi_table
                 SET name = "${safePoi.name}", address = "${safePoi.address}", latitude = ${safePoi.lat}, longitude = ${safePoi.lng}, 
-                    rating = ${safePoi.rating}, rating_n = ${safePoi.rating_n}, poi_type = ${safePoi.type}
+                    rating = ${safePoi.rating}, rating_n = ${safePoi.rating_n}
                 WHERE id="${safePoi.id}"`);
             // Check if affectedRows === 0 => preserve poi_id
             if (queryRes[0].affectedRows === 0) {
                 invalidPois.push(safePoi.id);
                 continue;
             }
+            // Update popular times
             safePtArr = utilsPois.formatPopularTimes(poi);
             let changedRows = 0;
             for (safePt of safePtArr) {
@@ -47,9 +48,23 @@ exports.updatePois = async (req, res, next) => {
                 `);
                 changedRows += ptQueryRes[0].changedRows;
             }
+
+            // Update poi_types (delete the old and insert the new)
+            let poitypeDeleteQueryRes = await db.execute(`
+                DELETE FROM poi_type
+                WHERE poi_id = "${poi.id}";
+            `);
+            let poiTypeInsertStatement = `INSERT INTO poi_type (type, poi_id) VALUES`;
+            for (let type of poi.types) {
+                poiTypeInsertStatement += ` ("${type}", "${poi.id}"),`;
+            }
+            poiTypeInsertStatement = poiTypeInsertStatement.slice(0, -1) + ';'
+            let poitypeInsertQueryRes = await db.execute(poiTypeInsertStatement);
             // rowsAttempted += Rows affected
             updateStatus.rowsAttemped += queryRes[0].changedRows;
             updateStatus.rowsAttemped += changedRows;
+            updateStatus.rowsAttemped += poitypeInsertQueryRes[0].affectedRows;
+            updateStatus.rowsAttemped += poitypeDeleteQueryRes[0].affectedRows;
         }
 
         await db.commit();

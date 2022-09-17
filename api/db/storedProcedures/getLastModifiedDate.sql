@@ -2,7 +2,7 @@ DROP PROCEDURE IF EXISTS getLastModifiedDate;
 DELIMITER $
 CREATE PROCEDURE getLastModifiedDate(IN filename VARCHAR(100))
 BEGIN
-	DECLARE last_del_id INT;
+	DECLARE last_del_id INT DEFAULT -1;
 	SELECT id INTO last_del_id
     FROM admin_changes_table
     WHERE type = "DELETE"

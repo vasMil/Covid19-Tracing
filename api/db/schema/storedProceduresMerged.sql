@@ -3,7 +3,7 @@ DROP PROCEDURE IF EXISTS getLastModifiedDate;
 DELIMITER $
 CREATE PROCEDURE getLastModifiedDate(IN filename VARCHAR(100))
 BEGIN
-	DECLARE last_del_id INT;
+	DECLARE last_del_id INT DEFAULT -1;
 	SELECT id INTO last_del_id
     FROM admin_changes_table
     WHERE type = "DELETE"
@@ -284,3 +284,54 @@ BEGIN
 END $
 DELIMITER ;
  
+-- visitsPerDay
+DROP PROCEDURE IF EXISTS visitsPerDay;
+DELIMITER $
+CREATE PROCEDURE visitsPerDay(IN firstDate DATE, IN endDate DATE)
+BEGIN
+	SELECT DATE_FORMAT(DATE(visit_table.timestamp), '%Y-%m-%d')  AS day, COUNT(*) AS numOfVisits
+    FROM visit_table
+    WHERE DATE(visit_table.timestamp) >= firstDate AND DATE(visit_table.timestamp) <= endDate
+    GROUP BY day
+    ORDER BY day ASC;
+END $
+DELIMITER ;
+
+-- covidVisitsPerDay
+DROP PROCEDURE IF EXISTS covidVisitsPerDay;
+DELIMITER $
+CREATE PROCEDURE covidVisitsPerDay(IN firstDate DATE, IN endDate DATE)
+BEGIN
+	SELECT DATE_FORMAT(DATE(visit_table.timestamp), '%Y-%m-%d') AS day, COUNT(*) AS numOfVisits FROM visit_table
+    INNER JOIN covid_case_table ON visit_table.user_id = covid_case_table.user_id
+    WHERE DATEDIFF(CAST(visit_table.timestamp AS DATE), firstDate) >= 0 AND DATEDIFF(CAST(visit_table.timestamp AS DATE), endDate) <= 0 
+	  AND DATEDIFF(CAST(visit_table.timestamp AS DATE), covid_case_table.date) < 14 AND DATEDIFF(CAST(visit_table.timestamp AS DATE), covid_case_table.date) > 0
+    GROUP BY day ORDER BY day;
+END $
+DELIMITER ;
+
+-- visitsPerHour
+DROP PROCEDURE IF EXISTS visitsPerHour;
+DELIMITER $
+CREATE PROCEDURE visitsPerHour(IN date_ DATE)
+BEGIN
+	SELECT TIME_FORMAT(TIME(visit_table.timestamp), '%H:00') AS hour, COUNT(*) AS numOfVisits
+    FROM visit_table 
+    WHERE DATE(visit_table.timestamp) = date_
+    GROUP BY hour
+    ORDER BY hour ASC;
+END $
+DELIMITER ;
+
+-- covidVisitsPerHour
+DROP PROCEDURE IF EXISTS covidVisitsPerHour;
+DELIMITER $
+CREATE PROCEDURE covidVisitsPerHour(IN Date_ DATE)
+BEGIN
+	SELECT visit_table.timestamp AS hour, COUNT(*) AS numOfVisits FROM visit_table
+    INNER JOIN covid_case_table ON visit_table.user_id = covid_case_table.user_id
+    WHERE CAST(visit_table.timestamp AS DATE) = Date_ AND DATEDIFF(CAST(visit_table.timestamp AS DATE), covid_case_table.date) < 14 AND DATEDIFF(CAST(visit_table.timestamp AS DATE), covid_case_table.date) > 0
+    GROUP BY hour
+    ORDER BY hour;
+END $
+DELIMITER ;
