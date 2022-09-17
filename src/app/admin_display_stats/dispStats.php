@@ -19,6 +19,8 @@
 </head>
 <body>
     <?php include "../php_partials/admin_navbar/admin_navbar.php"?>
+    <script src="../php_partials/admin_navbar/admin_navbar.js"></script>
+    
     <div class="container">
         <section class="stats-numbers">
             <div class="stats-group" id="stats-locations-registered">
