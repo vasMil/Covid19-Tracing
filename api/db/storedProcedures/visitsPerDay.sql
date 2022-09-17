@@ -2,9 +2,11 @@ DROP PROCEDURE IF EXISTS visitsPerDay;
 DELIMITER $
 CREATE PROCEDURE visitsPerDay(IN firstDate DATE, IN endDate DATE)
 BEGIN
-	SELECT CAST(visit_table.timestamp AS DATE) AS theDay, COUNT(*) AS totalVisits FROM visit_table 
-    WHERE CAST(visit_table.timestamp AS DATE) >= firstDate AND CAST(visit_table.timestamp AS DATE) <= endDate
-    GROUP BY theDay ORDER BY theDay;
+	SELECT DATE_FORMAT(DATE(visit_table.timestamp), '%Y-%m-%d')  AS day, COUNT(*) AS numOfVisits
+    FROM visit_table
+    WHERE DATE(visit_table.timestamp) >= firstDate AND DATE(visit_table.timestamp) <= endDate
+    GROUP BY day
+    ORDER BY day ASC;
 END $
 DELIMITER ;
 

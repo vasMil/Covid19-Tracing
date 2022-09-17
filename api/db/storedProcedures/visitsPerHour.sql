@@ -1,11 +1,13 @@
 DROP PROCEDURE IF EXISTS visitsPerHour;
 DELIMITER $
-CREATE PROCEDURE visitsPerHour(IN Date_ DATE)
+CREATE PROCEDURE visitsPerHour(IN date_ DATE)
 BEGIN
-	SELECT visit_table.timestamp AS theHour, COUNT(*) AS totalVisits FROM visit_table 
-    WHERE CAST(visit_table.timestamp AS DATE) = Date_
-    GROUP BY theHour ORDER BY theHour;
+	SELECT TIME_FORMAT(TIME(visit_table.timestamp), '%H:00') AS hour, COUNT(*) AS numOfVisits
+    FROM visit_table 
+    WHERE DATE(visit_table.timestamp) = date_
+    GROUP BY hour
+    ORDER BY hour ASC;
 END $
 DELIMITER ;
 
-CALL visitsPerHour("2022-09-04");
+-- CALL visitsPerHour("2022-09-13");

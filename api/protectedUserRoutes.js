@@ -1,9 +1,9 @@
 const protectedUserRouter = require('express').Router();
-const { searchPoi } = require('./controllers/searchPoiController');
-const { reportCase } = require('./controllers/reportCaseController');
-const { getPoisWhereExposedToCovid } = require('./controllers/exposureController');
-const { getProfileInfo, updateUsernamePassword } = require('./controllers/userProfileController');
-const { registerCurrentPOI } = require('./controllers/registerLocController');
+const { searchPoi } = require('./controllers/user/searchPoiController');
+const { reportCase } = require('./controllers/user/reportCaseController');
+const { getPoisWhereExposedToCovid } = require('./controllers/user/exposureController');
+const { getProfileInfo, updateUsernamePassword } = require('./controllers/user/userProfileController');
+const { registerCurrentPOI } = require('./controllers/user/registerLocController');
 
 protectedUserRouter.get('/pois/search/', searchPoi);
 protectedUserRouter.post('/report-case/', reportCase);

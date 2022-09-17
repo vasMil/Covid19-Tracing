@@ -1,6 +1,6 @@
 const {readFile} = require('fs').promises;
-const db = require("../db/connect").promise();
-const utilsPois = require("../utils/utils_pois");
+const db = require("../../db/connect").promise();
+const utilsPois = require("../../utils/utils_pois");
 
 const insertStatus = {
     type: "INSERT",

@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="input-password">Password</label>
+            <label for="input-password">New Password</label>
             <a tabindex=0 class="fas fa-info-circle" 
                 data-toggle="tooltip" data-placement="right" data-trigger="focus hover click" title="Insert your new password.">
             </a>

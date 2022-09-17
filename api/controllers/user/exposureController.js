@@ -1,4 +1,4 @@
-const db = require("../db/connect").promise();
+const db = require("../../db/connect").promise();
 
 exports.getPoisWhereExposedToCovid = async (req, res, next) => {
     try {

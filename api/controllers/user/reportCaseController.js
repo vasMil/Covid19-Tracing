@@ -1,4 +1,4 @@
-const db = require("../db/connect").promise();
+const db = require("../../db/connect").promise();
 
 exports.reportCase = async (req, res, next) => {
     const userId = req.locals.verifiedUser.id;

@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const env = require('../env/environment')
-const db = require("../db/connect").promise();
+const env = require('../../env/environment')
+const db = require("../../db/connect").promise();
 
 exports.getProfileInfo = async (req, res, next) => {
     let info = {

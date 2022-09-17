@@ -191,6 +191,9 @@
 }
 
 .stats-diagrams {
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
     margin-top: 5em;
     .diagram-text {
         background-color: rgba(174, 194, 172, 0.4);

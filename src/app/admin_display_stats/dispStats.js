@@ -1,25 +1,18 @@
 import { safe_fetch, redirectIfTokenMissing } from "../auth_helper.js"
-
+import { dispStats, visitDayRequest, visitCovidDayRequest, visitHourRequest, visitCovidHourRequest } from "./requests.js"
 
 redirectIfTokenMissing();
 
-const fetch_req = fetch(
-`http://localhost:8080/disp-stats`,
-{
-    headers: {
-        'Authorization': localStorage.getItem("token") || sessionStorage.getItem("token")
-    }
-}
-);
+const fetch_req = fetch(dispStats());
 
-let {respJson} = await safe_fetch(fetch_req);
+let {respJson: staticStats} = await safe_fetch(fetch_req);
 /* Set data for stats-numbers section */
-document.getElementById("loc-regs").textContent = respJson.totalVisits;
-document.getElementById("cases-regs").textContent = respJson.totalCovidCases;
-document.getElementById("patient-visits").textContent = respJson.totalVisitsFromCases;
+document.getElementById("loc-regs").textContent = staticStats.totalVisits;
+document.getElementById("cases-regs").textContent = staticStats.totalCovidCases;
+document.getElementById("patient-visits").textContent = staticStats.totalVisitsFromCases;
 
 /* Set data for ds-table-section section */
-let tableData = respJson.tableData;
+let tableData = staticStats.tableData;
 
 function render_table() {
     let tableBody = document.getElementById("ds-table-body");
@@ -80,6 +73,11 @@ function tableRowFactory(i, poiType) {
 }
 
 /* Fetch data for stats-diagrams section */
+// Select datepickers
+const startDatepicker = document.getElementById("startdate-day");
+const endDatepicker = document.getElementById("enddate-day");
+const hourDatepicker = document.getElementById("hour-datepicker");
+
 // Data variables. If their value is not null then
 // unchecking and rechecking one of the checkboxes will not fetch new data
 // but will hide and unhide respectively the data from the graphs
@@ -96,7 +94,7 @@ fetchDay.addEventListener("click", refreshDayGraph);
 const fetchHour = document.getElementById('refresh-hour');
 fetchHour.addEventListener("click", refreshHourGraph);
 
-function refreshDayGraph(event) {
+async function refreshDayGraph(event) {
     let errorMessage = "Fields missing: ";
     if (!document.getElementById("startdate-day").value) {
         errorMessage += "\n- Starting Date";
@@ -119,16 +117,17 @@ function refreshDayGraph(event) {
     dayCovidVisitData = null;
 
     perDayChartGroup.hidden = false;
-    // TODO: fetch requests
     if(checkDayVisits.checked) {
-        
+        dayVisitData = (await safe_fetch(fetch(visitDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.visits;
+        drawPerDayChart(dayVisitData, "visits");
     }
     if(checkDayCovidVisits.checked) {
-
+        dayCovidVisitData = (await safe_fetch(fetch(visitCovidDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.covidVisits;
+        drawPerDayChart(dayCovidVisitData, "covid-visits");
     }
 }
 
-function refreshHourGraph(event) {
+async function refreshHourGraph(event) {
     let errorMessage = "Fields missing: ";
     if (!document.getElementById("hour-datepicker").value) {
         errorMessage += "\n- Date";
@@ -148,44 +147,47 @@ function refreshHourGraph(event) {
     hourCovidVisitData = null;
 
     perHourChartGroup.hidden = false;
-    // TODO: fetch requests
     if(checkHourVisits.checked) {
-        
+        hourVisitData = (await safe_fetch(fetch(visitHourRequest(hourDatepicker.value)))).respJson.visits;
+        drawPerHourChart(hourVisitData, "visits");
     }
     if(checkHourCovidVisits.checked) {
-
+        hourCovidVisitData = (await safe_fetch(fetch(visitCovidHourRequest(hourDatepicker.value)))).respJson.covidVisits;
+        drawPerHourChart(hourCovidVisitData, "covid-visits");
     }
 }
 
 // Checking a checkbox that has no data do display should fetch the data
 // If dates are not specified return and let their listeners handle fetch
 const checkDayVisits = document.getElementById('check-per-day-visits');
-checkDayVisits.addEventListener("change", event => {
+checkDayVisits.addEventListener("change", async event => {
     if(!startDate.value || !endDate.value) return;
     if (event.target.checked) {
         if(!dayVisitData) {
-            // TODO: fetch data
+            dayVisitData = (await safe_fetch(fetch(visitDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.visits;
         }
         perDayChartGroup.hidden = false;
+        drawPerDayChart(dayVisitData, "visits");
     }
     else {
-        // TODO: Hide day visits data
+        removeFromChart(perDayChart, "visits");
         if (!checkDayCovidVisits.checked) {
             perDayChartGroup.hidden = true;
         }
     }
 });
 const checkDayCovidVisits = document.getElementById('check-per-day-covid-visits');
-checkDayCovidVisits.addEventListener("change", event => {
+checkDayCovidVisits.addEventListener("change", async event => {
     if(!startDate.value || !endDate.value) return;
     if (event.target.checked) {
         if(!dayCovidVisitData) {
-            // TODO: fetch data and display them
+            dayCovidVisitData = (await safe_fetch(fetch(visitCovidDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.covidVisits;
         }
         perDayChartGroup.hidden = false;
+        drawPerDayChart(dayCovidVisitData, "covid-visits");
     }
     else {
-        // TODO: Hide day covid visits data
+        removeFromChart(perDayChart, "covid-visits");
         if (!checkDayVisits.checked) {
             perDayChartGroup.hidden = true;
         }
@@ -193,32 +195,34 @@ checkDayCovidVisits.addEventListener("change", event => {
 });
 
 const checkHourVisits = document.getElementById('check-per-hour-visits');
-checkHourVisits.addEventListener("change", event => {
+checkHourVisits.addEventListener("change", async event => {
     if(!hourDate.value) return;
     if(event.target.checked) {
         if(!hourVisitData) {
-            // TODO: fetch data and display them
+            hourVisitData = (await safe_fetch(fetch(visitHourRequest(hourDatepicker.value)))).respJson.visits;
         }
         perHourChartGroup.hidden = false;
+        drawPerHourChart(hourVisitData, "visits");
     }
     else {
-        // TODO: Hide hourly visits data
+        removeFromChart(perHourChart, "visits");
         if (!checkHourCovidVisits.checked) {
             perHourChartGroup.hidden = true;
         }
     }
 });
 const checkHourCovidVisits = document.getElementById('check-per-hour-covid-visits');
-checkHourCovidVisits.addEventListener("change", event => {
+checkHourCovidVisits.addEventListener("change", async event => {
     if(!hourDate.value) return;
     if(event.target.checked) {
         if(!hourCovidVisitData) {
-            // TODO: fetch data and display them
+            hourCovidVisitData = (await safe_fetch(fetch(visitCovidHourRequest(hourDatepicker.value)))).respJson.covidVisits;
         }
         perHourChartGroup.hidden = false;
+        drawPerHourChart(hourCovidVisitData, "covid-visits");
     }
     else {
-        // TODO: Hide hourly covid visits data
+        removeFromChart(perHourChart, "covid-visits");
         if (!checkHourVisits.checked) {
             perHourChartGroup.hidden = true;
         }
@@ -229,22 +233,43 @@ checkHourCovidVisits.addEventListener("change", event => {
 // and in the case of per-day diagram check whether the other date is undefined 
 // If no checkboxes are checked return and let their listeners handle fetch
 let startDate = document.getElementById("startdate-day");
-startDate.addEventListener("change", event => {
+startDate.addEventListener("change", async () => {
     if(!endDate.value || (!checkDayVisits.checked && !checkDayCovidVisits.checked)) return;
     perDayChartGroup.hidden = false;
-    // TODO: Fetch data
+    if(checkDayVisits.checked) {
+        dayVisitData = (await safe_fetch(fetch(visitDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.visits;
+        drawPerDayChart(dayVisitData, "visits");
+    }
+    if(checkDayCovidVisits.checked) {
+        dayCovidVisitData = (await safe_fetch(fetch(visitCovidDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.covidVisits;
+        drawPerDayChart(dayCovidVisitData, "covid-visits");
+    }
 });
 let endDate = document.getElementById("enddate-day");
-endDate.addEventListener("change", event => {
+endDate.addEventListener("change", async () => {
     if(!startDate.value || (!checkDayVisits.checked && !checkDayCovidVisits.checked)) return;
     perDayChartGroup.hidden = false;
-    // TODO: Fetch data
+    if(checkDayVisits.checked) {
+        dayVisitData = (await safe_fetch(fetch(visitDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.visits;
+        drawPerDayChart(dayVisitData, "visits");
+    }
+    if(checkDayCovidVisits.checked) {
+        dayCovidVisitData = (await safe_fetch(fetch(visitCovidDayRequest(startDatepicker.value, endDatepicker.value)))).respJson.covidVisits;
+        drawPerDayChart(dayCovidVisitData, "covid-visits");
+    }
 });
 let hourDate = document.getElementById("hour-datepicker");
-hourDate.addEventListener("change", event => {
+hourDate.addEventListener("change", async () => {
     if(!checkHourVisits.checked && !checkHourCovidVisits.checked) return;
     perHourChartGroup.hidden = false;
-    // TODO: Fetch data
+    if(checkHourVisits.checked) {
+        hourVisitData = (await safe_fetch(fetch(visitHourRequest(hourDatepicker.value)))).respJson.visits;
+        drawPerHourChart(hourVisitData, "visits");
+    }
+    if(checkHourCovidVisits.checked) {
+        hourCovidVisitData = (await safe_fetch(fetch(visitCovidHourRequest(hourDatepicker.value)))).respJson.covidVisits;
+        drawPerHourChart(hourCovidVisitData, "covid-visits");
+    }
 });
 
 // Charts
@@ -255,9 +280,148 @@ const perDayContext = document.getElementById('per-day-chart').getContext('2d');
 const perHourContext = document.getElementById('per-hour-chart').getContext('2d');
 
 const perDayChart = new Chart(perDayContext, {
-    type: 'bar'
+    type: 'bar',
+    data: {
+        datasets: [
+            {
+                label: "visits",
+                backgroundColor: 'rgb(218, 183, 247)',
+                data: fillEmptyDays(dayVisitData)
+            },
+            {
+                label: "covid-visits",
+                backgroundColor: 'rgb(165, 250, 223)',
+                data: fillEmptyDays(dayCovidVisitData)
+            }
+        ]
+    }
+});
+const perHourChart = new Chart(perHourContext, {
+    type: 'bar',
+    data: {
+        labels: getHours(),
+        datasets: [
+            {
+                label: "visits",
+                backgroundColor: 'rgb(218, 183, 247)'
+            },
+            {
+                label: "covid-visits",
+                backgroundColor: 'rgb(165, 250, 223)'
+            }
+        ]
+    }
 });
 
-const perHourChart = new Chart(perHourContext, {
-    type: 'bar'
-});
+function drawPerDayChart(visitData, datasetLabel) {
+    // Update the labels
+    perDayChart.data.labels = getDates(startDatepicker.value, endDatepicker.value);
+    perDayChart.data.datasets.forEach((dataset) => {
+        if(dataset.label === datasetLabel) {
+            dataset.data = fillEmptyDays(visitData);
+        }
+    });
+    perDayChart.update();
+}
+
+function drawPerHourChart(visitData, datasetLabel) {
+    perHourChart.data.datasets.forEach((dataset) => {
+        if(dataset.label === datasetLabel) {
+            dataset.data = fillEmptyHours(visitData);
+        }
+    });
+    perHourChart.update();
+}
+
+function removeFromChart(chart, datasetLabel) {
+    chart.data.datasets.forEach((dataset) => {
+        if(dataset.label === datasetLabel) {
+            dataset.data = [];
+        }
+    });
+    chart.update();
+}
+
+/* UTILS */
+function formatDate(date) {
+    let fdate = date.toLocaleDateString("gr-EL", { year: 'numeric', month: '2-digit', day: '2-digit' });
+    fdate = fdate.split('/').reverse().join('-');
+    return fdate;
+}
+
+function getDates(startDate, stopDate) {
+    startDate = startDate.split('-');
+    stopDate = stopDate.split('-');
+    stopDate = new Date(stopDate[0], stopDate[1]-1, stopDate[2]);
+    let dateArray = new Array();
+    let currentDate = new Date(startDate[0], startDate[1]-1, startDate[2]);
+    while (currentDate <= stopDate) {
+        dateArray.push(formatDate(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dateArray;
+}
+
+function fillEmptyDays(visits) {
+    let days = getDates(startDatepicker.value, endDatepicker.value);
+    let filledVisits;
+    let i = 0;
+    if(!visits) {
+        filledVisits = new Array(days.length);
+        return filledVisits.fill(0);
+    }
+    filledVisits = new Array();
+    // TODO: Write an assert to check if both arrays are in asc order
+    for (let day of days) {
+        if (i < visits.length) {
+            filledVisits.push(visits[i].day == day ? visits[i++].numOfVisits : 0);
+        }
+        else {
+            filledVisits.push(0);
+        }
+    }
+    return filledVisits;
+}
+
+function formatHour(hour_int) {
+    hour_int = hour_int.toString();
+    while (hour_int.length < 2) hour_int = "0" + hour_int;
+    hour_int = hour_int + ':' + "00"
+    return hour_int;
+}
+
+function getHours() {
+    let hourArray = new Array();
+    for(let i = 0; i < 24; i++) {
+        hourArray.push(formatHour(i));
+    }
+    return hourArray;
+}
+
+function fillEmptyHours(visits) {
+    let hours = getHours();
+    let filledVisits;
+    let i = 0;
+    if(!visits) {
+        filledVisits = new Array(hours.length);
+        return filledVisits.fill(0);
+    }
+    filledVisits = new Array();
+    // TODO: Write an assert to check if both arrays are in asc order
+    for (let hour of hours) {
+        if (i < visits.length) {
+            if (visits[i].hour == hour) {
+                filledVisits.push(visits[i].numOfVisits);
+                i++;
+            }
+            else {
+                filledVisits.push(0);
+            }
+            
+        }
+        else {
+            filledVisits.push(0);
+        }
+    }
+    return filledVisits;
+}

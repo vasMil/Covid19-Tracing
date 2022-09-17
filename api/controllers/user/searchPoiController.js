@@ -1,4 +1,4 @@
-const db = require('../db/connect').promise();
+const db = require('../../db/connect').promise();
 
 const validPoiTypes = ['cafe', 'food', 'point_of_interest', 'establishment', 'restaurant', 'convenience_store', 'grocery_or_supermarket',
 'store', 'bakery', 'supermarket', 'car_repair', 'park', 'tourist_attraction', 'gym', 'health', 'car_wash', 'liquor_store', 'shopping_mall',

@@ -1,4 +1,4 @@
-const db = require("../db/connect").promise();
+const db = require("../../db/connect").promise();
 
 exports.registerCurrentPOI = async (req, res, next) => {
     const date_time = req.body.time;

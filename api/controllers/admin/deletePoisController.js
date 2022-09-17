@@ -1,4 +1,4 @@
-const db = require("../db/connect").promise();
+const db = require("../../db/connect").promise();
 
 const deleteStatus = {
     type: "DELETE",

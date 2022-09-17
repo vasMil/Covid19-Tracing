@@ -1,5 +1,5 @@
-const db = require("../db/connect").promise();
-const utilsPois = require("../utils/utils_pois");
+const db = require("../../db/connect").promise();
+const utilsPois = require("../../utils/utils_pois");
 const {readFile} = require('fs').promises;
 
 const updateStatus = {
