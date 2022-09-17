@@ -166,11 +166,41 @@
             flex-direction: column;
             align-items: center;
             gap: 0.4em;
+
+            label.weekpicker {
+                &::after {
+                    content: "Week";
+                }
+                &:hover::after {
+                    color: $primary-color;
+                }
+            }
+
+            label.monthpicker {
+                &::after {
+                    content: "Month";
+                }
+                &:hover::after {
+                    color: $primary-color;
+                }            
+            }
+
+
+
             .stats-datepicker {
                 border: 0;
                 border-radius: 0.5em;
                 background-color: #ffffffa0;
                 text-align: center;
+            }
+
+            #enddate-day{
+                padding-left: 7px;
+                padding-right: 7px;
+                &::-webkit-calendar-picker-indicator {
+                    display: none;
+                    -webkit-appearance: none;
+                }
             }
         }
 

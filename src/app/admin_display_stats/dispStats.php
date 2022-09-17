@@ -74,8 +74,9 @@
                         <input class="stats-datepicker" id="startdate-day" type="date" name="datepicker-start-date">
                     </div>
                     <div class="stats-date-group">
-                        <label for="datepicker-end-date" class="stats-diagram-text">Ending Date</label>
-                        <input class="stats-datepicker" id="enddate-day" type="date" name="datepicker-end-date">
+                        <label for="datepicker-end-date" class="stats-diagram-text weekpicker" id="end-date-label"
+                            data-toggle="tooltip" data-placement="top" title="Click here to change the range!">End Date - </label>
+                        <input class="stats-datepicker" id="enddate-day" type="date" name="datepicker-end-date" readonly>
                     </div>
                     <div class="stats-checkboxes">
                         <div class="stats-checkbox-group">

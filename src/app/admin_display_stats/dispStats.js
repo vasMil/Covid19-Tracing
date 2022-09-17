@@ -78,6 +78,19 @@ const startDatepicker = document.getElementById("startdate-day");
 const endDatepicker = document.getElementById("enddate-day");
 const hourDatepicker = document.getElementById("hour-datepicker");
 
+// Configure the End date datepicker to either a weekpicker or to a monthpicker
+const endDateLabel = document.getElementById("end-date-label");
+endDateLabel.addEventListener("click", () => {
+    if (endDateLabel.classList.contains("weekpicker")) {
+        endDateLabel.classList.replace("weekpicker", "monthpicker");
+    }
+    else {
+        endDateLabel.classList.replace("monthpicker", "weekpicker");
+    }
+    endDatepicker.dispatchEvent(new Event("change"));
+    fixDates();
+});
+
 // Data variables. If their value is not null then
 // unchecking and rechecking one of the checkboxes will not fetch new data
 // but will hide and unhide respectively the data from the graphs
@@ -234,6 +247,7 @@ checkHourCovidVisits.addEventListener("change", async event => {
 // If no checkboxes are checked return and let their listeners handle fetch
 let startDate = document.getElementById("startdate-day");
 startDate.addEventListener("change", async () => {
+    fixDates();
     if(!endDate.value || (!checkDayVisits.checked && !checkDayCovidVisits.checked)) return;
     perDayChartGroup.hidden = false;
     if(checkDayVisits.checked) {
@@ -347,6 +361,27 @@ function formatDate(date) {
     let fdate = date.toLocaleDateString("gr-EL", { year: 'numeric', month: '2-digit', day: '2-digit' });
     fdate = fdate.split('/').reverse().join('-');
     return fdate;
+}
+
+function fixDates() {
+    let dateParts = startDatepicker.value.split('-');
+    let startDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2]);
+    let endDate;
+    if(endDateLabel.classList.contains("weekpicker")) {
+        startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() - startDate.getDay());
+        endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+6);
+    }
+    else if (endDateLabel.classList.contains("monthpicker")) {
+        startDate = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+        endDate = new Date(startDate.getFullYear(), startDate.getMonth()+1, 0);
+    }
+    else {
+        // Something broke
+        location.reload();
+        return;
+    }
+    startDatepicker.value = formatDate(startDate);
+    endDatepicker.value = formatDate(endDate);
 }
 
 function getDates(startDate, stopDate) {
