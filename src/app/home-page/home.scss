@@ -46,6 +46,12 @@ section.home-map {
     }
 }
 
+.leaflet-popup-content {
+    a {
+        color: $primary-color;
+    }
+}
+
 @media screen and (min-width: 992px) {
     .container {
         width: 100%;

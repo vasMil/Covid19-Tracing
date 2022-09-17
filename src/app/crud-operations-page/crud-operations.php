@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../../resources/EllipseGraphic.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Include Bootstrap -->
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="../php_partials/admin_navbar/admin_navbar.min.css">
     <!-- Include local stylesheet -->
     <link rel="stylesheet" href="./crud-operations.min.css">
-    <title>Document</title>
+    <title>Covid-19 Tracing</title>
 </head>
 <body>
     <?php include "../php_partials/admin_navbar/admin_navbar.php"?>
