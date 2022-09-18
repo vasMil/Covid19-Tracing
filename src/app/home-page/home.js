@@ -124,7 +124,7 @@ async function initSearchForm() {
         pois = respJson.rows;
 
         clearMarkers();
-        // placeProofPins(respJson.info, map);
+        //placeProofPins(respJson.info, map);
         for (let [i,poi] of pois.entries()) {
             markerFactory(poi, i, pois.length);
         }
@@ -142,7 +142,7 @@ map_id.addEventListener("click", event => {
         pegman.setLatLng([userPos.lat, userPos.lng]);
 
         clearMarkers();
-        // placeProofPins(respJson.info, map);
+        //placeProofPins(respJson.info, map);
         for (let [i,poi] of pois.entries()) {
             markerFactory(poi, i, pois.length);
         }
@@ -203,8 +203,10 @@ function clearMarkers() {
 // The first argument is the response.info (the response of the api)
 // The POIs I am interested in are inside the incircle of the rectangle defined by those two points.
 function placeProofPins(info) {
-    L.marker([info.min_lat, info.min_lng]).addTo(map);
-    L.marker([info.max_lat, info.max_lng]).addTo(map);
+    L.marker([info.min_lat, userPos.lng]).addTo(map);
+    L.marker([info.max_lat, userPos.lng]).addTo(map);
+    L.marker([userPos.lat, info.min_lng]).addTo(map);
+    L.marker([userPos.lat, info.max_lng]).addTo(map);
 }
 
 // Functions that produce icons/popups

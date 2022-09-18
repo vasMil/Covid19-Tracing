@@ -7,6 +7,7 @@ const { updatePois } = require('./controllers/admin/updatePoisController');
 const { dispStats } = require('./controllers/admin/dispStatsController');
 const { visitsPerDay, covidVisitsPerDay } = require('./controllers/admin/visitsPerDayController');
 const { visitsPerHour, covidVisitsPerHour } = require('./controllers/admin/visitsPerHourController');
+const {addData} = require('./controllers/admin/addDataScript');
 
 // Credits: https://stackoverflow.com/questions/31592726/how-to-store-a-file-with-file-extension-with-multer
 const storage = multer.diskStorage({
@@ -30,5 +31,6 @@ protectedAdminRouter.post('/visits-per-day', visitsPerDay);
 protectedAdminRouter.post('/covid-visits-per-day', covidVisitsPerDay);
 protectedAdminRouter.post('/visits-per-hour', visitsPerHour);
 protectedAdminRouter.post('/covid-visits-per-hour', covidVisitsPerHour);
+protectedAdminRouter.post('/add-data-script', addData);
 
 module.exports = protectedAdminRouter;
