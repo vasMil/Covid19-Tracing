@@ -87,8 +87,9 @@ endDateLabel.addEventListener("click", () => {
     else {
         endDateLabel.classList.replace("monthpicker", "weekpicker");
     }
-    endDatepicker.dispatchEvent(new Event("change"));
     fixDates();
+    endDatepicker.dispatchEvent(new Event("change"));
+    
 });
 
 // Data variables. If their value is not null then
@@ -358,14 +359,17 @@ function removeFromChart(chart, datasetLabel) {
 
 /* UTILS */
 function formatDate(date) {
-    let fdate = date.toLocaleDateString("gr-EL", { year: 'numeric', month: '2-digit', day: '2-digit' });
-    fdate = fdate.split('/').reverse().join('-');
+    let fday = date.toLocaleDateString("gr-EL", {day: '2-digit' });
+    let fmonth = date.toLocaleDateString("gr-EL", {month: '2-digit'});
+    let fyear = date.toLocaleDateString("gr-EL", { year: 'numeric'});
+    let fdate = fyear + "-" + fmonth + "-" + fday;
     return fdate;
 }
 
 function fixDates() {
-    let dateParts = startDatepicker.value.split('-');
-    let startDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2]);
+    //let dateParts = startDatepicker.value.split('-');
+    //let startDate = new Date(dateParts[0], dateParts[1]-1, dateParts[2]);
+    let startDate = new Date(startDatepicker.value + "T00:00");
     let endDate;
     if(endDateLabel.classList.contains("weekpicker")) {
         startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() - startDate.getDay());

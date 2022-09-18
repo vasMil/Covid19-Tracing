@@ -21,42 +21,52 @@ tiles.addTo(map);
 // TODO: Watch for user's location https://w3c.github.io/geolocation-api/#watchposition-method
 navigator.geolocation.getCurrentPosition(positionCallback, errorCallback);
 const userPos = {
-    lat: null,
-    lng: null
+    lat: 38.23786987257117,
+    lng: 21.730516184225525
 }
+
+let pegman;
+let circleViewOverlay;
+let circleViewOverlay2;
+let pois;
 
 function positionCallback(position) {
     // TODO: Use actual position - Retrieve the usefull info
     // userPos.lat = position.coords.latitude;
     // userPos.lng = position.coords.longitude;
-    userPos.lat = 38.23786987257117;
-    userPos.lng = 21.730516184225525;
+    //userPos.lat = 38.23786987257117;
+    //userPos.lng = 21.730516184225525;
     // Setup a marker pointing at user's location
-    L.marker([userPos.lat, userPos.lng], {
+    pegman = L.marker([userPos.lat, userPos.lng], {
         title: "Your current position",
         alt: "Your current position",
         icon: pegmanIcon,
         riseOnHover: true
-    }).addTo(map);
-    
+    });
+    pegman.addTo(map);
+
     // Set the view of the map
     map.setView([userPos.lat, userPos.lng], 12);
 
     // Define a circle with a radius of 5km
-    const circleViewOverlay = L.circle([userPos.lat, userPos.lng], {
+    circleViewOverlay = L.circle([userPos.lat, userPos.lng], {
         color: 'red',
         fillColor: '#f03',
         opacity: 0.1,
         radius: 5000
-    }).bindPopup("5km radius");
+    });
+    
+    circleViewOverlay.bindPopup("5km radius");
     map.addControl(circleViewOverlay);
 
-    const circleViewOverlay2 = L.circle([userPos.lat, userPos.lng], {
+    circleViewOverlay2 = L.circle([userPos.lat, userPos.lng], {
         color: 'blue',
         fillColor: '#689ec4',
         opacity: 0.1,
         radius: 20
-    }).bindPopup("20m radius");
+    });
+
+    circleViewOverlay2.bindPopup("20m radius");
     map.addControl(circleViewOverlay2);
 
     // Setup an event handler that will remove the circle overlay when zoom is > 12
@@ -111,7 +121,7 @@ async function initSearchForm() {
             }
         });
         const {respJson} = await safe_fetch(fetch_req);
-        const pois = respJson.rows;
+        pois = respJson.rows;
 
         clearMarkers();
         // placeProofPins(respJson.info, map);
@@ -120,6 +130,24 @@ async function initSearchForm() {
         }
     }
 }
+
+const map_id = document.querySelector("#map");
+map_id.addEventListener("click", event => {
+    if(event.target.className === "curLoc") {
+        userPos.lat = event.target.dataset.lat;
+        userPos.lng = event.target.dataset.lng;
+        //positionCallback();
+        circleViewOverlay.setLatLng([userPos.lat, userPos.lng]);
+        circleViewOverlay2.setLatLng([userPos.lat, userPos.lng]);
+        pegman.setLatLng([userPos.lat, userPos.lng]);
+
+        clearMarkers();
+        // placeProofPins(respJson.info, map);
+        for (let [i,poi] of pois.entries()) {
+            markerFactory(poi, i, pois.length);
+        }
+    }
+})
 
 // UTILITY FUNCTIONS
 function markerFactory(poi, index, numOfPois) {
@@ -213,9 +241,14 @@ function getMarkerIcon(index, numOfPois) {
     return redIcon;
 }
 
+
+
 const popupContent = (poi, isClose) => {
     let template = `
     <div class="popup-title">${poi.name}</div>
+    <div>
+        <a class="curLoc" data-lat=${poi.latitude} data-lng=${poi.longitude}>Set this as your current location</a>
+    </div>
     <ul class="popup-list">
         <li class="popup-item">Estimation for the next two hours: ${Math.round(poi.estimation)}</li>
         <li class="popup-item">Live approximation from user input: ${parseInt(poi.approximation)}</li>
