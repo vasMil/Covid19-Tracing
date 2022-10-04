@@ -54,7 +54,7 @@ BEGIN
     WHERE vt.user_id = user_id
     GROUP BY poi_id;
     
-    SELECT cct.date FROM covid_case_table AS cct WHERE cct.user_id = user_id;
+    SELECT DATE_FORMAT(cct.date, '%d/%m/%Y') AS date FROM covid_case_table AS cct WHERE cct.user_id = user_id;
     
 END $
 DELIMITER ;
@@ -179,7 +179,7 @@ BEGIN
     
 	SELECT user_table.user_id, user_table.password INTO userId, hashedPass
     FROM user_table
-    WHERE user_table.username = username AND user_table.password = password;
+    WHERE BINARY user_table.username = username AND user_table.password = password;
 	
     SELECT COUNT(*) > 0 INTO isAdmin
     FROM admin_table

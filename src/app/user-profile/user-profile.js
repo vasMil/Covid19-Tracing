@@ -39,7 +39,7 @@ async function sendReqToApi() {
             body: JSON.stringify(req)
         });    
     
-    const {respJson} = safe_fetch(fetch_req);
+    const {respJson} = await safe_fetch(fetch_req);
     // Show the message container
     respContainer.hidden = false;
 
@@ -185,11 +185,9 @@ function validatePassword(password) {
     });
     let daysPositiveCollapse = document.querySelector("#collapse-days-positive");
     info.was_positive_covid.forEach(day => {
-        let dateObj = new Date(day.date);
-        dateObj.setHours(dateObj.getHours() + dateObj.getTimezoneOffset()/60);
         let card = document.createElement("div");
         card.className = "card card-body";
-        card.textContent = dateObj.toLocaleString();
+        card.textContent = day.date;
         daysPositiveCollapse.appendChild(card);
     });
 })();

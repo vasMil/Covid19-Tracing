@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "400c98a4-9d07-4e9f-b155-af219250b2a5",
+		"_postman_id": "942ad3e7-7a45-4273-949b-a226036c713c",
 		"name": "Covid19-Tracing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19082736"
+		"_exporter_id": "17033781"
 	},
 	"item": [
 		{
@@ -456,7 +456,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MzUxNzQ0MSwiZXhwIjoxNjYzNjAzODQxfQ.ZCtJzUOk6QhyzWaTzZitn7yNE3KLyJuqTWwbylui--Y",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2NDg3NjIzMSwiZXhwIjoxNjY0OTYyNjMxfQ.-kNpt8Gmz5Yj-IxFhqUWmZpos5Rwe96oY4CW8zXq-FY",
 									"type": "string"
 								}
 							]
@@ -465,7 +465,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"noOfUsers\": 5,\r\n    \"startDate\": \"2022-09-01\",\r\n    \"endDate\": \"2022-09-30\"\r\n}",
+							"raw": "{\r\n    \"noOfUsers\": 2,\r\n    \"startDate\": \"2022-09-01\",\r\n    \"endDate\": \"2022-09-30\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -646,6 +646,75 @@
 							"port": "8080",
 							"path": [
 								"register-location",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjQ4NzQzMjgsImV4cCI6MTY2NDk2MDcyOH0.BosyVMo8mg-tgughJ-JMiSWwjYGzcCSDivd1OYz_8uM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/user-profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NjQ4NzQzMjgsImV4cCI6MTY2NDk2MDcyOH0.BosyVMo8mg-tgughJ-JMiSWwjYGzcCSDivd1OYz_8uM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_password\": \"Test123@\",\r\n    \"new_username\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user-profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user-profile",
 								""
 							]
 						}
